@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>माउली आबा कटके जनसंपर्क कार्यालय</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    body {
+      background-color: #f7f9fc;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 40px 30px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+    /* Profile / Cover Image Styling */
+    .profile-img-container {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 24px auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #f0f0f0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .profile-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Header matching your screenshot */
+    .header-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    .title-red {
+      color: #e64c5d;
+    }
+    .title-purple {
+      color: #5e35b1;
+    }
+    /* Subtitle matching your screenshot */
+    .subtitle {
+      color: #666666;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Action Buttons */
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .btn-haveli {
+      background-color: #5e35b1;
+    }
+    .btn-haveli:hover {
+      background-color: #4d2c91;
+    }
+    .btn-shirur {
+      background-color: #e64c5d;
+    }
+    .btn-shirur:hover {
+      background-color: #d03b4c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Make sure the filename below matches the exact image name uploaded to GitHub -->
+    <div class="profile-img-container">
+      <img src="mauli-aba.jpg" alt="माउली आबा कटके">
+    </div>
+
+    <h1 class="header-title">
+      <span class="title-red">माउली आबा कटके</span> <span class="title-purple">जनसंपर्क कार्यालय</span>
+    </h1>
+
+    <p class="subtitle">
+      तुमच्या समस्या आमच्यापर्यंत पोहोचवा आणि आम्ही त्या लवकरात लवकर सोडवण्याचा प्रयत्न करू.
+    </p>
+    
+    <div class="btn-container">
+      <a href="https://mauli.westernestate.in/haveli" class="btn btn-haveli">HAVELI TALUKA</a>
+      <a href="https://mauli.westernestate.in/shirur" class="btn btn-shirur">SHIRUR TALUKA</a>
+    </div>
+  </div>
+
+</body>
+</html>
