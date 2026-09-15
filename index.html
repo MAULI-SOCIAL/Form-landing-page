@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>आमदार माउली आबा कटके </title>
+  <title>आमदार माउली आबा कटके</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,7 +12,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     body {
-      /* Soft Instagram-inspired background gradient */
       background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
       min-height: 100vh;
       display: flex;
@@ -27,11 +26,9 @@
       max-width: 440px;
       width: 100%;
       text-align: center;
-      /* Soft Instagram floating shadow */
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
       border: 1px solid rgba(230, 230, 230, 0.7);
     }
-    /* Instagram Story Style Profile Ring */
     .profile-img-container {
       width: 112px;
       height: 112px;
@@ -49,19 +46,24 @@
       border: 3px solid #ffffff;
       background-color: #fff;
     }
+
+    /* Updated Title Gradient (Matching the Form Heading) */
     .header-title {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
       margin-bottom: 12px;
       line-height: 1.35;
       letter-spacing: -0.2px;
     }
-    .title-red {
-      color: #e64c5d;
+    .gradient-text {
+      background: linear-gradient(135deg, #e05252 0%, #b83280 50%, #6b21a8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      display: inline-block;
     }
-    .title-purple {
-      color: #5e35b1;
-    }
+
     .subtitle {
       color: #737373;
       font-size: 14px;
@@ -83,7 +85,6 @@
       flex-direction: column;
       gap: 14px;
     }
-    /* Aesthetic Instagram-style Pill Buttons */
     .btn {
       display: flex;
       align-items: center;
@@ -94,12 +95,10 @@
       font-weight: 600;
       color: #ffffff;
       text-decoration: none;
-      border-radius: 50px; /* Modern rounded pill style */
+      border-radius: 50px;
       transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
       letter-spacing: 0.2px;
     }
-
-    /* Haveli Button - Velvet Royal Gradient */
     .btn-haveli {
       background: linear-gradient(135deg, #7b2cbf 0%, #5a189a 100%);
       box-shadow: 0 6px 18px rgba(123, 44, 191, 0.25);
@@ -109,8 +108,6 @@
       box-shadow: 0 8px 22px rgba(123, 44, 191, 0.35);
       background: linear-gradient(135deg, #8a3ab9 0%, #631ba6 100%);
     }
-
-    /* Shirur Button - Instagram Sunset Coral Gradient */
     .btn-shirur {
       background: linear-gradient(135deg, #f09433 0%, #e6683c 50%, #dc2743 100%);
       box-shadow: 0 6px 18px rgba(220, 39, 67, 0.25);
@@ -120,8 +117,6 @@
       box-shadow: 0 8px 22px rgba(220, 39, 67, 0.35);
       filter: brightness(1.05);
     }
-
-    /* Smooth Press Effect for Mobile Devices */
     .btn:active {
       transform: scale(0.97);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -135,8 +130,9 @@
       <img src="DKKKK.jpg" alt="माउली आबा कटके">
     </div>
 
+    <!-- Updated Title Element -->
     <h1 class="header-title">
-      <span class="title-red">आमदार माउली आबा कटके</span>
+      <span class="gradient-text">आमदार माउली आबा कटके</span>
     </h1>
 
     <p class="subtitle">
@@ -145,11 +141,12 @@
       <strong class="highlight-text">तुमचा तालुका निवडा:</strong>
     </p>
     
-   <div class="btn-container">
+    <div class="btn-container">
       <a href="https://mauli.westernestate.in/haveli" class="btn btn-haveli">हवेली तालुका</a>
       <a href="https://mauli.westernestate.in/shirur" class="btn btn-shirur">शिरूर तालुका</a>
-      <a href="https://maulikatke.in/office" class="btn" style="background: #ffffff; color: #6b21a8; border: 2px solid #6b21a8; margin-top: 6px;">📞 कार्यालय संपर्क </a>
+      <a href="https://maulikatke.in/office" class="btn" style="background: #ffffff; color: #6b21a8; border: 2px solid #6b21a8; margin-top: 6px;">📞 कार्यालय संपर्क</a>
     </div>
+  </div>
 
 </body>
 </html>
