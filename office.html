@@ -1,0 +1,287 @@
+<!DOCTYPE1 html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>माऊली आबा कटके - कार्यालय संपर्क</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-main: #2d3748;
+      --text-sub: #718096;
+      --accent-purple: #6b21a8;
+      --accent-pink: #d946ef;
+      --telegram-blue: #229ED9;
+      --call-green: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 15px;
+    }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 450px;
+      border-radius: 24px;
+      padding: 28px 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    /* Header Profile */
+    .avatar-wrapper {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 15px auto;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 20px;
+    }
+
+    /* Telegram Assistant Button */
+    .telegram-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #0088cc, #229ED9);
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 15px;
+      box-shadow: 0 4px 12px rgba(34, 158, 217, 0.3);
+      margin-bottom: 25px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .telegram-btn:active {
+      transform: scale(0.98);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: left;
+      margin-bottom: 12px;
+      padding-left: 5px;
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    /* Member Card List */
+    .member-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .member-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .member-info h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .member-info p {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .phone-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .call-btn {
+      background-color: #e6f4ea;
+      color: #137333;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.2s;
+    }
+
+    .call-btn:hover {
+      background-color: #ceead6;
+    }
+
+    /* Footer Back Link */
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Profile Header -->
+    <div class="avatar-wrapper">
+      <img src="DKKKK.jpg" alt="माऊली आबा कटके">
+    </div>
+    <h1>माऊली आबा कटके</h1>
+    <p class="subtitle">जनसंपर्क कार्यालय प्रतिनिधी सूची</p>
+
+   <!-- Telegram AI Assistant -->
+    <a href="https://t.me/WESTERNESTATEANALYTICSBOT" target="_blank" class="telegram-btn">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+      </svg>
+      टेलेग्राम असिस्टंटशी बोला (Telegram)
+    </a>
+
+    <div class="section-title">कार्यालयीन संपर्क अधिकारी</div>
+
+    <!-- Office Members List -->
+    <div class="member-list">
+
+      <!-- Member 1 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>सुनिल गर्जे</h2>
+          <p>स्वीय सहायक</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:9096929856" class="call-btn">📞 कॉल करा</a>
+        </div>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>अक्षय वामन (PA)</h2>
+          <p>वैद्यकीय / शालेय शिक्षण</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:9112206068" class="call-btn">📞 कॉल</a>
+          <a href="tel:7776021109" class="call-btn">📞 कॉल 2</a>
+        </div>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>सुधीर दळवी (पिंटू)</h2>
+          <p>विद्युत विभाग (महावितरण)</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:7083743848" class="call-btn">📞 कॉल करा</a>
+        </div>
+      </div>
+
+      <!-- Member 4 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>कुणाल प्रधान</h2>
+          <p>दैनंदिन व्यवस्थापन</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:9764563416" class="call-btn">📞 कॉल करा</a>
+        </div>
+      </div>
+
+      <!-- Member 5 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>दत्ता सपाटे</h2>
+          <p>ऑफिस</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:9881744222" class="call-btn">📞 कॉल करा</a>
+        </div>
+      </div>
+
+      <!-- Member 6 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>राम जगताप</h2>
+          <p>मनपा (महापालिका)</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:7775801414" class="call-btn">📞 कॉल</a>
+          <a href="tel:9112203199" class="call-btn">📞 कॉल 2</a>
+        </div>
+      </div>
+
+      <!-- Member 7 -->
+      <div class="member-card">
+        <div class="member-info">
+          <h2>संदीप जाधव (संजू)</h2>
+          <p>ऑफिस व्यवस्थापन</p>
+        </div>
+        <div class="phone-buttons">
+          <a href="tel:9764117025" class="call-btn">📞 कॉल करा</a>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="/" class="back-link">← मुख्य पृष्ठावर जा</a>
+
+  </div>
+
+</body>
+</html>
