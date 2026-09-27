@@ -8,14 +8,13 @@
   <title>आमदार माऊली आबा कटके</title>
 
   <!-- =========================================
-        CHAT WIDGET
+        CHAT WIDGET CSS
        ========================================= -->
 
   <link
     href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
     rel="stylesheet"
   >
-
 
   <style>
 
@@ -191,7 +190,7 @@
 
 
     /* =========================================
-       BUTTON CONTAINER
+       MAIN BUTTONS
        ========================================= */
 
     .btn-container {
@@ -201,11 +200,6 @@
 
       gap: 14px;
     }
-
-
-    /* =========================================
-       MAIN BUTTONS
-       ========================================= */
 
     .btn {
       display: flex;
@@ -241,11 +235,10 @@
 
 
     /* =========================================
-       HAVELI
+       HAVELI BUTTON
        ========================================= */
 
     .btn-haveli {
-
       background:
         linear-gradient(
           135deg,
@@ -263,7 +256,6 @@
     }
 
     .btn-haveli:hover {
-
       transform: translateY(-2px);
 
       box-shadow:
@@ -284,11 +276,10 @@
 
 
     /* =========================================
-       SHIRUR
+       SHIRUR BUTTON
        ========================================= */
 
     .btn-shirur {
-
       background:
         linear-gradient(
           135deg,
@@ -307,7 +298,6 @@
     }
 
     .btn-shirur:hover {
-
       transform: translateY(-2px);
 
       box-shadow:
@@ -327,7 +317,6 @@
        ========================================= */
 
     .btn:active {
-
       transform: scale(0.97);
 
       box-shadow:
@@ -341,19 +330,17 @@
 
 
     /* =========================================
-       WHATSAPP + TELEGRAM FLOATING BUTTONS
+       WHATSAPP + TELEGRAM
+       BOTTOM LEFT
        ========================================= */
 
     .contact-widgets {
 
       position: fixed;
 
-      right: 20px;
+      left: 20px;
 
-      /*
-       * Above the n8n chat button
-       */
-      bottom: 90px;
+      bottom: 20px;
 
       z-index: 9998;
 
@@ -366,7 +353,7 @@
 
 
     /* =========================================
-       CIRCULAR CONTACT BUTTON
+       CIRCULAR CONTACT BUTTONS
        ========================================= */
 
     .contact-widget {
@@ -400,7 +387,6 @@
         box-shadow 0.2s ease;
     }
 
-
     .contact-widget:hover {
 
       transform: translateY(-3px);
@@ -416,7 +402,7 @@
 
 
     /* =========================================
-       SVG LOGO
+       CONTACT SVG LOGOS
        ========================================= */
 
     .contact-widget svg {
@@ -450,7 +436,7 @@
 
 
     /* =========================================
-       HIDE POWERED BY
+       HIDE "POWERED BY "
        ========================================= */
 
     .n8n-chat .chat-powered-by {
@@ -478,9 +464,9 @@
 
       .contact-widgets {
 
-        right: 14px;
+        left: 14px;
 
-        bottom: 82px;
+        bottom: 14px;
 
         gap: 8px;
       }
@@ -590,7 +576,7 @@
       </a>
 
 
-      <!-- OFFICE -->
+      <!-- OFFICE CONTACT -->
 
       <a
         href="https://maulikatke.in/office"
@@ -615,7 +601,7 @@
 
 
   <!-- =========================================
-       WHATSAPP + TELEGRAM
+       WHATSAPP + TELEGRAM FLOATING BUTTONS
        ========================================= -->
 
   <div class="contact-widgets">
@@ -633,8 +619,6 @@
       aria-label="WhatsApp"
       title="WhatsApp"
     >
-
-      <!-- WhatsApp SVG -->
 
       <svg
         viewBox="0 0 24 24"
@@ -698,8 +682,6 @@
       aria-label="Telegram"
       title="Telegram"
     >
-
-      <!-- Telegram SVG -->
 
       <svg
         viewBox="0 0 24 24"
