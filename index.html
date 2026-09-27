@@ -1,152 +1,758 @@
 <!DOCTYPE html>
 <html lang="mr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>आमदार माऊली आबा कटके</title>
+
+  <!-- =========================================
+        CHAT WIDGET
+       ========================================= -->
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+    rel="stylesheet"
+  >
+
+
   <style>
+
+    /* =========================================
+       GENERAL
+       ========================================= */
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     }
+
     body {
-      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      background:
+        linear-gradient(
+          135deg,
+          #fdfbfb 0%,
+          #ebedee 100%
+        );
+
       min-height: 100vh;
+
       display: flex;
       justify-content: center;
       align-items: center;
+
       padding: 20px;
     }
+
+
+    /* =========================================
+       MAIN CARD
+       ========================================= */
+
     .card {
       background: #ffffff;
+
       border-radius: 24px;
+
       padding: 44px 32px;
+
       max-width: 440px;
       width: 100%;
+
       text-align: center;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+
+      box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.05),
+        0 2px 6px rgba(0, 0, 0, 0.02);
+
       border: 1px solid rgba(230, 230, 230, 0.7);
     }
+
+
+    /* =========================================
+       PROFILE IMAGE
+       ========================================= */
+
     .profile-img-container {
       width: 112px;
       height: 112px;
+
       margin: 0 auto 24px auto;
+
       border-radius: 50%;
+
       padding: 3px;
-      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-      box-shadow: 0 4px 14px rgba(220, 39, 67, 0.2);
+
+      background:
+        linear-gradient(
+          45deg,
+          #f09433 0%,
+          #e6683c 25%,
+          #dc2743 50%,
+          #cc2366 75%,
+          #bc1888 100%
+        );
+
+      box-shadow:
+        0 4px 14px rgba(220, 39, 67, 0.2);
     }
+
     .profile-img-container img {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
       border-radius: 50%;
+
       border: 3px solid #ffffff;
-      background-color: #fff;
+
+      background-color: #ffffff;
     }
 
-    /* Updated Title Gradient (Matching the Form Heading) */
+
+    /* =========================================
+       TITLE
+       ========================================= */
+
     .header-title {
       font-size: 26px;
+
       font-weight: 800;
+
       margin-bottom: 12px;
+
       line-height: 1.35;
+
       letter-spacing: -0.2px;
     }
+
     .gradient-text {
-      background: linear-gradient(135deg, #e05252 0%, #b83280 50%, #6b21a8 100%);
+      background:
+        linear-gradient(
+          135deg,
+          #e05252 0%,
+          #b83280 50%,
+          #6b21a8 100%
+        );
+
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+
       background-clip: text;
+
       text-fill-color: transparent;
+
       display: inline-block;
     }
+
+
+    /* =========================================
+       SUBTITLE
+       ========================================= */
 
     .subtitle {
       color: #737373;
+
       font-size: 14px;
+
       font-weight: 400;
+
       line-height: 1.6;
+
       margin-bottom: 32px;
+
       max-width: 360px;
+
       margin-left: auto;
       margin-right: auto;
     }
+
     .highlight-text {
       font-weight: 700;
+
       color: #262626;
+
       display: inline-block;
+
       margin-top: 8px;
     }
+
+
+    /* =========================================
+       BUTTON CONTAINER
+       ========================================= */
+
     .btn-container {
       display: flex;
+
       flex-direction: column;
+
       gap: 14px;
     }
+
+
+    /* =========================================
+       MAIN BUTTONS
+       ========================================= */
+
     .btn {
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       width: 100%;
+
       padding: 16px 24px;
+
       font-size: 17px;
+
       font-weight: 600;
+
       color: #ffffff;
+
       text-decoration: none;
+
       border-radius: 50px;
-      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+      transition:
+        all 0.25s cubic-bezier(
+          0.25,
+          0.8,
+          0.25,
+          1
+        );
+
       letter-spacing: 0.2px;
     }
+
+
+    /* =========================================
+       HAVELI
+       ========================================= */
+
     .btn-haveli {
-      background: linear-gradient(135deg, #7b2cbf 0%, #5a189a 100%);
-      box-shadow: 0 6px 18px rgba(123, 44, 191, 0.25);
+
+      background:
+        linear-gradient(
+          135deg,
+          #7b2cbf 0%,
+          #5a189a 100%
+        );
+
+      box-shadow:
+        0 6px 18px rgba(
+          123,
+          44,
+          191,
+          0.25
+        );
     }
+
     .btn-haveli:hover {
+
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(123, 44, 191, 0.35);
-      background: linear-gradient(135deg, #8a3ab9 0%, #631ba6 100%);
+
+      box-shadow:
+        0 8px 22px rgba(
+          123,
+          44,
+          191,
+          0.35
+        );
+
+      background:
+        linear-gradient(
+          135deg,
+          #8a3ab9 0%,
+          #631ba6 100%
+        );
     }
+
+
+    /* =========================================
+       SHIRUR
+       ========================================= */
+
     .btn-shirur {
-      background: linear-gradient(135deg, #f09433 0%, #e6683c 50%, #dc2743 100%);
-      box-shadow: 0 6px 18px rgba(220, 39, 67, 0.25);
+
+      background:
+        linear-gradient(
+          135deg,
+          #f09433 0%,
+          #e6683c 50%,
+          #dc2743 100%
+        );
+
+      box-shadow:
+        0 6px 18px rgba(
+          220,
+          39,
+          67,
+          0.25
+        );
     }
+
     .btn-shirur:hover {
+
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(220, 39, 67, 0.35);
+
+      box-shadow:
+        0 8px 22px rgba(
+          220,
+          39,
+          67,
+          0.35
+        );
+
       filter: brightness(1.05);
     }
+
+
+    /* =========================================
+       BUTTON PRESS
+       ========================================= */
+
     .btn:active {
+
       transform: scale(0.97);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      box-shadow:
+        0 2px 8px rgba(
+          0,
+          0,
+          0,
+          0.15
+        );
     }
+
+
+    /* =========================================
+       WHATSAPP + TELEGRAM FLOATING BUTTONS
+       ========================================= */
+
+    .contact-widgets {
+
+      position: fixed;
+
+      right: 20px;
+
+      /*
+       * Above the n8n chat button
+       */
+      bottom: 90px;
+
+      z-index: 9998;
+
+      display: flex;
+
+      flex-direction: row;
+
+      gap: 10px;
+    }
+
+
+    /* =========================================
+       CIRCULAR CONTACT BUTTON
+       ========================================= */
+
+    .contact-widget {
+
+      width: 50px;
+
+      height: 50px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      box-shadow:
+        0 5px 16px rgba(
+          0,
+          0,
+          0,
+          0.22
+        );
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+
+    .contact-widget:hover {
+
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 8px 20px rgba(
+          0,
+          0,
+          0,
+          0.28
+        );
+    }
+
+
+    /* =========================================
+       SVG LOGO
+       ========================================= */
+
+    .contact-widget svg {
+
+      width: 27px;
+
+      height: 27px;
+
+      fill: #ffffff;
+    }
+
+
+    /* =========================================
+       WHATSAPP
+       ========================================= */
+
+    .whatsapp-widget {
+
+      background: #25D366;
+    }
+
+
+    /* =========================================
+       TELEGRAM
+       ========================================= */
+
+    .telegram-widget {
+
+      background: #229ED9;
+    }
+
+
+    /* =========================================
+       HIDE POWERED BY
+       ========================================= */
+
+    .n8n-chat .chat-powered-by {
+
+      display: none !important;
+    }
+
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
+    @media (max-width: 600px) {
+
+      .card {
+
+        padding: 36px 24px;
+      }
+
+      .header-title {
+
+        font-size: 23px;
+      }
+
+
+      .contact-widgets {
+
+        right: 14px;
+
+        bottom: 82px;
+
+        gap: 8px;
+      }
+
+
+      .contact-widget {
+
+        width: 46px;
+
+        height: 46px;
+      }
+
+
+      .contact-widget svg {
+
+        width: 24px;
+
+        height: 24px;
+      }
+
+    }
+
   </style>
+
 </head>
+
+
 <body>
 
+
+  <!-- =========================================
+       MAIN PAGE
+       ========================================= -->
+
   <div class="card">
+
+
+    <!-- PROFILE IMAGE -->
+
     <div class="profile-img-container">
-      <img src="DKKKK.jpg" alt="माउली आबा कटके">
+
+      <img
+        src="DKKKK.jpg"
+        alt="माउली आबा कटके"
+      >
+
     </div>
 
-    <!-- Updated Title Element -->
+
+    <!-- TITLE -->
+
     <h1 class="header-title">
-      <span class="gradient-text">आमदार माऊली आबा कटके</span>
+
+      <span class="gradient-text">
+
+        आमदार माऊली आबा कटके
+
+      </span>
+
     </h1>
 
+
+    <!-- DESCRIPTION -->
+
     <p class="subtitle">
-      तुमच्या समस्या/निवेदन माझ्यापर्यंत खालील फॉर्म द्वारे पोहोचवा आम्ही त्या तातडीने सोडवण्याचा प्रयत्न करू. 
+
+      तुमच्या समस्या/निवेदन माझ्यापर्यंत खालील फॉर्म द्वारे
+      पोहोचवा आम्ही त्या तातडीने सोडवण्याचा प्रयत्न करू.
+
       <br>
-      <strong class="highlight-text">तुमचा तालुका निवडा:</strong>
+
+      <strong class="highlight-text">
+
+        तुमचा तालुका निवडा:
+
+      </strong>
+
     </p>
-    
+
+
+    <!-- MAIN BUTTONS -->
+
     <div class="btn-container">
-      <a href="https://office.maulikatke.in/form/Haveli" class="btn btn-haveli">हवेली तालुका</a>
-      <a href="https://office.maulikatke.in/form/Shirur" class="btn btn-shirur">शिरूर तालुका</a>
-      <a href="https://maulikatke.in/office" class="btn" style="background: #ffffff; color: #6b21a8; border: 2px solid #6b21a8; margin-top: 6px;">📞 कार्यालय संपर्क</a>
+
+
+      <!-- HAVELI -->
+
+      <a
+        href="https://office.maulikatke.in/form/Haveli"
+        class="btn btn-haveli"
+      >
+
+        हवेली तालुका
+
+      </a>
+
+
+      <!-- SHIRUR -->
+
+      <a
+        href="https://office.maulikatke.in/form/Shirur"
+        class="btn btn-shirur"
+      >
+
+        शिरूर तालुका
+
+      </a>
+
+
+      <!-- OFFICE -->
+
+      <a
+        href="https://maulikatke.in/office"
+        class="btn"
+        style="
+          background:#ffffff;
+          color:#6b21a8;
+          border:2px solid #6b21a8;
+          margin-top:6px;
+        "
+      >
+
+        📞 कार्यालय संपर्क
+
+      </a>
+
+
     </div>
+
   </div>
 
+
+
+  <!-- =========================================
+       WHATSAPP + TELEGRAM
+       ========================================= -->
+
+  <div class="contact-widgets">
+
+
+    <!-- =====================================
+         WHATSAPP
+         ===================================== -->
+
+    <a
+      href="https://wa.me/917447775022"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-widget whatsapp-widget"
+      aria-label="WhatsApp"
+      title="WhatsApp"
+    >
+
+      <!-- WhatsApp SVG -->
+
+      <svg
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+
+        <path
+          d="M20.52 3.48A11.86 11.86 0 0 0 12.05 0
+          C5.5 0 .18 5.32.18 11.87
+          c0 2.09.55 4.13 1.6 5.93L.07 24
+          l6.35-1.66a11.86 11.86 0 0 0 5.63 1.43h.01
+          c6.55 0 11.87-5.32 11.87-11.87
+          0-3.17-1.23-6.15-3.41-8.42z
+          M12.06 21.8h-.01
+          a9.88 9.88 0 0 1-5.03-1.38l-.36-.21-3.77.99
+          1.01-3.67-.23-.38
+          a9.88 9.88 0 0 1-1.52-5.28
+          C2.15 6.43 6.58 2 12.05 2
+          c2.65 0 5.14 1.03 7.02 2.92
+          a9.86 9.86 0 0 1 2.91 7.02
+          c0 5.47-4.45 9.86-9.92 9.86z
+          M17.46 14.94c-.3-.15-1.77-.87-2.04-.97
+          -.27-.1-.47-.15-.67.15
+          -.2.3-.77.97-.94 1.17
+          -.17.2-.35.22-.65.07
+          -.3-.15-1.26-.46-2.4-1.48
+          -.89-.79-1.49-1.76-1.66-2.06
+          -.17-.3-.02-.46.13-.61
+          .13-.13.3-.35.45-.52
+          .15-.17.2-.3.3-.5
+          .1-.2.05-.37-.02-.52
+          -.07-.15-.67-1.61-.92-2.2
+          -.24-.58-.49-.5-.67-.51
+          -.17-.01-.37-.01-.57-.01
+          -.2 0-.52.07-.79.37
+          -.27.3-1.04 1.02-1.04 2.49
+          0 1.47 1.07 2.89 1.22 3.09
+          .15.2 2.1 3.21 5.08 4.5
+          .71.31 1.26.5 1.69.64
+          .71.23 1.36.2 1.87.12
+          .57-.08 1.77-.72 2.02-1.42
+          .25-.7.25-1.3.17-1.42
+          -.07-.12-.27-.2-.57-.35z"
+        />
+
+      </svg>
+
+    </a>
+
+
+
+    <!-- =====================================
+         TELEGRAM
+         ===================================== -->
+
+    <a
+      href="https://t.me/WESTERNESTATEANALYTICSBOT"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-widget telegram-widget"
+      aria-label="Telegram"
+      title="Telegram"
+    >
+
+      <!-- Telegram SVG -->
+
+      <svg
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+
+        <path
+          d="M23.5 2.2 20.1 21.3
+          c-.26 1.35-1 1.68-2.03 1.05
+          l-5.6-4.13-2.7 2.6
+          c-.3.3-.55.55-1.13.55
+          l.4-5.7 10.37-9.37
+          c.45-.4-.1-.63-.7-.23L5.9 13.95.36 12.22
+          c-1.2-.38-1.22-1.2.25-1.78L22.27 2.1
+          c1-.37 1.87.23 1.23.1z
+          M11.2 18.1l.2-2.85
+          5.2-4.7
+          c.23-.2-.05-.32-.35-.1l-6.43 4.05-2.77-.87
+          2.05 1.38
+          1.7 3.09.4.01z"
+        />
+
+      </svg>
+
+    </a>
+
+
+  </div>
+
+
+
+  <!-- =========================================
+        AI CHAT
+       ========================================= -->
+
+  <script type="module">
+
+    import {
+      createChat
+    } from
+      'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+
+    createChat({
+
+      webhookUrl:
+        'https://mauli.westernestate.in/webhook/ac9270f9-270b-4af3-81fc-0decd037efc9/chat'
+
+    });
+
+  </script>
+
+
 </body>
+
 </html>
