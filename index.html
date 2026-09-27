@@ -366,10 +366,15 @@
 
     createChat({
 
-      webhookUrl:
-        'https://mauli.westernestate.in/webhook/ac9270f9-270b-4af3-81fc-0decd037efc9/chat',
+  webhookUrl:
+    'https://mauli.westernestate.in/webhook/ac9270f9-270b-4af3-81fc-0decd037efc9/chat',
 
-      mode: 'window',
+  mode: 'window',
+
+  allowFileUploads: true,
+
+  allowedFilesMimeTypes:
+    'image/*,application/pdf,text/*',
 
       showWelcomeScreen: false,
 
