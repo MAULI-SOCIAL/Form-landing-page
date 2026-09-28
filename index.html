@@ -15,11 +15,11 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      background: linear-gradient(135deg, #FFF5F7 0%, #fdfbfb 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -35,9 +35,9 @@
       width: 100%;
       text-align: center;
       box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.05),
+        0 12px 32px rgba(255, 51, 102, 0.08),
         0 2px 6px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(230, 230, 230, 0.7);
+      border: 1px solid rgba(255, 228, 233, 0.7);
     }
 
     .profile-img-container {
@@ -48,13 +48,10 @@
       padding: 3px;
       background: linear-gradient(
         45deg,
-        #f09433 0%,
-        #e6683c 25%,
-        #dc2743 50%,
-        #cc2366 75%,
-        #bc1888 100%
+        #FF3366 0%,
+        #7C3AED 100%
       );
-      box-shadow: 0 4px 14px rgba(220, 39, 67, 0.2);
+      box-shadow: 0 4px 14px rgba(255, 51, 102, 0.25);
     }
 
     .profile-img-container img {
@@ -77,9 +74,8 @@
     .gradient-text {
       background: linear-gradient(
         135deg,
-        #e05252 0%,
-        #b83280 50%,
-        #6b21a8 100%
+        #FF3366 0%,
+        #7C3AED 100%
       );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -89,7 +85,7 @@
     }
 
     .subtitle {
-      color: #737373;
+      color: #64748B;
       font-size: 14px;
       font-weight: 400;
       line-height: 1.6;
@@ -101,7 +97,7 @@
 
     .highlight-text {
       font-weight: 700;
-      color: #262626;
+      color: #1E1B4B;
       display: inline-block;
       margin-top: 8px;
     }
@@ -130,36 +126,29 @@
     .btn-haveli {
       background: linear-gradient(
         135deg,
-        #7b2cbf 0%,
-        #5a189a 100%
+        #7C3AED 0%,
+        #6D28D9 100%
       );
-      box-shadow: 0 6px 18px rgba(123, 44, 191, 0.25);
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.25);
     }
 
     .btn-haveli:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(123, 44, 191, 0.35);
-      background: linear-gradient(
-        135deg,
-        #8a3ab9 0%,
-        #631ba6 100%
-      );
+      box-shadow: 0 8px 22px rgba(124, 58, 237, 0.35);
     }
 
     .btn-shirur {
       background: linear-gradient(
         135deg,
-        #f09433 0%,
-        #e6683c 50%,
-        #dc2743 100%
+        #FF3366 0%,
+        #E61E53 100%
       );
-      box-shadow: 0 6px 18px rgba(220, 39, 67, 0.25);
+      box-shadow: 0 6px 18px rgba(255, 51, 102, 0.25);
     }
 
     .btn-shirur:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(220, 39, 67, 0.35);
-      filter: brightness(1.05);
+      box-shadow: 0 8px 22px rgba(255, 51, 102, 0.35);
     }
 
     .btn:active {
@@ -168,7 +157,6 @@
     }
 
     /* WhatsApp + Telegram */
-
     .contact-widgets {
       position: fixed;
       left: 20px;
@@ -189,9 +177,7 @@
       color: #ffffff;
       text-decoration: none;
       box-shadow: 0 5px 16px rgba(0, 0, 0, 0.22);
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .contact-widget:hover {
@@ -213,22 +199,121 @@
       background: #229ED9;
     }
 
-    /* n8n chat colour */
-
+    /* --- Pinterest-Worthy Aesthetic N8N Chat Theme Variables & Fixes --- */
     :root {
-      --chat--color-primary: #6b21a8;
-      --chat--color-primary-shade-50: #5a189a;
-      --chat--color-primary-shade-100: #4c1680;
+      --chat--color--primary: #FF3366;
+      --chat--color--primary-shade-50: #E61E53;
+      --chat--color--primary--shade-100: #CC0044;
+      --chat--color--secondary: #7C3AED;
+      --chat--color-secondary-shade-50: #6D28D9;
+      --chat--color-white: #ffffff;
+      --chat--color-light: #FFF5F7;
+      --chat--color-light-shade-50: #FFE4E9;
+      --chat--color-light-shade-100: #FCD5DC;
+      --chat--color-medium: #E2E8F0;
+      --chat--color-dark: #1E1B4B;
+      --chat--color-disabled: #CBD5E1;
+      --chat--color-typing: #64748B;
+
+      --chat--spacing: 1rem;
+      --chat--border-radius: 1.5rem;
+      --chat--transition-duration: 0.3s;
+      --chat--font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --chat--window--width: 420px;
+      --chat--window--height: 640px;
+      --chat--window--bottom: 1.5rem;
+      --chat--window--right: 1.5rem;
+      --chat--window--z-index: 9999;
+      --chat--window--border: 1px solid rgba(255, 51, 102, 0.1);
+      --chat--window--border-radius: 2rem;
+      --chat--window--margin-bottom: var(--chat--spacing);
+      box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25), 0 0 0 1px rgba(255, 51, 102, 0.1);
+
+      --chat--header-height: auto;
+      --chat--header--padding: 1.75rem 1.5rem;
+      --chat--header--background: linear-gradient(135deg, #FF3366 0%, #7C3AED 100%);
+      --chat--header--color: #ffffff;
+      --chat--heading--font-size: 1.6em;
+      --chat--subtitle--font-size: 0.95rem;
+      --chat--subtitle--line-height: 1.6;
+
+      --chat--message--font-size: 1.05rem;
+      --chat--message--padding: 1.25rem 1.5rem;
+      --chat--message--border-radius: 1.5rem;
+      --chat--message-line-height: 1.6;
+      --chat--message--margin-bottom: 1rem;
+      
+      --chat--message--bot--background: #ffffff;
+      --chat--message--bot--color: #1E1B4B; 
+      --chat--message--bot--border: 1px solid #FCD5DC;
+      
+      --chat--message--user--background: #FFE4E9;
+      --chat--message--user--color: #1E1B4B;
+      --chat--message--user--border: 1px solid #FF3366;
+      
+      --chat--message--pre--background: rgba(255, 51, 102, 0.05);
+      --chat--messages-list--padding: 2rem;
+
+      --chat--toggle--size: 72px;
+      --chat--toggle--width: var(--chat--toggle--size);
+      --chat--toggle--height: var(--chat--toggle--size);
+      --chat--toggle--border-radius: 50%;
+      --chat--toggle--background: linear-gradient(135deg, #FF3366 0%, #7C3AED 100%);
+      --chat--toggle--hover--background: linear-gradient(135deg, #E61E53 0%, #6D28D9 100%);
+      --chat--toggle--active--background: #CC0044;
+      --chat--toggle--color: var(--chat--color-white);
+      box-shadow: 0 12px 30px rgba(255, 51, 102, 0.4);
+
+      --chat--textarea--height: 56px;
+      --chat--textarea--max-height: 25rem;
+      --chat--input--font-size: 1rem;
+      --chat--input--border: 2px solid #FFE4E9;
+      --chat--input--border-radius: 9999px;
+      --chat--input--padding: 1rem 1.4rem;
+      --chat--input--background: #ffffff;
+      --chat--input--text-color: #1E1B4B;
+      --chat--input--line-height: 1.5;
+      --chat--input--placeholder--font-size: 1rem;
+      --chat--input--border-active: 2px solid #FF3366;
+
+      --chat--body--background: #FFF5F7;
+      --chat--footer--background: #ffffff;
+      --chat--footer--color: #1E1B4B;
+    }
+
+    /* Custom Chat Layout & Overrides */
+    .chat-messages-list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .chat-message.bot {
+      align-self: flex-start;
+      max-width: 75%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    .chat-message.user {
+      align-self: flex-end;
+      max-width: 75%;
+      color: #1E1B4B !important;
+    }
+
+    .chat-footer {
+      padding: 1.2rem 1.5rem;
+      border-top: 2px solid #FFE4E9;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
     }
 
     /* Hide branding */
-
     .n8n-chat .chat-powered-by {
       display: none !important;
     }
 
     @media (max-width: 600px) {
-
       .card {
         padding: 38px 24px;
       }
@@ -259,7 +344,6 @@
 <body>
 
   <!-- MAIN CARD -->
-
   <div class="card">
 
     <div class="profile-img-container">
@@ -305,8 +389,8 @@
         class="btn"
         style="
           background:#ffffff;
-          color:#6b21a8;
-          border:2px solid #6b21a8;
+          color:#7C3AED;
+          border:2px solid #7C3AED;
           margin-top:6px;
         "
       >
@@ -319,7 +403,6 @@
 
 
   <!-- WHATSAPP + TELEGRAM -->
-
   <div class="contact-widgets">
 
     <a
@@ -336,7 +419,6 @@
         <path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.48 0 .14 5.34.14 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.9 11.9 0 0 0 5.74 1.46h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.43-8.43ZM12.05 21.8a9.86 9.86 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.52-5.27c0-5.45 4.44-9.88 9.9-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.89-9.89 9.89Zm5.42-7.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.35.2 1.86.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
       </svg>
     </a>
-
 
     <a
       href="https://t.me/WESTERNESTATEANALYTICSBOT"
@@ -356,55 +438,32 @@
   </div>
 
 
-  <!--  CHAT -->
-
+  <!-- CHAT SCRIPT -->
   <script type="module">
-
     import {
       createChat
     } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
     createChat({
-
-  webhookUrl:
-    'https://mauli.westernestate.in/webhook/ac9270f9-270b-4af3-81fc-0decd037efc9/chat',
-
-  mode: 'window',
-
-  allowFileUploads: true,
-
-  allowedFilesMimeTypes:
-    'image/*,application/pdf,text/*',
-
+      webhookUrl: 'https://mauli.westernestate.in/webhook/ac9270f9-270b-4af3-81fc-0decd037efc9/chat',
+      mode: 'window',
+      allowFileUploads: true,
+      allowedFilesMimeTypes: 'image/*,application/pdf,text/*',
       showWelcomeScreen: false,
-
       defaultLanguage: 'mr',
-
       initialMessages: [
         'नमस्कार! 👋',
         'आपली समस्या सांगा.'
       ],
-
       i18n: {
-
         mr: {
-
           title: 'नमस्कार! 👋',
-
-          subtitle:
-            'तुमचा संपर्क आमदार कार्यालयाशी होत आहे!',
-
+          subtitle: 'तुमचा संपर्क आमदार कार्यालयाशी होत आहे!',
           footer: '',
-
-          inputPlaceholder:
-            'आपली समस्या लिहा...'
-
+          inputPlaceholder: 'आपली समस्या लिहा...'
         }
-
       }
-
     });
-
   </script>
 
 </body>
