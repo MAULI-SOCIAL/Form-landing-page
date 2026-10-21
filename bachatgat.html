@@ -139,7 +139,6 @@
             <button onclick="switchTab('directory')" id="tab-directory" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition bg-brand-pink text-white shadow-sm">सक्रिय बचत गट सूची</button>
             <button onclick="switchTab('products')" id="tab-products" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition text-gray-700 hover:bg-cream-100">गृहउद्योग व उत्पादने</button>
             <button onclick="switchTab('schemes')" id="tab-schemes" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition text-gray-700 hover:bg-cream-100">कर्ज व शासकीय योजना</button>
-            <button onclick="switchTab('register')" id="tab-register" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition text-gray-700 hover:bg-cream-100">नवीन गट नोंदणी अर्ज</button>
         </div>
 
         <!-- SECTIONS -->
@@ -178,53 +177,6 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="schemesGrid"></div>
             </div>
 
-            <!-- 4. REGISTRATION FORM -->
-            <div id="section-register" class="space-y-6 hidden max-w-3xl mx-auto">
-                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cream-200">
-                    <h3 class="text-xl md:text-2xl font-extrabold font-heading text-brand-purpleDark mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-user-plus text-brand-pink"></i> नवीन बचत गट नोंदणी किंवा जोडणी अर्ज
-                    </h3>
-                    <p class="text-xs md:text-sm text-gray-600 mb-6">तुमच्या बचत गटाला आमदार कार्यालयाच्या मार्गदर्शनाखाली व शासकीय योजनांशी जोडण्यासाठी खालील माहिती भरा.</p>
-                    
-                    <form onsubmit="handleBachatGatSubmit(event)" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">बचत गटाचे नाव *</label>
-                                <input type="text" required placeholder="उदा. सावित्रीबाई फुले महिला बचत गट" class="w-full px-4 py-2.5 rounded-2xl border border-cream-300 text-xs focus:outline-none focus:border-brand-pink bg-cream-50">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">प्रमुख महिला / अध्यक्षांचे नाव *</label>
-                                <input type="text" required placeholder="संपूर्ण नाव" class="w-full px-4 py-2.5 rounded-2xl border border-cream-300 text-xs focus:outline-none focus:border-brand-pink bg-cream-50">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">गावाचे नाव / परिसर *</label>
-                                <input type="text" required placeholder="उदा. वाघोली / शिक्रापूर / शिरूर" class="w-full px-4 py-2.5 rounded-2xl border border-cream-300 text-xs focus:outline-none focus:border-brand-pink bg-cream-50">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">मोबाईल नंबर (WhatsApp) *</label>
-                                <input type="tel" required placeholder="१० अंकी मोबाईल नंबर" class="w-full px-4 py-2.5 rounded-2xl border border-cream-300 text-xs focus:outline-none focus:border-brand-pink bg-cream-50">
-                            </div>
-                        </div>
-                        <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">गटाचा मुख्य व्यवसाय / उपक्रम *</label>
-                                <input type="text" required placeholder="उदा. मसाला निर्मिती, शिलाई, पापड, शेतीपूरक" class="w-full px-4 py-2.5 rounded-2xl border border-cream-300 text-xs focus:outline-none focus:border-brand-pink bg-cream-50">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">सदस्यांची संख्या</label>
-                            <input type="number" placeholder="उदा. १२" class="w-full px-4 py-2.5 rounded-2xl border border-cream-300 text-xs focus:outline-none focus:border-brand-pink bg-cream-50">
-                        </div>
-                        <button type="submit" class="w-full bg-brand-pink hover:bg-pink-600 text-white font-bold py-3 rounded-2xl transition shadow-md text-sm mt-4">
-                            माहिती कार्यालयीन मंचावर नोंदवा
-                        </button>
-                    </form>
-                    <div id="successMsg" class="hidden mt-4 p-4 bg-green-50 border border-green-200 text-green-800 text-xs rounded-2xl font-bold text-center">
-                        <i class="fa-solid fa-circle-check mr-1 text-green-600"></i> तुमचा बचत गट अर्ज यशस्वीरित्या नोंदवला गेला आहे. कार्यालयीन प्रतिनिधी लवकरच संपर्क साधतील.
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </main>
@@ -245,7 +197,6 @@
 
     <!-- JAVASCRIPT: DATA & INTERACTION LOGIC -->
     <script>
-        // कार्यालयीन स्टाफ याद्वारे डेटा सहज अपडेट करू शकतात (Zero-API, Safe JSON)
         const bachatGatData = {
             directory: [
                 { name: 'श्री स्वामी समर्थ महिला बचत गट', leader: 'सौ. अनिता काटे', location: 'वाघोली, हवेली', members: '१२ महिला', work: 'गृहउद्योग व मसाला उत्पादन', contact: 'सम्पर्क: कार्यालयीन कक्ष' },
@@ -272,7 +223,7 @@
         });
 
         function switchTab(tabId) {
-            ['directory', 'products', 'schemes', 'register'].forEach(id => {
+            ['directory', 'products', 'schemes'].forEach(id => {
                 document.getElementById(`section-${id}`).classList.add('hidden');
                 document.getElementById(`tab-${id}`).className = "tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition text-gray-700 hover:bg-cream-100";
             });
@@ -321,12 +272,6 @@
                     <p class="text-xs text-gray-600 leading-relaxed">${item.desc}</p>
                 </div>
             `).join('');
-        }
-
-        function handleBachatGatSubmit(e) {
-            e.preventDefault();
-            document.getElementById('successMsg').classList.remove('hidden');
-            e.target.reset();
         }
     </script>
 </body>
