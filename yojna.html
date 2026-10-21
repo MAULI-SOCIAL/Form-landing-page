@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="mr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>आमदार माऊली आबा कटके - लोकसेवा केंद्र | शिरूर-हवेली सर्व शासकीय योजना पोर्टल</title>
+    
+    <!-- Google Fonts for Devanagari Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Mukta:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FFFDF9',
+                            100: '#FAF6F2',
+                            200: '#F5ECE3',
+                            300: '#EBDCD0'
+                        },
+                        brand: {
+                            purple: '#6025A1',
+                            purpleDark: '#451778',
+                            coral: '#E75E3B',
+                            gold: '#D4AF37',
+                            navy: '#0F2C59'
+                        }
+                    },
+                    fontFamily: {
+                        mukta: ['Mukta', 'sans-serif'],
+                        baloo: ['Baloo 2', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Mukta', sans-serif;
+            background-color: #FAF6F2;
+            color: #1F2937;
+        }
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Baloo 2', cursive;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6025A1;
+            border-radius: 4px;
+        }
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: #FFF !important;
+                color: #000 !important;
+            }
+            .scheme-card {
+                break-inside: avoid;
+                border: 1px solid #CCC !important;
+                box-shadow: none !important;
+                margin-bottom: 12px !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-brand-purple selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT / HELPLINE BANNER -->
+    <div class="bg-brand-purpleDark text-white text-sm py-2 px-4 no-print border-b border-brand-purple/40">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+            <div class="flex items-center gap-2">
+                <span class="bg-brand-coral text-white text-xs px-2.5 py-0.5 rounded-full font-bold animate-pulse">लोकसेवा हेल्पलाइन</span>
+                <span class="text-xs md:text-sm">शिरूर-हवेली नागरिक मदत कक्ष: 
+                    <a href="tel:7776021109" class="font-bold underline text-amber-200 hover:text-white mr-1">7776021109</a> / 
+                    <a href="tel:9112203299" class="font-bold underline text-amber-200 hover:text-white">9112203299</a>
+                </span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium">
+                <span><i class="fa-solid fa-location-dot text-brand-coral mr-1"></i> १८८ - शिरूर - हवेली मतदारसंघ</span>
+                <button onclick="window.print()" class="bg-brand-coral hover:bg-orange-600 text-white px-3 py-1 rounded-full text-xs transition flex items-center gap-1 font-bold shadow-sm">
+                    <i class="fa-solid fa-print"></i> यादी प्रिंट करा / PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER & MLA BRANDING (CLEAN CREAM THEME WITH INSTA-STYLE AVATAR RING) -->
+    <header class="bg-cream-50 py-8 px-4 border-b border-cream-200 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
+            
+            <!-- MLA Profile Avatar with Gradient Ring -->
+            <div class="relative mb-4">
+                <div class="w-32 h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 shadow-xl flex items-center justify-center">
+                    <img src="https://images.squarespace-cdn.com/content/v1/67389a1c8dd4bd5b3b28b628/b95b878a-c603-4f96-b072-4ce5eaecbf13/2.png" 
+                         alt="आमदार माऊली आबा कटके" 
+                         class="w-full h-full object-cover rounded-full bg-white border-2 border-white"
+                         onerror="this.onerror=null; this.src='https://placehold.co/150x150/6025A1/ffffff?text=MLA+Mauli+Katke';">
+                </div>
+                <span class="absolute bottom-1 right-2 bg-brand-purple text-white text-xs px-2.5 py-0.5 rounded-full font-bold shadow-md border border-white">
+                    आमदार
+                </span>
+            </div>
+
+            <!-- MLA Title -->
+            <h1 class="text-3xl md:text-5xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-800 tracking-wide leading-tight">
+                आमदार माऊली आबा कटके
+            </h1>
+            <p class="text-gray-600 text-base md:text-lg font-semibold mt-1">
+                १८८ - शिरूर-हवेली विधानसभा मतदारसंघ | लोकसेवा व शासकीय योजना मदत केंद्र
+            </p>
+
+            <div class="mt-4 bg-white/80 backdrop-blur-sm border border-cream-300 rounded-2xl px-6 py-3 max-w-2xl shadow-sm">
+                <p class="text-xs md:text-sm text-gray-700 font-medium">
+                    <i class="fa-solid fa-landmark text-brand-purple mr-1"></i> केंद्र व महाराष्ट्र राज्य शासनाच्या सर्व अधिकृत योजना, पात्रता, आवश्यक कागदपत्रे व थेट ऑनलाईन अर्ज लिंक
+                </p>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- SEARCH AND FILTER SECTION -->
+        <section class="bg-white rounded-3xl p-4 md:p-6 shadow-sm border border-cream-200 mb-8 no-print">
+            <div class="flex flex-col lg:flex-row gap-4 justify-between items-center mb-6">
+                
+                <!-- Live Search Box -->
+                <div class="relative w-full lg:w-1/2">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                    <input type="text" id="searchInput" oninput="filterSchemes()" 
+                           placeholder="शोधा: योजना, शेतकरी, लाडकी बहीण, शिष्यवृत्ती, ५ लाख, कर्जासाठी मदत..." 
+                           class="w-full pl-11 pr-10 py-3 rounded-full border border-cream-300 focus:outline-none focus:ring-2 focus:ring-brand-purple focus:border-transparent text-gray-800 placeholder-gray-400 font-medium text-base shadow-sm bg-cream-50/50">
+                    <button onclick="clearSearch()" id="clearBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                        <i class="fa-solid fa-circle-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Government Level Toggle (Center / State / All) -->
+                <div class="flex items-center gap-1.5 bg-cream-100 p-1.5 rounded-full w-full lg:w-auto overflow-x-auto border border-cream-200">
+                    <button onclick="setGovFilter('ALL')" id="gov-ALL" class="gov-btn active text-xs md:text-sm font-bold px-4 py-2 rounded-full transition whitespace-nowrap bg-brand-purple text-white shadow-sm">
+                        सर्व योजना
+                    </button>
+                    <button onclick="setGovFilter('STATE')" id="gov-STATE" class="gov-btn text-xs md:text-sm font-bold px-4 py-2 rounded-full transition whitespace-nowrap text-gray-700 hover:text-brand-purple">
+                        <i class="fa-solid fa-flag text-brand-coral mr-1"></i> महाराष्ट्र शासन
+                    </button>
+                    <button onclick="setGovFilter('CENTRAL')" id="gov-CENTRAL" class="gov-btn text-xs md:text-sm font-bold px-4 py-2 rounded-full transition whitespace-nowrap text-gray-700 hover:text-brand-purple">
+                        <i class="fa-solid fa-landmark text-blue-600 mr-1"></i> केंद्र शासन
+                    </button>
+                    <button onclick="toggleBookmarksOnly()" id="bookmarkFilterBtn" class="text-xs md:text-sm font-bold px-3 py-2 rounded-full transition whitespace-nowrap text-gray-700 hover:text-yellow-600 flex items-center gap-1">
+                        <i class="fa-solid fa-star text-yellow-500"></i> सेव्ह केलेल्या (<span id="favCount">0</span>)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category Pills -->
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">विभागानुसार वर्गवारी (Category):</label>
+                <div class="flex flex-wrap gap-2" id="categoryPills">
+                    <!-- Dynamic Buttons Generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS & ACTIVE FILTERS BAR -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 px-1 gap-2">
+            <div class="text-sm font-semibold text-gray-600">
+                एकूण उपलब्ध योजना: <span id="schemeCount" class="text-brand-purple font-bold text-lg">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500 font-medium">टीप: योजनेच्या सविस्तर कागदपत्रे व पात्रतेसाठी कार्डवर क्लिक करा.</span>
+            </div>
+        </div>
+
+        <!-- SCHEMES GRID LIST -->
+        <div id="schemesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Scheme Cards Will Be Rendered Here via JavaScript -->
+        </div>
+
+        <!-- EMPTY STATE (WHEN NO SCHEMES FOUND) -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white rounded-3xl shadow-sm border border-cream-200 my-8">
+            <i class="fa-solid fa-folder-open text-6xl text-gray-300 mb-4"></i>
+            <h3 class="text-xl font-bold font-heading text-gray-700">कोणतीही योजना सापडली नाही!</h3>
+            <p class="text-gray-500 text-sm mt-1 max-w-md mx-auto">कृपया शोधलेले शब्द तपासा किंवा फिल्टर्स रीसेट करा. मदतीसाठी संपर्क कार्यालयाशी संपर्क साधू शकता.</p>
+            <button onclick="resetFilters()" class="mt-4 bg-brand-purple text-white px-6 py-2.5 rounded-full text-sm font-bold shadow hover:bg-brand-purpleDark transition">
+                सर्व फिल्टर्स रीसेट करा
+            </button>
+        </div>
+
+        <!-- MLA ASSISTANCE CENTER & CONTACT DIRECTORY SECTION -->
+        <section class="mt-16 bg-gradient-to-br from-brand-purpleDark via-brand-purple to-slate-900 text-white rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 opacity-10 pointer-events-none transform translate-x-10 -translate-y-10">
+                <i class="fa-solid fa-hand-holding-hand text-[250px]"></i>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="bg-amber-300 text-brand-purpleDark text-xs font-extrabold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                        नागरिक मदत केंद्र व संपर्क महामार्ग
+                    </span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold font-heading text-white mt-3">
+                        आमदार माऊली कटके लोकसेवा जनसंपर्क कार्यालय
+                    </h2>
+                    <p class="text-purple-100 text-sm md:text-base mt-2">
+                        शिरूर-हवेली मतदारसंघातील प्रत्येक नागरिकाला शासकीय योजनांचा १००% लाभ मिळवून देण्यासाठी आमचे जनसंपर्क अधिकारी तत्पर आहेत.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <!-- Main Office -->
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 bg-brand-coral rounded-xl flex items-center justify-center text-white mb-3 text-lg">
+                                <i class="fa-solid fa-building font-bold"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-lg text-amber-200">मुख्य जनसंपर्क कार्यालय</h3>
+                            <p class="text-xs text-gray-200 mt-2 leading-relaxed">
+                                आमदार माऊली कटके लोकसेवा जनसंपर्क कार्यालय, Sant Tukaram Nagar, Wagholi
+                            </p>
+                        </div>
+                        <p class="text-xs font-semibold text-white mt-4 pt-3 border-t border-white/10">
+                            <i class="fa-solid fa-clock text-amber-300 mr-1"></i> वेळ: सकाळी ९:०० ते संध्याकाळी ६:००
+                        </p>
+                    </div>
+
+                    <!-- Helpline & Online Help -->
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white mb-3 text-lg">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-lg text-amber-200">हेल्पलाइन व फोन नंबर</h3>
+                            <p class="text-xs text-gray-200 mt-2">योजनेचा अर्ज भरण्यास अडचण असल्यास अथवा माहितीसाठी कॉल करा:</p>
+                            <div class="text-sm font-bold text-white mt-3 space-y-1">
+                                <p><i class="fa-solid fa-phone text-green-400 mr-1"></i> <a href="tel:7776021109" class="hover:underline">7776021109</a></p>
+                                <p><i class="fa-solid fa-phone text-green-400 mr-1"></i> <a href="tel:9112203299" class="hover:underline">9112203299</a></p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-white/10 flex flex-col gap-1 text-xs">
+                            <a href="https://maulikatke.in" target="_blank" class="text-amber-200 hover:text-white font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-globe"></i> तक्रार निवारण फॉर्म: Maulikatke.in
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Special Citizen Guidance & Chat Link -->
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white mb-3 text-lg">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <h3 class="font-bold font-heading text-lg text-amber-200">ऑनलाईन जनसंवाद व मदत</h3>
+                            <p class="text-xs text-gray-200 mt-2">
+                                शासकीय योजनांच्या थेट ऑनलाईन मार्गदर्शनासाठी व थेट संवादासाठी पोर्टलला भेट द्या:
+                            </p>
+                            <a href="https://maulikatke.in/chat" target="_blank" class="mt-3 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white text-xs font-bold px-4 py-2 rounded-full transition border border-white/20">
+                                <i class="fa-solid fa-headset text-amber-300"></i> maulikatke.in/chat
+                            </a>
+                        </div>
+                        <p class="text-xs font-semibold text-amber-300 mt-4 pt-3 border-t border-white/10">
+                            ★ सर्व योजनांचे मार्गदर्शन व सहाय्य मोफत
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Constituency Local Offices Directory -->
+                <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-700">
+                    <h3 class="text-base md:text-lg font-bold font-heading text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-brand-coral"></i> शिरूर - हवेली मतदारसंघ जनसंपर्क कार्यालये:
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-sm">
+                        
+                        <div class="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 flex flex-col justify-center">
+                            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block mb-1">जनसंपर्क कार्यालय</span>
+                            <span class="text-base font-extrabold text-white">वाघोली</span>
+                            <span class="text-xs text-gray-300 mt-1">Sant Tukaram Nagar, Wagholi</span>
+                        </div>
+
+                        <div class="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 flex flex-col justify-center">
+                            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block mb-1">जनसंपर्क कार्यालय</span>
+                            <span class="text-base font-extrabold text-white">न्हावरे</span>
+                            <span class="text-xs text-gray-300 mt-1">न्हावरे (शिरूर तालुका)</span>
+                        </div>
+
+                        <div class="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 flex flex-col justify-center">
+                            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block mb-1">जनसंपर्क कार्यालय</span>
+                            <span class="text-base font-extrabold text-white">कुंजिरवाडी</span>
+                            <span class="text-xs text-gray-300 mt-1">कुंजिरवाडी (हवेली तालुका)</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SCHEME DETAIL MODAL (POPUP) -->
+    <div id="schemeModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-100 relative animate-in fade-in zoom-in duration-200">
+            
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-20">
+                <div class="flex items-center gap-2">
+                    <span id="modalGovType" class="text-xs font-extrabold px-2.5 py-1 rounded-full uppercase"></span>
+                    <span id="modalCategory" class="text-xs font-bold bg-cream-100 text-gray-700 px-2.5 py-1 rounded-full border border-cream-200"></span>
+                </div>
+                <button onclick="closeModal()" class="w-9 h-9 bg-cream-100 hover:bg-cream-200 text-gray-600 rounded-full flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 md:p-8">
+                <h2 id="modalTitle" class="text-2xl md:text-3xl font-extrabold font-heading text-brand-purpleDark leading-tight mb-1"></h2>
+                <p id="modalTitleEn" class="text-xs font-medium text-gray-400 mb-6 italic"></p>
+
+                <!-- Key Highlight Box -->
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-2xl mb-6">
+                    <h4 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-1">प्रमुख लाभ (Key Benefits)</h4>
+                    <p id="modalBenefits" class="text-sm md:text-base font-semibold text-gray-800 leading-relaxed"></p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Eligibility Criteria -->
+                    <div class="bg-cream-50 p-5 rounded-2xl border border-cream-200">
+                        <h4 class="text-sm font-bold font-heading text-brand-purpleDark flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-user-check text-green-600"></i> आवश्यक पात्रता (Eligibility):
+                        </h4>
+                        <ul id="modalEligibility" class="space-y-2 text-xs md:text-sm text-gray-700"></ul>
+                    </div>
+
+                    <!-- Documents Required -->
+                    <div class="bg-cream-50 p-5 rounded-2xl border border-cream-200">
+                        <h4 class="text-sm font-bold font-heading text-brand-purpleDark flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-file-lines text-blue-600"></i> आवश्यक कागदपत्रे (Documents):
+                        </h4>
+                        <ul id="modalDocuments" class="space-y-2 text-xs md:text-sm text-gray-700"></ul>
+                    </div>
+                </div>
+
+                <!-- How to Apply Step-by-Step -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-bold font-heading text-brand-purpleDark flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-list-check text-purple-600"></i> अर्ज प्रक्रिया (How to Apply):
+                    </h4>
+                    <div id="modalProcess" class="text-xs md:text-sm text-gray-700 bg-purple-50/50 p-4 rounded-2xl border border-purple-100 space-y-2"></div>
+                </div>
+
+                <!-- Constituency MLA Help Note -->
+                <div class="bg-purple-50 border border-purple-200 rounded-2xl p-4 flex items-start gap-3 mb-6">
+                    <i class="fa-solid fa-circle-info text-brand-purple text-lg mt-0.5"></i>
+                    <div class="text-xs text-purple-900">
+                        <span class="font-bold block text-sm">आमदार माऊली आबा कटके जनसंपर्क कार्यालय मदत:</span>
+                        शिरूर-हवेली मतदारसंघातील नागरिकांना या योजनेचा अर्ज भरताना काही अडचण असल्यास आमच्या वाघोली, न्हावरे किंवा कुंजिरवाडी जनसंपर्क कार्यालयात मोफत मदत उपलब्ध आहे.
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+                    <a id="modalApplyLink" href="#" target="_blank" class="flex-1 bg-brand-purple hover:bg-brand-purpleDark text-white font-bold text-center py-3 px-6 rounded-full transition shadow-lg flex items-center justify-center gap-2">
+                        <span>अधिकृत वेबसाईटवरून अर्ज करा</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
+                    <button onclick="closeModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full transition">
+                        बंद करा
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-gray-400 py-8 px-4 text-xs no-print border-t border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <p class="text-white font-bold font-heading text-sm">आमदार माऊली आबा कटके - लोकसेवा केंद्र | शिरूर-हवेली विधानसभा मतदारसंघ</p>
+                <p class="mt-1 text-gray-400">नागरिकांच्या सेवेसाठी समर्पित डिजिटल योजना महाडायरेक्टरी portal.</p>
+            </div>
+            <div class="text-gray-400">
+                <p>© २०२६ आमदार माऊली कटके सर्व हक्क सुरक्षित.</p>
+                <p class="mt-0.5"><a href="https://maulikatke.in" target="_blank" class="hover:underline text-amber-200">Maulikatke.in</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT DATA & INTERACTION LOGIC -->
+    <script>
+        // MASTER DIRECTORY OF SCHEMES DATA
+        const schemesData = [
+            // --- FARMERS & AGRICULTURE ---
+            {
+                id: 'scheme-1',
+                title: 'नमो शेतकरी महासन्मान निधी योजना',
+                titleEn: 'Namo Shetkari Mahasanman Nidhi Yojana',
+                govType: 'STATE',
+                category: 'FARMERS',
+                categoryLabel: 'शेतकरी व कृषी',
+                target: 'अल्पभूधारक व नोंदणीकृत शेतकरी',
+                benefits: 'पीएम किसानच्या रु. ६,००० व्यतिरिक्त महाराष्ट्र शासनाकडून अतिरिक्त रु. ६,००० (वर्षाला एकूण रु. १२,००० थेट बँक खात्यात).',
+                eligibility: [
+                    'महाराष्ट्र राज्यातील रहिवासी व जमीनधारक शेतकरी',
+                    'पीएम किसान सन्मान निधी योजनेत पात्र असावा',
+                    'आधार कार्ड बँक खात्याशी लिंक असावे'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    '७/१२ आणि ८-अ उतारा',
+                    'बँक पासबुक',
+                    'पीएम किसान नोंदणी क्रमांक'
+                ],
+                process: 'पीएम किसान योजनेत पात्र असलेल्या शेतकऱ्यांना स्वतंत्र अर्जाची गरज नाही. डीबीटीद्वारे निधी थेट खात्यात वर्ग केला जातो.',
+                link: 'https://nsmny.mahadbt.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-2',
+                title: 'प्रधानमंत्री किसान सन्मान निधी (PM-KISAN)',
+                titleEn: 'Pradhan Mantri Kisan Samman Nidhi',
+                govType: 'CENTRAL',
+                category: 'FARMERS',
+                categoryLabel: 'शेतकरी व कृषी',
+                target: 'शेतकरी कुटुंबे (कमी अथवा जास्त शेतजमीन असलेले)',
+                benefits: 'दरवर्षी रु. ६,००० ची आर्थिक मदत (रु. २,००० च्या ३ समान हप्त्यांमध्ये).',
+                eligibility: [
+                    'स्वतःच्या नावावर शेतजमीन असावी',
+                    'सरकारी नोकरदार व करदाते अपात्र',
+                    'e-KYC पूर्ण करणे अनिवार्य'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    '७/१२ उतारा व खातेदार पुरावा',
+                    'बँक पासबुक'
+                ],
+                process: 'PM-Kisan पोर्टलवर जाऊन स्वयं-नोंदणी (Self Registration) करा किंवा सीएससी केंद्रात अर्ज करा.',
+                link: 'https://pmkisan.gov.in/'
+            },
+            {
+                id: 'scheme-3',
+                title: 'मुख्यमंत्री बळीराजा मोफत वीज योजना २०२४',
+                titleEn: 'Mukhyamantri Baliraja Free Electricity Scheme',
+                govType: 'STATE',
+                category: 'FARMERS',
+                categoryLabel: 'शेतकरी व कृषी',
+                target: 'शेतीपंपधारक शेतकरी (७.५ एचपी पर्यंत)',
+                benefits: '७.५ अश्वशक्ती (HP) पर्यंतच्या शेतीपंपांना मोफत वीज पुरवठा (वीजबिल पूर्ण माफ).',
+                eligibility: [
+                    'महाराष्ट्रातील शेतीपंपधारक शेतकरी',
+                    '७.५ HP पेक्षा कमी क्षमतेचा कृषी पंप असावा'
+                ],
+                documents: [
+                    'महावितरण वीज ग्राहक क्रमांक',
+                    '७/१२ उतारा',
+                    'आधार कार्ड'
+                ],
+                process: 'महावितरण (MSEDCL) कडून ही सवलत आपोआप बिलात समाविष्ट केली जाते. तक्रारीसाठी महावितरण पोर्टलला भेट द्या.',
+                link: 'https://www.mahadiscom.in/'
+            },
+            {
+                id: 'scheme-4',
+                title: 'मागेल त्याला शेततळे / विहीर योजना',
+                titleEn: 'Magel Tyala Shettale / Irrigation Well Scheme',
+                govType: 'STATE',
+                category: 'FARMERS',
+                categoryLabel: 'शेतकरी व कृषी',
+                target: 'शेतकरी व कृषी समुदाय',
+                benefits: 'शेततळ्यासाठी रु. ७५,००० पर्यंत अनुदान व नवीन विहिरीसाठी रु. ४ लाखांपर्यंत आर्थिक सहाय्य.',
+                eligibility: [
+                    'किमान ०.६० हेक्टर जमीन असावी',
+                    'यापूर्वी शेततळ्याचा अथवा विहिरीचा लाभ घेतलेला नसावा'
+                ],
+                documents: [
+                    '७/१२ व ८-अ उतारा',
+                    'जातीचा दाखला (आवश्यक असल्यास)',
+                    'बँक पासबुक',
+                    'जमिनीचा नकाशा'
+                ],
+                process: 'महाडीबीटी (MahaDBT) शेतकरी योजनेच्या पोर्टलवर ऑनलाईन अर्ज करावा.',
+                link: 'https://mahadbt.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-5',
+                title: 'गोपीनाथ मुंडे शेतकरी अपघात सुरक्षा सानुग्रह अनुदान',
+                titleEn: 'Gopinath Munde Shetkari Apghat Bima Scheme',
+                govType: 'STATE',
+                category: 'FARMERS',
+                categoryLabel: 'शेतकरी व कृषी',
+                target: '१० ते ७५ वयोगटातील ७/१२ धारक शेतकरी व कुटुंबीय',
+                benefits: 'अपघाती मृत्यू झाल्यास रु. २ लाख, कायमचे अपंगत्व आल्यास रु. १ ते २ लाख मदत.',
+                eligibility: [
+                    'महाराष्ट्रातील ७/१२ वर नाव असणारा शेतकरी किंवा त्याचा पती/पत्नी/मुलगा/मुलगी'
+                ],
+                documents: [
+                    'एफआयआर (FIR) व पंचनामा प्रत',
+                    'मृत्यू अथवा अपंगत्व दाखला',
+                    '७/१२ उतारा',
+                    'वारस नोंद दाखला'
+                ],
+                process: 'अपघात घडल्यापासून ३० दिवसांच्या आत संबंधित तालुका कृषी अधिकारी कार्यालयात प्रस्ताव सादर करावा.',
+                link: 'https://krishi.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-6',
+                title: 'प्रधानमंत्री पिक विमा योजना (१ रुपयात पिक विमा)',
+                titleEn: 'PM Fasal Bima Yojana (Re 1 Scheme)',
+                govType: 'STATE',
+                category: 'FARMERS',
+                categoryLabel: 'शेतकरी व कृषी',
+                target: 'सर्व शेतकरी (कर्जदार व बिगर कर्जदार)',
+                benefits: 'अवकाळी पाऊस, दुष्काळ, कीड यामुळे पिकांचे नुकसान झाल्यास आर्थिक नुकसानभरपाई (केवळ १ रुपयात फॉर्म).',
+                eligibility: [
+                    'पिक पेरणी केलेला शेतकरी',
+                    'हंगामात मुदतीत विमा अर्ज करणे आवश्यक'
+                ],
+                documents: [
+                    '७/१२ व पिकांची नोंद असलेला स्वयंघोषणा पत्र',
+                    'आधार कार्ड',
+                    'बँक पासबुक'
+                ],
+                process: 'सीएससी केंद्र (CSC Center) किंवा महाडीबीटी/पिक विमा ॲपवरून केवळ ₹१ भरून अर्ज करावा.',
+                link: 'https://pmfby.gov.in/'
+            },
+
+            // --- WOMEN & CHILD WELFARE ---
+            {
+                id: 'scheme-7',
+                title: 'मुख्यमंत्री माझी लाडकी बहिन योजना',
+                titleEn: 'Mukhyamantri Majhi Ladki Bahin Yojana',
+                govType: 'STATE',
+                category: 'WOMEN',
+                categoryLabel: 'महिला व बालविकास',
+                target: '२१ ते ६५ वयोगटातील विवाहित, विधवा, परित्यक्ता महिला',
+                benefits: 'दरमहा रु. १,५०० थेट बँक खात्यात (वार्षिक रु. १८,००० आर्थिक सहाय्य).',
+                eligibility: [
+                    'महाराष्ट्र राज्याची रहिवासी असावी',
+                    'कुटुंबाचे वार्षिक उत्पन्न रु. २.५० लाखांपेक्षा कमी असावे',
+                    'चारचाकी वाहन (ट्रॅक्टर वगळून) नसावे'
+                ],
+                documents: [
+                    'आधार कार्ड (बँक सीडेड)',
+                    'रहिवासी दाखला / शिधापत्रिका (Ration Card)',
+                    'उत्पन्नाचा दाखला किंवा पिवळे/केशरी राशन कार्ड',
+                    'हमीपत्र (Self Declaration)'
+                ],
+                process: 'नारी शक्ती दूत ॲप किंवा ladkibahin पोर्टलवरून अथवा जवळच्या सेतू/अंगणवाडी केंद्रात अर्ज करा.',
+                link: 'https://ladkibahin.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-8',
+                title: 'मुख्यमंत्री अन्नपूर्णा योजना (३ मोफत गॅस सिलिंडर)',
+                titleEn: 'Mukhyamantri Annapurna Yojana',
+                govType: 'STATE',
+                category: 'WOMEN',
+                categoryLabel: 'महिला व बालविकास',
+                target: 'लाडकी बहीण योजनेच्या लाभार्थी व उज्ज्वला योजनाधारक महिला',
+                benefits: 'दरवर्षी ३ स्वयंपाकाचे एलपीजी (LPG) गॅस सिलिंडर पूर्णपणे मोफत (अनुदान खात्यात जमा).',
+                eligibility: [
+                    'माझी लाडकी बहीण योजनेची पात्र लाभार्थी महिला',
+                    'कुटुंबाच्या नावे गॅस कनेक्शन असणे आवश्यक'
+                ],
+                documents: [
+                    'गॅस पासबुक / ग्राहक क्रमांक (Consumer ID)',
+                    'आधार कार्ड',
+                    'रेशन कार्ड'
+                ],
+                process: 'वेगळ्या अर्जाची गरज नाही. लाडकी बहीण व उज्ज्वला योजनेतील माहितीवरून डीबीटीद्वारे गॅस सबसिडी जमा होते.',
+                link: 'https://mahafood.gov.in/'
+            },
+            {
+                id: 'scheme-9',
+                title: 'लेक लाडकी योजना (मुलींच्या उज्ज्वल भविष्यासाठी)',
+                titleEn: 'Lek Ladki Scheme',
+                govType: 'STATE',
+                category: 'WOMEN',
+                categoryLabel: 'महिला व बालविकास',
+                target: 'पिवळ्या व केशरी रेशनकार्डधारक कुटुंबातील मुली',
+                benefits: 'मुलीच्या जन्मापासून १८ वर्षे पूर्ण होईपर्यंत विविध टप्प्यांत एकूण रु. १,०१,००० ची रोख मदत.',
+                eligibility: [
+                    '१ एप्रिल २०२३ नंतर जन्मलेल्या मुली',
+                    'कुटुंब पिवळे किंवा केशरी रेशनकार्डधारक असावे'
+                ],
+                documents: [
+                    'मुलीचा जन्म दाखला',
+                    'पालकांचे आधार कार्ड',
+                    'रेशन कार्ड',
+                    'बँक पासबुक'
+                ],
+                process: 'जवळच्या अंगणवाडी सेविकेकडे किंवा बालविकास प्रकल्प अधिकारी (CDPO) कार्यालयात अर्ज सादर करा.',
+                link: 'https://womenchild.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-10',
+                title: 'फ्री पिंक ई-रिक्षा योजना',
+                titleEn: 'Free Pink e-Rickshaw Scheme',
+                govType: 'STATE',
+                category: 'WOMEN',
+                categoryLabel: 'महिला व बालविकास',
+                target: 'महिलांना स्वयंरोजगारासाठी (पुणे व इतर प्रमुख शहरे)',
+                benefits: 'ई-रिक्षा खरेदीवर २०% सरकारी अनुदान, ७०% बँक कर्ज (केवळ १०% महिलांचा वाटा).',
+                eligibility: [
+                    '२० ते ४५ वयोगटातील महिला',
+                    'चालक परवाना (Driving License) असणे किंवा प्रशिक्षण घेण्यास तयार असावी'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    'रहिवासी दाखला',
+                    'ड्रायव्हिंग लायसन्स',
+                    'उत्पन्न दाखला'
+                ],
+                process: 'महिला व बालविकास विभागाच्या अधिकृत पोर्टलवर किंवा जिल्हा कार्यालयात अर्ज करावा.',
+                link: 'https://womenchild.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-11',
+                title: 'प्रधानमंत्री मातृ वंदना योजना (PMMVY)',
+                titleEn: 'Pradhan Mantri Matru Vandana Yojana',
+                govType: 'CENTRAL',
+                category: 'WOMEN',
+                categoryLabel: 'महिला व बालविकास',
+                target: 'गरोदर व स्तनदा माता (पहिल्या व दुसऱ्या अपत्यासाठी)',
+                benefits: 'पहिल्या अपत्यासाठी रु. ५,००० व दुसरे अपत्य मुलगी झाल्यास रु. ६,००० थेट बँक खात्यात.',
+                eligibility: [
+                    'सरकारी नोकरीत नसलेल्या गरोदर महिला',
+                    'आरोग्य केंद्रात वेळेवर नोंदणी आवश्यक'
+                ],
+                documents: [
+                    'माता सुरक्षितता कार्ड (MCP Card)',
+                    'आधार कार्ड',
+                    'बँक पासबुक'
+                ],
+                process: 'जवळच्या प्राथमिक आरोग्य केंद्र (PHC) किंवा अंगणवाडी केंद्रात नोंदणी अर्ज भरा.',
+                link: 'https://pmmvy.wcd.gov.in/'
+            },
+
+            // --- STUDENTS & EDUCATION ---
+            {
+                id: 'scheme-12',
+                title: 'महाडीबीटी पोस्ट-मॅट्रिक शिष्यवृत्ती (MahaDBT)',
+                titleEn: 'MahaDBT Post-Matric Scholarship',
+                govType: 'STATE',
+                category: 'STUDENTS',
+                categoryLabel: 'विद्यार्थी व शिक्षण',
+                target: 'SC, ST, OBC, VJNT, SBC, EWS वर्गातील महाविद्यालयीन विद्यार्थी',
+                benefits: 'शिक्षण शुल्क (Tuition Fee), परीक्षा शुल्क माफी व निर्वाह भत्ता थेट महाविद्यालयात/खात्यात जमा.',
+                eligibility: [
+                    '१० वी नंतरचे पदविका, पदवी व पदव्युत्तर शिक्षण घेणारे विद्यार्थी',
+                    'उत्पन्नाची मर्यादा जातीच्या प्रवर्गावर आधारित (रु. १.५ लाख ते ८ लाख)'
+                ],
+                documents: [
+                    'जातीचा दाखला (Caste Certificate)',
+                    'मागील वर्षाची गुणपत्रिका (Marklist)',
+                    'उत्पन्नाचा दाखला (Income Cert)',
+                    'रहिवासी दाखला व आधार'
+                ],
+                process: 'MahaDBT पोर्टलवर ऑनलाईन प्रोफाइल तयार करून संबंधित योजनेसाठी अर्ज करा.',
+                link: 'https://mahadbt.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-13',
+                title: 'उच्च शिक्षणात मुलींना १००% मोफत शिक्षण योजना',
+                titleEn: 'Free Higher Education for Girls in Maharashtra',
+                govType: 'STATE',
+                category: 'STUDENTS',
+                categoryLabel: 'विद्यार्थी व शिक्षण',
+                target: 'EWS, SEBC, OBC प्रवर्गातील विद्यार्थिनी',
+                benefits: 'व्यावसायिक कोर्सेस (इंजिनिअरिंग, मेडिकल, फार्मसी, मॅनेजमेंट इत्यादी) १००% शिक्षण शुल्क व परीक्षा शुल्क माफ.',
+                eligibility: [
+                    'कुटुंबाचे वार्षिक उत्पन्न रु. ८ लाखांपेक्षा कमी',
+                    'महाराष्ट्रातील मान्यताप्राप्त महाविद्यालयात प्रवेश घेतलेला असावा'
+                ],
+                documents: [
+                    'उत्पन्नाचा दाखला (रु. ८ लाखांपर्यंत)',
+                    'डोमिसाईल दाखला (Maharashtra Domicile)',
+                    'प्रवेश पावती व आधार कार्ड'
+                ],
+                process: 'महाडीबीटी पोर्टलवर ईबीसी / मोफत शिक्षण योजनेअंतर्गत ऑनलाईन अर्ज करावा.',
+                link: 'https://mahadbt.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-14',
+                title: 'डॉ. बाबासाहेब आंबेडकर स्वाधार योजना',
+                titleEn: 'Dr. Babasaheb Ambedkar Swadhar Yojana',
+                govType: 'STATE',
+                category: 'STUDENTS',
+                categoryLabel: 'विद्यार्थी व शिक्षण',
+                target: 'अनुसूचित जाती (SC) व नवबौद्ध विद्यार्थी (वस्तीगृहात प्रवेश न मिळालेले)',
+                benefits: 'भोजन, निवास व शैक्षणिक साहित्यासाठी दरवर्षी रु. ५१,००० ते ६०,००० पर्यंत थेट खात्यात.',
+                eligibility: [
+                    '१० वी नंतर व्यावसायिक शिक्षण घेणारे विद्यार्थी',
+                    'विद्यार्थी वसतिगृहात प्रवेश न मिळालेला असावा',
+                    'कुटुंबाचे उत्पन्न २.५ लाखांपेक्षा कमी'
+                ],
+                documents: [
+                    'जातीचा व उत्पन्नाचा दाखला',
+                    'वसतिगृहात प्रवेश न मिळाल्याचे पत्र',
+                    'भाडे करारनामा (Rent Agreement)',
+                    'बँक खाते'
+                ],
+                process: 'जिल्हा समाज कल्याण अधिकारी कार्यालयात ऑनलाईन अथवा ऑफलाईन अर्ज सादर करा.',
+                link: 'https://socrates.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-15',
+                title: 'सारथी / बार्टी / महाज्योती / टीआरटीआय शिष्यवृत्ती',
+                titleEn: 'SARTHI / BARTI / MAHAJYOTI Research Fellowships',
+                govType: 'STATE',
+                category: 'STUDENTS',
+                categoryLabel: 'विद्यार्थी व शिक्षण',
+                target: 'मराठा (सारथी), SC (बार्टी), OBC (महाज्योती) व आदिवासी (TRTI) विद्यार्थी',
+                benefits: 'एम.फिल, पीएचडी संशोधकांसाठी दरमहा रु.३१,०००+ विद्यावेतन व युपीएससी/एमपीएससी स्पर्धा परीक्षा मोफत कोचिंग.',
+                eligibility: [
+                    'संबंधित प्रवर्गातील व महाराष्ट्राचे रहिवासी असलेले विद्यार्थी'
+                ],
+                documents: [
+                    'प्रवर्ग दाखला / ऍफिडेव्हिट',
+                    'शैक्षणिक कागदपत्रे',
+                    'आधार व उत्पन्न दाखला'
+                ],
+                process: 'सारथी (sarthi-maharashtra.gov.in), बार्टी किंवा महाज्योती यांच्या अधिकृत संकेतस्थळावरून अर्ज करा.',
+                link: 'https://sarthi-maharashtra.gov.in/'
+            },
+
+            // --- YOUTH & EMPLOYMENT ---
+            {
+                id: 'scheme-16',
+                title: 'मुख्यमंत्री युवा कार्यप्रशिक्षण योजना (लाडका भाऊ)',
+                titleEn: 'Mukhyamantri Yuva Karya Prashikshan Yojana',
+                govType: 'STATE',
+                category: 'YOUTH',
+                categoryLabel: 'युवक व रोजगार',
+                target: '१२ वी, आयटीआय, डिप्लोमा व पदवीधर तरुण/तरुणी',
+                benefits: '६ महिने प्रत्यक्ष ऑन-जॉब ट्रेनिंग आणि दरमहा रु. ६,००० ते १०,००० पर्यंत विद्यावेतन (Stipend).',
+                eligibility: [
+                    'वयोमर्यादा १८ ते ३५ वर्षे',
+                    'महाराष्ट्राचा रहिवासी असावा',
+                    'रोजगार संगम पोर्टलवर नोंदणी आवश्यक'
+                ],
+                documents: [
+                    'शैक्षणिक गुणपत्रिका',
+                    'आधार कार्ड',
+                    'बँक पासबुक',
+                    'रोजगार नोंदणी कार्ड'
+                ],
+                process: 'रोजगार संगम पोर्टल (rojgar.mahaswayam.gov.in) वर जाऊन उमेदवाराने नोंदणी करावी.',
+                link: 'https://rojgar.mahaswayam.gov.in/'
+            },
+            {
+                id: 'scheme-17',
+                title: 'मुख्यमंत्री रोजगार निर्मिती कार्यक्रम (CMEGP)',
+                titleEn: 'Chief Minister Employment Generation Programme',
+                govType: 'STATE',
+                category: 'YOUTH',
+                categoryLabel: 'युवक व रोजगार',
+                target: 'नवीन उद्योग/व्यवसाय सुरू करू इच्छिणारे नवउद्योजक',
+                benefits: 'उत्पादन क्षेत्रासाठी रु. ५० लाख व सेवा क्षेत्रासाठी रु. २० लाख कर्ज + १५% ते ३५% पर्यंत सरकारी सबसिडी.',
+                eligibility: [
+                    'वय १८ ते ४५ वर्षे (मागासवर्गीय/महिलांना ५ वर्षे सुट)',
+                    'किमान १० वी उत्तीर्ण (रु. १० लाखांवरील प्रकल्पासाठी)'
+                ],
+                documents: [
+                    'प्रकल्प अहवाल (Project Report)',
+                    'आधार, पॅन कार्ड',
+                    'शैक्षणिक व रहिवासी दाखला'
+                ],
+                process: 'CMEGP च्या अधिकृत ऑनलाईन पोर्टलवरून थेट अर्ज सादर करावा.',
+                link: 'https://cmegp.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-18',
+                title: 'पीएम विश्वकर्मा योजना',
+                titleEn: 'PM Vishwakarma Scheme for Artisans',
+                govType: 'CENTRAL',
+                category: 'YOUTH',
+                categoryLabel: 'युवक व रोजगार',
+                target: '१८ पारंपारिक कारागीर व सुतार, लोहार, कुंभार, शिंपी, गवंडी इत्यादी',
+                benefits: 'रु. १५,००० टूलकिट ई-व्हाउचर, ५ दिवसांचे मोफत कौशल्य प्रशिक्षण व रु. ३ लाखांपर्यंत ५% व्याजाने विनातारण कर्ज.',
+                eligibility: [
+                    'हाताने काम करणारे पारंपारिक कारागीर',
+                    'कुटुंबातील एकाच व्यक्तीला लाभ'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    'बँक पासबुक',
+                    'रजिस्टर्ड मोबाईल नंबर'
+                ],
+                process: 'जवळच्या सीएससी (CSC) केंद्रात जाऊन बायोमेट्रिक पडताळणीद्वारे नोंदणी करा.',
+                link: 'https://pmvishwakarma.gov.in/'
+            },
+            {
+                id: 'scheme-19',
+                title: 'अण्णासाहेब पाटील आर्थिक मागास विकास महामंडळ कर्ज योजना',
+                titleEn: 'Annasaheb Patil Loan Interest Subvention Scheme',
+                govType: 'STATE',
+                category: 'YOUTH',
+                categoryLabel: 'युवक व रोजगार',
+                target: 'आर्थिकदृष्ट्या मागास (EWS/मराठा) प्रवर्गातील तरुण उद्योजक',
+                benefits: 'रु. १५ ते ५० लाखांपर्यंतच्या बँक कर्जावरील १२% पर्यंतचे व्याज महामंडळाकडून भरले जाते (व्याज परतावा).',
+                eligibility: [
+                    'महाराष्ट्र राज्याचा रहिवासी',
+                    'वयोमर्यादा १८ ते ४५ वर्षे',
+                    'सिबिल स्कोर (CIBIL) चांगला असावा'
+                ],
+                documents: [
+                    'बँक कर्ज मंजुरी पत्र (Sanction Letter)',
+                    'आधार व पॅन कार्ड',
+                    'उत्पन्नाचा दाखला'
+                ],
+                process: 'महामंडळाच्या उद्योजकता पोर्टलवर नोंदणी करून व्याजाच्या परताव्यासाठी अर्ज करा.',
+                link: 'https://niyojit.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-20',
+                title: 'पीएम स्वनिधी योजना (PM SVANidhi)',
+                titleEn: 'PM SVANidhi for Street Vendors',
+                govType: 'CENTRAL',
+                category: 'YOUTH',
+                categoryLabel: 'युवक व रोजगार',
+                target: 'पथविक्रेते, फेरीवाले व छोटे व्यावसायिक',
+                benefits: 'प्रथम रु. १०,०००, वेळेत भरल्यास रु. २०,००० आणि त्यानंतर रु. ५०,००० पर्यंत विनातारण बँक कर्ज + कॅशबॅक.',
+                eligibility: [
+                    'शहरी व निमशहरी भागातील पथविक्रेते व फेरीवाले'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    'नगरपरिषद/नगरपालिका विक्रेते प्रमाणपत्र किंवा शिफारस पत्र'
+                ],
+                process: 'पीएम स्वनिधी पोर्टलवर किंवा जवळच्या राष्ट्रीयीकृत बँकेत अर्ज करा.',
+                link: 'https://pmsvanidhi.mohua.gov.in/'
+            },
+
+            // --- HEALTH & SOCIAL SECURITY ---
+            {
+                id: 'scheme-21',
+                title: 'महात्मा ज्योतिराव फुले जन आरोग्य योजना (MJPJAY)',
+                titleEn: 'Mahatma Jyotirao Phule Jan Arogya Yojana',
+                govType: 'STATE',
+                category: 'HEALTH',
+                categoryLabel: 'आरोग्य व सामाजिक सुरक्षा',
+                target: 'महाराष्ट्रातील सर्व शिधापत्रिकाधारक (रेशनकार्डधारक) नागरिक',
+                benefits: 'दरवर्षी प्रति कुटुंब रु. ५ लाखांपर्यंत मोफत गंभीर आजारांवर उपचार व शस्त्रक्रिया (Cashless Hospitalization).',
+                eligibility: [
+                    'पिवळे, केशरी, पांढरे रेशनकार्ड धारक कुटुंब',
+                    'सूचीबद्ध अंगीकृत रुग्णालयात उपचार आवश्यक'
+                ],
+                documents: [
+                    'रेशन कार्ड',
+                    'आधार कार्ड / मतदार ओळखपत्र'
+                ],
+                process: 'अंगीकृत रुग्णालयातील "आरोग्य मित्र" यांच्याशी संपर्क साधून मोफत उपचाराचा लाभ घ्या.',
+                link: 'https://www.jeeconvandana.gov.in/'
+            },
+            {
+                id: 'scheme-22',
+                title: 'आयुष्मान भारत - प्रधानमंत्री जन आरोग्य योजना (AB-PMJAY)',
+                titleEn: 'Ayushman Bharat PM-JAY',
+                govType: 'CENTRAL',
+                category: 'HEALTH',
+                categoryLabel: 'आरोग्य व सामाजिक सुरक्षा',
+                target: 'सामाजिक-आर्थिक जनगणनेतील पात्र कुटुंबे व ज्येष्ठ नागरिक (७०+ वर्षे)',
+                benefits: 'द्वितीयक आणि तृतीयक उपचारांसाठी प्रति कुटुंब रु. ५ लाखांपर्यंतचे मोफत आरोग्य कवच.',
+                eligibility: [
+                    'आयुष्मान भारत यादीत नाव असलेले नागरिक',
+                    '७० वर्षे किंवा त्याहून अधिक वयाचे सर्व ज्येष्ठ नागरिक (उत्पन्नाची अट नाही)'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    'मोबाईल नंबर'
+                ],
+                process: 'आयुष्मान ॲप किंवा सीएससी केंद्रात जाऊन "आयुष्मान कार्ड" डाउनलोड करा.',
+                link: 'https://pmjay.gov.in/'
+            },
+            {
+                id: 'scheme-23',
+                title: 'संजय गांधी निराधार अनुदान योजना',
+                titleEn: 'Sanjay Gandhi Niradhar Anudan Yojana',
+                govType: 'STATE',
+                category: 'HEALTH',
+                categoryLabel: 'आरोग्य व सामाजिक सुरक्षा',
+                target: 'निराधार व्यक्ती, विधवा, परित्यक्ता, दिव्यांग व गंभीर आजारी व्यक्ती',
+                benefits: 'दरमहा रु. १,५०० ची आर्थिक निवृत्तीवेतन (पेन्शन) मदत थेट खात्यात.',
+                eligibility: [
+                    'वय ६५ वर्षांपेक्षा कमी असावे',
+                    'कुटुंबाचे वार्षिक उत्पन्न रु. २१,००० पर्यंत असावे'
+                ],
+                documents: [
+                    'तहसीलदारांचा उत्पन्नाचा दाखला',
+                    'वयाचा पुरावा',
+                    'अपंगत्व दाखला (दिव्यांग असल्यास)',
+                    'आधार व बँक खाते'
+                ],
+                process: 'तालुका तहसील कार्यालयात किंवा सेतू सुविधा केंद्रात अर्ज सादर करावा.',
+                link: 'https://socrates.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-24',
+                title: 'बांधकाम कामगार नोंदणी व कल्याणकारी योजना (BOCW)',
+                titleEn: 'Maharashtra Building Workers Welfare Board',
+                govType: 'STATE',
+                category: 'HEALTH',
+                categoryLabel: 'आरोग्य व सामाजिक सुरक्षा',
+                target: 'नोंदणीकृत बांधकाम कामगार व कारागीर',
+                benefits: 'मोफत सेफ्टी किट, अवजारे किट, मुलीच्या लग्नासाठी रु. ५०,०००, गृहकर्ज सबसिडी व वैद्यकीय सहाय्य.',
+                eligibility: [
+                    'वय १८ ते ६० वर्षे',
+                    'वर्षात किमान ९० दिवस बांधकाम कामगार म्हणून काम केलेले असावे'
+                ],
+                documents: [
+                    '९० दिवस कामाचे ठेकेदार/इंजिनिअरचे प्रमाणपत्र',
+                    'आधार कार्ड',
+                    'बँक पासबुक',
+                    'पासपोर्ट फोटो'
+                ],
+                process: 'mahabocw.in या अधिकृत संकेतस्थळावरून ऑनलाईन नोंदणी करा.',
+                link: 'https://mahabocw.in/'
+            },
+
+            // --- SENIOR CITIZENS & DIVYANG ---
+            {
+                id: 'scheme-25',
+                title: 'श्रावणबाळ सेवा राज्य निवृत्तीवेतन योजना',
+                titleEn: 'Shravanbal Seva Pension Scheme',
+                govType: 'STATE',
+                category: 'SENIORS',
+                categoryLabel: 'ज्येष्ठ नागरिक व दिव्यांग',
+                target: '६५ वर्षे किंवा त्याहून अधिक वयाचे निराधार ज्येष्ठ नागरिक',
+                benefits: 'दरमहा रु. १,५०० निवृत्तीवेतन (पेन्शन) थेट बँक खात्यात.',
+                eligibility: [
+                    'वय ६५ वर्षे पूर्ण असावे',
+                    'कुटुंबाचे वार्षिक उत्पन्न रु. २१,००० पेक्षा जास्त नसावे',
+                    'महाराष्ट्राचा १५ वर्षे रहिवासी'
+                ],
+                documents: [
+                    'वयाचा पुरावा (टीसी/आधार/शाळा सोडल्याचा दाखला)',
+                    'उत्पन्नाचा दाखला',
+                    'रहिवासी दाखला',
+                    'बँक पासबुक'
+                ],
+                process: 'तहसील कार्यालय किंवा महासेवा केंद्रात ऑनलाईन अर्ज सादर करावा.',
+                link: 'https://maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-26',
+                title: 'इंदिरा गांधी राष्ट्रीय वृद्धपकाळ निवृत्तीवेतन योजना',
+                titleEn: 'Indira Gandhi National Old Age Pension Scheme',
+                govType: 'CENTRAL',
+                category: 'SENIORS',
+                categoryLabel: 'ज्येष्ठ नागरिक व दिव्यांग',
+                target: 'दारिद्र्यरेषेखालील (BPL) ६५ वर्षांवरील ज्येष्ठ नागरिक',
+                benefits: 'दरमहा नियमित आर्थिक पेन्शन सहाय्य.',
+                eligibility: [
+                    'कुटुंब बीपीएल (BPL) यादीत समाविष्ट असावे',
+                    'वय ६५ वर्षे किंवा अधिक'
+                ],
+                documents: [
+                    'बीपीएल रेशन कार्ड',
+                    'आधार कार्ड',
+                    'बँक पासबुक'
+                ],
+                process: 'स्थानिक तहसील कार्यालयातील सामाजिक सुरक्षा विभागाकडे अर्ज करा.',
+                link: 'https://nsap.nic.in/'
+            },
+            {
+                id: 'scheme-27',
+                title: 'स्वावलंबन युडीआयडी कार्ड (UDID Scheme for Divyang)',
+                titleEn: 'Unique Disability ID Card',
+                govType: 'CENTRAL',
+                category: 'SENIORS',
+                categoryLabel: 'ज्येष्ठ नागरिक व दिव्यांग',
+                target: '४०% किंवा त्याहून अधिक अपंगत्व असलेले दिव्यांग नागरिक',
+                benefits: 'संपूर्ण भारतात वैद्यकीय, एसटी/रेल्वे प्रवास सवलत, मोफत साधने व शैक्षणिक साहाय्यासाठी एकच कार्ड.',
+                eligibility: [
+                    'सरकारी रुग्णालयाचे किमान ४०% अपंगत्व प्रमाणपत्र असणे आवश्यक'
+                ],
+                documents: [
+                    'अपंगत्व प्रमाणपत्र (Disability Cert)',
+                    'आधार कार्ड',
+                    'फोटो व सही'
+                ],
+                process: 'swavlambancard.gov.in वर जाऊन ऑनलाईन नोंदणी करा.',
+                link: 'https://www.swavlambancard.gov.in/'
+            },
+
+            // --- HOUSING & RURAL DEVELOPMENT ---
+            {
+                id: 'scheme-28',
+                title: 'प्रधानमंत्री आवास योजना - ग्रामीण (PMAY-G)',
+                titleEn: 'Pradhan Mantri Awaas Yojana Gramin',
+                govType: 'CENTRAL',
+                category: 'HOUSING',
+                categoryLabel: 'निवारा व ग्रामीण विकास',
+                target: 'ग्रामीण भागातील बेघर व कच्च्या घरात राहणारी कुटुंबे',
+                benefits: 'पक्के घर बांधण्यासाठी रु. १,२०,००० थेट अनुदान + मनरेगा अंतर्गत १०० दिवसांची मजुरी + शौचालय अनुदान.',
+                eligibility: [
+                    'सामाजिक-आर्थिक जात जनगणनेत (SECC) नाव असलेले नागरिक',
+                    'स्वतःचे पक्के घर नसावे'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    'जमिनीचा दाखला/जागा प्रमाणपत्र',
+                    'जॉब कार्ड (MGNREGA)',
+                    'बँक पासबुक'
+                ],
+                process: 'ग्रामपंचायतीच्या ग्रामसभेमार्फत लाभार्थ्यांची निवड केली जाते. ग्रामसेवकांशी संपर्क साधा.',
+                link: 'https://pmayg.nic.in/'
+            },
+            {
+                id: 'scheme-29',
+                title: 'रमाई आवास योजना (अनुसूचित जाती/जमातीसाठी)',
+                titleEn: 'Ramai Awas Yojana',
+                govType: 'STATE',
+                category: 'HOUSING',
+                categoryLabel: 'निवारा व ग्रामीण विकास',
+                target: 'अनुसूचित जाती (SC) व नवबौद्ध प्रवर्गातील बेघर कुटुंबे',
+                benefits: 'ग्रामीण भागात घर बांधण्यासाठी रु. १.५० लाख ते २.५० लाखांपर्यंतचे १००% अनुदान.',
+                eligibility: [
+                    'महाराष्ट्रातील SC/नवबौद्ध प्रवर्गातील नागरिक',
+                    'स्वतःची जागा किंवा मोफत मिळालेली जागा असावी'
+                ],
+                documents: [
+                    'जातीचा दाखला',
+                    'जागेची सनद / ७/१२',
+                    'उत्पन्न दाखला',
+                    'आधार व बँक खाते'
+                ],
+                process: 'ग्रामपंचायत किंवा महाआवास पोर्टलवरून अर्ज करावा.',
+                link: 'https://mharai.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-30',
+                title: 'मोदी आवास घरकुल योजना (OBC प्रवर्गासाठी)',
+                titleEn: 'Modi Awas Gharkul Yojana for OBC',
+                govType: 'STATE',
+                category: 'HOUSING',
+                categoryLabel: 'निवारा व ग्रामीण विकास',
+                target: 'इतर मागासवर्गीय (OBC) प्रवर्गातील बेघर नागरिक',
+                benefits: 'ग्रामीण भागात स्वतःचे पक्के घर बांधण्यासाठी रु. १,२०,००० चे अनुदान.',
+                eligibility: [
+                    'OBC प्रवर्गातील नागरिक',
+                    'वार्षिक उत्पन्न रु. १.२० लाखांपर्यंत'
+                ],
+                documents: [
+                    'ओबीसी जातीचा दाखला',
+                    'उत्पन्नाचा दाखला',
+                    'जागेचे कागदपत्र',
+                    'आधार कार्ड'
+                ],
+                process: 'ग्रामपंचायत किंवा ऑनलाईन महाआवास सिस्टीमद्वारे अर्ज सादर करा.',
+                link: 'https://rdd.maharashtra.gov.in/'
+            },
+            {
+                id: 'scheme-31',
+                title: 'जल जीवन मिशन (हर घर जल)',
+                titleEn: 'Jal Jeevan Mission',
+                govType: 'CENTRAL',
+                category: 'HOUSING',
+                categoryLabel: 'निवारा व ग्रामीण विकास',
+                target: 'ग्रामीण भागातील सर्व कुटुंबे',
+                benefits: 'प्रत्येक ग्रामीण कुटुंबाला नळाद्वारे प्रतिमाणशी ५५ लिटर शुद्ध पिण्याचे पाणी नळ जोडणी.',
+                eligibility: [
+                    'ग्रामीण क्षेत्रातील रहिवासी'
+                ],
+                documents: [
+                    'आधार कार्ड',
+                    'घरपट्टी पावती'
+                ],
+                process: 'स्थानिक ग्रामपंचायत पाणी पुरवठा समितीकडे नळ जोडणीसाठी अर्ज करा.',
+                link: 'https://ejalshakti.gov.in/jjm/'
+            }
+        ];
+
+        // CATEGORY DEFINITIONS
+        const categories = [
+            { id: 'ALL', label: 'सर्व योजना', icon: 'fa-layer-group' },
+            { id: 'FARMERS', label: 'शेतकरी व कृषी', icon: 'fa-wheat-awn' },
+            { id: 'WOMEN', label: 'महिला व बालविकास', icon: 'fa-person-dress' },
+            { id: 'STUDENTS', label: 'विद्यार्थी व शिक्षण', icon: 'fa-graduation-cap' },
+            { id: 'YOUTH', label: 'युवक व रोजगार', icon: 'fa-briefcase' },
+            { id: 'HEALTH', label: 'आरोग्य व सुरक्षा', icon: 'fa-heart-pulse' },
+            { id: 'SENIORS', label: 'ज्येष्ठ व दिव्यांग', icon: 'fa-wheelchair' },
+            { id: 'HOUSING', label: 'निवारा व ग्रामीण', icon: 'fa-house-chimney' }
+        ];
+
+        // STATE MANAGEMENT
+        let currentCategory = 'ALL';
+        let currentGovFilter = 'ALL';
+        let bookmarksOnly = false;
+        let bookmarkedSchemeIds = JSON.parse(localStorage.getItem('mla_katke_favs') || '[]');
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategoryPills();
+            updateFavCount();
+            filterSchemes();
+        });
+
+        // RENDER CATEGORY PILLS (ROUNDED PILL STYLE)
+        function renderCategoryPills() {
+            const container = document.getElementById('categoryPills');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat.id}')" 
+                        id="cat-${cat.id}" 
+                        class="cat-pill text-xs md:text-sm font-bold px-4 py-2 rounded-full transition flex items-center gap-1.5 border shadow-sm ${cat.id === 'ALL' ? 'bg-brand-purple text-white border-brand-purple' : 'bg-white text-gray-700 border-cream-300 hover:border-brand-purple hover:text-brand-purple'}">
+                    <i class="fa-solid ${cat.icon}"></i>
+                    <span>${cat.label}</span>
+                </button>
+            `).join('');
+        }
+
+        // FILTER LOGIC
+        function setCategory(catId) {
+            currentCategory = catId;
+            bookmarksOnly = false;
+            updatePillStyles();
+            filterSchemes();
+        }
+
+        function setGovFilter(govType) {
+            currentGovFilter = govType;
+            bookmarksOnly = false;
+            document.querySelectorAll('.gov-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-purple', 'text-white', 'shadow-sm');
+                btn.classList.add('text-gray-700');
+            });
+            const activeBtn = document.getElementById(`gov-${govType}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brand-purple', 'text-white', 'shadow-sm');
+                activeBtn.classList.remove('text-gray-700');
+            }
+            filterSchemes();
+        }
+
+        function toggleBookmarksOnly() {
+            bookmarksOnly = !bookmarksOnly;
+            const btn = document.getElementById('bookmarkFilterBtn');
+            if (bookmarksOnly) {
+                btn.classList.add('bg-yellow-100', 'text-yellow-800', 'border', 'border-yellow-300');
+            } else {
+                btn.classList.remove('bg-yellow-100', 'text-yellow-800', 'border', 'border-yellow-300');
+            }
+            filterSchemes();
+        }
+
+        function updatePillStyles() {
+            categories.forEach(cat => {
+                const btn = document.getElementById(`cat-${cat.id}`);
+                if (!btn) return;
+                if (cat.id === currentCategory && !bookmarksOnly) {
+                    btn.className = "cat-pill text-xs md:text-sm font-bold px-4 py-2 rounded-full transition flex items-center gap-1.5 border shadow-sm bg-brand-purple text-white border-brand-purple";
+                } else {
+                    btn.className = "cat-pill text-xs md:text-sm font-bold px-4 py-2 rounded-full transition flex items-center gap-1.5 border shadow-sm bg-white text-gray-700 border-cream-300 hover:border-brand-purple hover:text-brand-purple";
+                }
+            });
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clearBtn').classList.add('hidden');
+            filterSchemes();
+        }
+
+        function resetFilters() {
+            currentCategory = 'ALL';
+            currentGovFilter = 'ALL';
+            bookmarksOnly = false;
+            document.getElementById('searchInput').value = '';
+            setGovFilter('ALL');
+            updatePillStyles();
+            filterSchemes();
+        }
+
+        // MASTER FILTER FUNCTION
+        function filterSchemes() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const clearBtn = document.getElementById('clearBtn');
+            
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            const filtered = schemesData.filter(s => {
+                const matchCategory = (currentCategory === 'ALL' || s.category === currentCategory);
+                const matchGov = (currentGovFilter === 'ALL' || s.govType === currentGovFilter);
+                const matchBookmark = (!bookmarksOnly || bookmarkedSchemeIds.includes(s.id));
+
+                const matchText = query === '' || 
+                    s.title.toLowerCase().includes(query) || 
+                    s.titleEn.toLowerCase().includes(query) || 
+                    s.benefits.toLowerCase().includes(query) || 
+                    s.target.toLowerCase().includes(query) ||
+                    s.categoryLabel.toLowerCase().includes(query);
+
+                return matchCategory && matchGov && matchBookmark && matchText;
+            });
+
+            renderSchemes(filtered);
+        }
+
+        // RENDER SCHEME CARDS
+        function renderSchemes(list) {
+            const grid = document.getElementById('schemesGrid');
+            const emptyState = document.getElementById('emptyState');
+            const countElem = document.getElementById('schemeCount');
+
+            countElem.innerText = list.length;
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = list.map(s => {
+                const isFav = bookmarkedSchemeIds.includes(s.id);
+                const govBadgeClass = s.govType === 'STATE' 
+                    ? 'bg-orange-100 text-orange-800 border-orange-200' 
+                    : 'bg-blue-100 text-blue-800 border-blue-200';
+                const govLabel = s.govType === 'STATE' ? 'महाराष्ट्र शासन' : 'केंद्र शासन';
+
+                return `
+                    <div class="scheme-card bg-white rounded-3xl border border-cream-200 hover:border-brand-purple/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden relative group">
+                        
+                        <!-- Top Header Bar -->
+                        <div class="p-6 pb-3">
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="text-[11px] font-extrabold px-3 py-0.5 rounded-full border ${govBadgeClass}">
+                                        ${govLabel}
+                                    </span>
+                                    <span class="text-[11px] font-bold bg-cream-100 text-gray-600 px-2.5 py-0.5 rounded-full border border-cream-200">
+                                        ${s.categoryLabel}
+                                    </span>
+                                </div>
+                                <button onclick="toggleBookmark('${s.id}', event)" title="सेव्ह करा" class="text-gray-300 hover:text-yellow-500 transition text-lg p-1">
+                                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-star ${isFav ? 'text-yellow-500' : ''}"></i>
+                                </button>
+                            </div>
+
+                            <h3 class="text-lg md:text-xl font-bold font-heading text-brand-purpleDark group-hover:text-brand-purple transition leading-snug">
+                                ${s.title}
+                            </h3>
+                            <p class="text-[11px] text-gray-400 font-medium italic mt-0.5">${s.titleEn}</p>
+                        </div>
+
+                        <!-- Card Body Details -->
+                        <div class="px-6 py-2 flex-grow space-y-3">
+                            <div class="bg-amber-50/70 rounded-2xl p-3 border border-amber-100">
+                                <span class="text-[11px] font-bold text-amber-800 uppercase block tracking-wider">लाभार्थी वर्ग:</span>
+                                <span class="text-xs font-semibold text-gray-800">${s.target}</span>
+                            </div>
+
+                            <div>
+                                <span class="text-[11px] font-bold text-gray-500 uppercase block">प्रमुख फायदा / अनुदान:</span>
+                                <p class="text-xs font-medium text-gray-700 line-clamp-2">${s.benefits}</p>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer Action Buttons -->
+                        <div class="p-6 pt-3 border-t border-cream-200 bg-cream-50/30 flex items-center justify-between gap-2">
+                            <button onclick="openModal('${s.id}')" class="flex-1 bg-brand-purple hover:bg-brand-purpleDark text-white text-xs font-bold py-2.5 px-3 rounded-full transition flex items-center justify-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-circle-info text-amber-300"></i> सविस्तर माहिती
+                            </button>
+                            <a href="${s.link}" target="_blank" class="bg-brand-coral hover:bg-orange-600 text-white text-xs font-bold py-2.5 px-4 rounded-full transition flex items-center justify-center gap-1 shadow-sm" title="अधिकृत पोर्टल">
+                                <span>अर्ज</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // BOOKMARK / FAVORITE TOGGLE
+        function toggleBookmark(id, event) {
+            if (event) event.stopPropagation();
+            if (bookmarkedSchemeIds.includes(id)) {
+                bookmarkedSchemeIds = bookmarkedSchemeIds.filter(item => item !== id);
+            } else {
+                bookmarkedSchemeIds.push(id);
+            }
+            localStorage.setItem('mla_katke_favs', JSON.stringify(bookmarkedSchemeIds));
+            updateFavCount();
+            filterSchemes();
+        }
+
+        function updateFavCount() {
+            document.getElementById('favCount').innerText = bookmarkedSchemeIds.length;
+        }
+
+        // MODAL OPEN / CLOSE LOGIC
+        function openModal(schemeId) {
+            const scheme = schemesData.find(s => s.id === schemeId);
+            if (!scheme) return;
+
+            document.getElementById('modalTitle').innerText = scheme.title;
+            document.getElementById('modalTitleEn').innerText = scheme.titleEn;
+            document.getElementById('modalBenefits').innerText = scheme.benefits;
+            document.getElementById('modalCategory').innerText = scheme.categoryLabel;
+
+            const govBadge = document.getElementById('modalGovType');
+            govBadge.innerText = scheme.govType === 'STATE' ? 'महाराष्ट्र शासन' : 'केंद्र शासन';
+            govBadge.className = scheme.govType === 'STATE' 
+                ? 'text-xs font-extrabold px-3 py-1 rounded-full uppercase bg-orange-100 text-orange-800 border border-orange-200'
+                : 'text-xs font-extrabold px-3 py-1 rounded-full uppercase bg-blue-100 text-blue-800 border border-blue-200';
+
+            // Eligibility list
+            document.getElementById('modalEligibility').innerHTML = scheme.eligibility.map(item => `
+                <li class="flex items-start gap-2">
+                    <i class="fa-solid fa-check text-green-500 mt-1 text-xs"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Documents list
+            document.getElementById('modalDocuments').innerHTML = scheme.documents.map(item => `
+                <li class="flex items-start gap-2">
+                    <i class="fa-solid fa-file text-blue-500 mt-1 text-xs"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Process text
+            document.getElementById('modalProcess').innerHTML = `
+                <p><i class="fa-solid fa-square-check text-purple-600 mr-1"></i> ${scheme.process}</p>
+            `;
+
+            // Direct link
+            document.getElementById('modalApplyLink').href = scheme.link;
+
+            // Show Modal
+            document.getElementById('schemeModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('schemeModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close Modal on Backdrop Click
+        document.getElementById('schemeModal').addEventListener('click', (e) => {
+            if (e.target.id === 'schemeModal') {
+                closeModal();
+            }
+        });
+
+        // Close on Escape Key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
