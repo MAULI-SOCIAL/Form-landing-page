@@ -212,94 +212,6 @@
       }
     }
 
-    /* Modal for Janta Darbar Schedule */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(30, 27, 75, 0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 10001;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: #ffffff;
-      border-radius: 24px;
-      max-width: 440px;
-      width: 100%;
-      padding: 28px 24px;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      border: 1px solid rgba(255, 228, 233, 0.8);
-      animation: modalFadeIn 0.25s ease-out;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #64748B;
-      cursor: pointer;
-      border: none;
-      background: none;
-      line-height: 1;
-    }
-
-    .modal-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #1E1B4B;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .schedule-item {
-      background: #FFF5F7;
-      border: 1px solid #FFE4E9;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .schedule-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .schedule-date {
-      font-weight: 700;
-      color: #FF3366;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .schedule-location {
-      font-size: 14px;
-      color: #1E1B4B;
-      font-weight: 600;
-    }
-
-    .schedule-time {
-      font-size: 13px;
-      color: #64748B;
-      margin-top: 2px;
-    }
-
     :root {
       --chat--color--primary: #FF3366;
       --chat--color--primary-shade-50: #E61E53;
@@ -511,8 +423,8 @@
         🏗️ विकास कामे
       </a>
 
-      <button
-        onclick="openJantaDarbarModal()"
+      <a
+        href="https://maulikatke.in/jantadarbar"
         class="btn"
         style="
           background: linear-gradient(135deg, #10B981 0%, #059669 100%);
@@ -522,38 +434,10 @@
         "
       >
         जनता दरबार 📅
-      </button>
+      </a>
 
     </div>
 
-  </div>
-
-
-  <!-- JANTA DARBAR SCHEDULE MODAL -->
-  <div id="jantaDarbarModal" class="modal-overlay" onclick="closeJantaDarbarModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeJantaDarbarModal()">&times;</button>
-      <div class="modal-title">
-        📅 आगामी जनता दरबार वेळापत्रक
-      </div>
-      
-      <div class="schedule-item">
-        <div class="schedule-date">सोमवार (नियमित)</div>
-        <div class="schedule-location">मुख्य जनसंपर्क कार्यालय, हवेली</div>
-        <div class="schedule-time">⏰ सकाळी १०:०० ते दुपारी २:००</div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="schedule-date">गुरुवार (नियमित)</div>
-        <div class="schedule-location">तालुका कार्यालय, शिरूर</div>
-        <div class="schedule-time">⏰ सकाळी १०:०० ते दुपारी २:००</div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="schedule-date">विशेष सूचना</div>
-        <div class="schedule-location">आपल्या निवेदनासह वेळेवर उपस्थित राहावे.</div>
-      </div>
-    </div>
   </div>
 
 
@@ -561,18 +445,6 @@
   <div class="chat-attention-badge">
     निवेदन/निमंत्रण नोंदवा ⬇
   </div>
-
-
-  <!-- MODAL SCRIPT -->
-  <script>
-    function openJantaDarbarModal() {
-      document.getElementById('jantaDarbarModal').style.display = 'flex';
-    }
-
-    function closeJantaDarbarModal(event) {
-      document.getElementById('jantaDarbarModal').style.display = 'none';
-    }
-  </script>
 
 
   <!-- CHAT SCRIPT -->
