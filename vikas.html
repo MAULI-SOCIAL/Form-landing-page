@@ -160,9 +160,7 @@
                     </h3>
                     <span class="text-xs bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full">सफल पूर्ण</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="completedGrid">
-                    <!-- JS populated -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="completedGrid"></div>
             </div>
 
             <!-- 2. UNDER PROGRESS -->
@@ -171,11 +169,9 @@
                     <h3 class="text-xl md:text-2xl font-extrabold font-heading text-brand-purpleDark flex items-center gap-2">
                         <i class="fa-solid fa-spinner text-amber-600 animate-spin"></i> प्रगतीपथावरील कामे (Under Progress)
                     </h3>
-                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full">कामा L चालू आहे</span>
+                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full">काम चालू आहे</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="progressGrid">
-                    <!-- JS populated -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="progressGrid"></div>
             </div>
 
             <!-- 3. UPCOMING PROJECTS -->
@@ -186,9 +182,7 @@
                     </h3>
                     <span class="text-xs bg-indigo-100 text-indigo-800 font-bold px-3 py-1 rounded-full">नियोजनबद्ध</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="upcomingGrid">
-                    <!-- JS populated -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="upcomingGrid"></div>
             </div>
 
             <!-- 4. FUNDS & GRANTS -->
@@ -209,9 +203,7 @@
                                 <th class="p-3 rounded-r-xl">सध्याची स्थिती</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-cream-100 font-medium text-gray-800" id="fundsTableBody">
-                            <!-- JS populated -->
-                        </tbody>
+                        <tbody class="divide-y divide-cream-100 font-medium text-gray-800" id="fundsTableBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -224,9 +216,7 @@
                     </h3>
                     <span class="text-xs bg-orange-100 text-orange-800 font-bold px-3 py-1 rounded-full">जनहित प्रश्न</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="assemblyGrid">
-                    <!-- JS populated -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="assemblyGrid"></div>
             </div>
 
             <!-- 6. VISION 2029 -->
@@ -237,29 +227,10 @@
                     </h3>
                     <span class="text-xs bg-purple-100 text-purple-800 font-bold px-3 py-1 rounded-full">भविष्यवेधी योजना</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="visionGrid">
-                    <!-- JS populated -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="visionGrid"></div>
             </div>
 
         </div>
-
-        <!-- OFFICE STAFF UPDATE GUIDE BOX -->
-        <section class="mt-16 bg-cream-100 border border-cream-300 rounded-3xl p-6 md:p-8 no-print">
-            <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-brand-purple text-white rounded-2xl flex items-center justify-center text-xl flex-shrink-0">
-                    <i class="fa-solid fa-laptop-code"></i>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold font-heading text-brand-purpleDark">कार्यालयीन कर्मचाऱ्यांसाठी सूचना (How to Update Data):</h4>
-                    <p class="text-xs md:text-sm text-gray-700 mt-1 leading-relaxed">
-                        ही वेबसाईट अत्यंत सोप्या JavaScript डेटा मॅट्रिक्सवर चालते. नवीन कामे किंवा निधी जोडण्यासाठी किंवा बदलण्यासाठी खालील 
-                        <code class="bg-white px-2 py-0.5 rounded border border-cream-300 text-brand-purple font-mono text-xs">developmentData</code> 
-                        ऑब्जेक्टमध्ये माहिती जोडा. गुगल शीट (Google Sheets) द्वारे API जोडायचे असल्यास संपर्क साधा.
-                    </p>
-                </div>
-            </div>
-        </section>
 
     </main>
 
@@ -279,7 +250,6 @@
 
     <!-- JAVASCRIPT: DATA & INTERACTION LOGIC -->
     <script>
-        // विकास कामांचा डेटा (Office Staff याद्वारे सहज डेटा अपडेट करू शकतात)
         const developmentData = {
             completed: [
                 { title: 'वाघोली अंतर्गत रस्ते व ड्रेनेजलाईन सुधारणा', location: 'वाघोली, हवेली', cost: 'रु. १२ कोटी', date: 'पूर्ण: जानेवारी २०२६', desc: 'संत तुकाराम नगर व मुख्य बाजारपेठ परिसरातील सिमेंट रस्ते व पाणी निचरा व्यवस्था पूर्ण.' },
@@ -289,16 +259,16 @@
             progress: [
                 { title: 'शिरूर बायपास रस्ते रुंदीकरण व उड्डाणपूल', location: 'शिरूर शहर', cost: 'रु. ४५ कोटी', progress: '६५% काम पूर्ण', desc: 'वाहतूक कोंडी सोडवण्यासाठी राष्ट्रीय महामार्गावरील कामास वेग.' },
                 { title: 'शिक्रापूर पाणी पुरवठा योजना (नजीकची गावे)', location: 'शिक्रापूर परिसर', cost: 'रु. २८ कोटी', progress: '५०% काम पूर्ण', desc: 'घरपोच नळ पाणी पुरवठ्यासाठी ओव्हरहेड वॉटर टँक व पाईपलाईन टाकण्याचे काम चालू.' },
-                { title: 'उरळी कांचन क्रीडा संकुल व व्यायाम शाळा', location: 'उरळी कांचन', cost: 'रु. ८ कोटी', progress: '८०% काम पूर्ण', desc: 'युवकांसाठी आधुनिक रनिंग ट्रॅक, ইনडोअर गेम हॉल व ओपन जिम.' }
+                { title: 'उरळी कांचन क्रीडा संकुल व व्यायाम शाळा', location: 'उरळी कांचन', cost: 'रु. ८ कोटी', progress: '८०% काम पूर्ण', desc: 'युवकांसाठी आधुनिक रनिंग ट्रॅक, इनडोअर गेम हॉल व ओपन जिम.' }
             ],
             upcoming: [
-                { title: 'पुणे-शिरूर मेट्रोजिला / वर्तुळ वर्तुळ रेल्वे जोडणी पाठपुरावा', location: 'शिरूर-हवेली पट्टा', cost: 'प्रस्तावित', desc: 'प्रवासी वर्गासाठी जलद दळणवळण व रेल्वे कनेक्टिव्हिटीसाठी शासन दरबारी नियोजन.' },
+                { title: 'पुणे-शिरूर मेट्रो / वर्तुळ रेल्वे जोडणी पाठपुरावा', location: 'शिरूर-हवेली पट्टा', cost: 'प्रस्तावित', desc: 'प्रवासी वर्गासाठी जलद दळणवळण व रेल्वे कनेक्टिव्हिटीसाठी शासन दरबारी नियोजन.' },
                 { title: 'वाघोली येथे शासकीय औद्योगिक प्रशिक्षण संस्था (ITI)', location: 'वाघोली', cost: 'रु. १५ कोटी', desc: 'स्थानिक युवकांना तांत्रिक शिक्षण व रोजगारक्षम बनवण्यासाठी नवीन आयटीआय कॉलेज.' },
                 { title: 'भीमा नदीकाठ सुशोभीकरण व घाटबांधणी', location: 'शिरूर-न्हावरे परिसर', cost: 'रु. १० कोटी', desc: 'धार्मिक व पर्यटनाच्या दृष्टीने नदीघाटांचा विकास करणे.' }
             ],
             funds: [
                 { source: 'आमदार विकास निधी (MLALAD)', sector: 'स्थानिक विकास', amount: 'रु. २० कोटी / वर्ष', status: 'वितरीत व कार्यान्वित' },
-                { source: 'नागरी οरउत्थान व रस्ते विकास विशेष अनुदान', sector: 'रस्ते व वाहतूक', amount: 'रु. १५० कोटी', status: 'मंजूर व कामाधीन' },
+                { source: 'नागरीोत्थान व रस्ते विकास विशेष अनुदान', sector: 'रस्ते व वाहतूक', amount: 'रु. १५० कोटी', status: 'मंजूर व कामाधीन' },
                 { source: 'जलजीवन मिशन (Gramin Water Supply)', sector: 'पाणीपुरवठा', amount: 'रु. १८० कोटी', status: 'टप्प्याटप्प्याने कार्यान्वित' },
                 { source: 'जिल्हा वार्षिक योजना (DPC)', sector: 'आरोग्य, शिक्षण व समाजकल्याण', amount: 'रु. ६५ कोटी', status: 'वितरीत' }
             ],
@@ -314,7 +284,6 @@
             ]
         };
 
-        // RENDER FUNCTIONS ON LOAD
         document.addEventListener('DOMContentLoaded', () => {
             renderCompleted();
             renderProgress();
@@ -325,12 +294,10 @@
         });
 
         function switchTab(tabId) {
-            // Hide all
             ['completed', 'progress', 'upcoming', 'funds', 'assembly', 'vision'].forEach(id => {
                 document.getElementById(`section-${id}`).classList.add('hidden');
                 document.getElementById(`tab-${id}`).className = "tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition text-gray-700 hover:bg-cream-100";
             });
-            // Show selected
             document.getElementById(`section-${tabId}`).classList.remove('hidden');
             document.getElementById(`tab-${tabId}`).className = "tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition bg-brand-purple text-white shadow-sm";
         }
