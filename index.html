@@ -114,6 +114,23 @@
   --chat--footer--color: #303030;
 }
 
+/* ---------- Hide Powered by n8n branding ---------- */
+.chat-footer a,
+.chat-footer small,
+.chat-footer-branding,
+.chat-footer div:has(a[href*="n8n"]),
+[class*="footer"] a[href*="n8n"],
+[class*="poweredBy"],
+[class*="branding"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* ---------- Window (shadow lives here, not on :root) ---------- */
 .chat-window {
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
@@ -537,6 +554,18 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
         return a;
       }
 
+      function removeBranding() {
+        var n8nLinks = document.querySelectorAll('#n8n-chat a[href*="n8n.io"], .chat-footer a, [class*="poweredBy"], [class*="branding"]');
+        for (var i = 0; i < n8nLinks.length; i++) {
+          var el = n8nLinks[i];
+          var parent = el.closest('div') || el.parentElement;
+          if (parent && parent !== document.body && parent !== document.querySelector('.chat-footer')) {
+            parent.style.display = 'none';
+          }
+          el.style.display = 'none';
+        }
+      }
+
       function addButtons() {
         var header = document.querySelector('.chat-header');
         if (!header || header.querySelector('.wa-actions')) return;
@@ -568,7 +597,13 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
         }
       }
 
-      function run() { try { addButtons(); addTimes(); } catch (e) {} }
+      function run() { 
+        try { 
+          addButtons(); 
+          addTimes(); 
+          removeBranding();
+        } catch (e) {} 
+      }
       new MutationObserver(run).observe(document.body, { childList: true, subtree: true });
       run();
     })();
