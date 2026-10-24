@@ -1,0 +1,85 @@
+<!-- ===== 5) Quick grievance chips under the typing bar =====
+     Paste just before </body> (after block 4). Remove the earlier "quick-buttons" block if you added it. -->
+<style>
+#qc { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.15rem 0.5rem 0.5rem; }
+#qc .qc-chip {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  min-height: 40px; padding: 0.3rem 0.8rem;
+  background: #fff; color: #075E54;
+  border: 1.5px solid #128C7E; border-radius: 999px;
+  font: 600 1rem/1.2 'Segoe UI', 'Noto Sans Devanagari', Roboto, Arial, sans-serif;
+  cursor: pointer; box-shadow: 0 1px 1px rgba(0,0,0,0.12);
+}
+#qc .qc-chip:active { background: #DCF8C6; }
+#qc .qc-more { background: #075E54; color: #fff; border-color: #075E54; }
+#qc .qc-x { display: none; }
+#qc.open .qc-x { display: inline-flex; }
+</style>
+<script>
+(function () {
+  // ---- EDIT HERE: icon, label shown on the chip, message sent to the bot ----
+  // Chips follow the 13 categories your agent already uses.
+  var SHORT = [
+    ['💧', 'पाणी',        'पाण्याची समस्या आहे'],
+    ['🏥', 'आरोग्य',      'आरोग्याची समस्या आहे'],
+    ['🛣️', 'रस्ता / गटार', 'रस्ता / गटाराची समस्या आहे'],
+    ['💡', 'वीज',         'विजेची समस्या आहे']
+  ];
+  var MORE = [
+    ['🚮', 'कचरा / स्वच्छता', 'कचरा / स्वच्छतेची समस्या आहे'],
+    ['🌾', 'शेती',          'शेतीची समस्या आहे'],
+    ['🎓', 'शिक्षण',        'शिक्षणाची समस्या आहे'],
+    ['📄', 'दाखले / योजना',  'दाखले / शासकीय योजनेबद्दल मदत हवी आहे'],
+    ['🏠', 'घरकुल / जमीन',   'घरकुल / जमिनीबद्दल मदत हवी आहे'],
+    ['🚌', 'एसटी / वाहतूक',  'एसटी / वाहतुकीची समस्या आहे'],
+    ['👮', 'पोलीस / भांडण',  'पोलीस / भांडणाबद्दल समस्या आहे'],
+    ['🎉', 'निमंत्रण',       'मला कार्यक्रमाचे निमंत्रण द्यायचे आहे'],
+    ['❓', 'इतर',           'माझी वेगळी समस्या आहे']
+  ];
+
+  function say(text) {
+    var ta = document.querySelector('.chat-inputs textarea');
+    var send = document.querySelector('.chat-input-send-button');
+    if (!ta || !send) return;
+    var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+    set.call(ta, text);
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+    setTimeout(function () { send.click(); }, 80);
+  }
+
+  var box = document.createElement('div');
+  box.id = 'qc';
+
+  function chip(item, extra) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'qc-chip' + (extra ? ' qc-x' : '');
+    b.textContent = item[0] + ' ' + item[1];
+    b.addEventListener('click', function () {
+      say(item[2]);
+      box.classList.remove('open'); more.textContent = '➕ आणखी';
+    });
+    return b;
+  }
+
+  var more = document.createElement('button');
+  more.type = 'button';
+  more.className = 'qc-chip qc-more';
+  more.textContent = '➕ आणखी';
+  more.addEventListener('click', function () {
+    box.classList.toggle('open');
+    more.textContent = box.classList.contains('open') ? '➖ कमी' : '➕ आणखी';
+  });
+
+  SHORT.forEach(function (s) { box.appendChild(chip(s, false)); });
+  box.appendChild(more);
+  MORE.forEach(function (s) { box.appendChild(chip(s, true)); });
+
+  function place() {
+    var f = document.querySelector('.chat-footer');
+    if (f && !document.getElementById('qc')) f.appendChild(box);
+  }
+  new MutationObserver(place).observe(document.body, { childList: true, subtree: true });
+  place();
+})();
+</script>
