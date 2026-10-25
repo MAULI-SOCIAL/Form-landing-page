@@ -561,6 +561,35 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   background: #DCF8C6;
   transform: scale(0.96);
 }
+    /* Voice Record Button */
+.chat-input-mic-button {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #075E54;
+  border: 1.5px solid #128C7E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+
+.chat-input-mic-button.recording {
+  background: #ea4335;
+  color: #ffffff;
+  border-color: #ea4335;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
   </style>
 </head>
 <body>
@@ -831,6 +860,87 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   }
   new MutationObserver(place).observe(document.body, { childList: true, subtree: true });
   place();
+})();
+</script>
+  <script>
+(function () {
+  // Check browser support for Speech Recognition
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    console.warn("Speech Recognition API not supported in this browser.");
+    return;
+  }
+
+  var recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  
+  // Set default spoken language to Marathi (Change to 'hi-IN' for Hindi or 'en-IN' for English)
+  recognition.lang = 'mr-IN'; 
+
+  var isRecording = false;
+  var micBtn = document.createElement('button');
+  micBtn.type = 'button';
+  micBtn.className = 'chat-input-mic-button';
+  micBtn.setAttribute('aria-label', 'बोलून संदेश लिहा');
+  micBtn.title = 'बोलून टाइप करा (Voice Input)';
+  micBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>';
+
+  // Speech Recognition events
+  recognition.onstart = function() {
+    isRecording = true;
+    micBtn.classList.add('recording');
+  };
+
+  recognition.onend = function() {
+    isRecording = false;
+    micBtn.classList.remove('recording');
+  };
+
+  recognition.onresult = function(event) {
+    var transcript = event.results[0][0].transcript;
+    var ta = document.querySelector('.chat-inputs textarea');
+    var sendBtn = document.querySelector('.chat-input-send-button');
+
+    if (ta && transcript) {
+      // Set transcribed text in textarea
+      var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+      set.call(ta, transcript);
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+
+      // Auto-send after short pause
+      setTimeout(function () {
+        if (sendBtn) sendBtn.click();
+      }, 500);
+    }
+  };
+
+  recognition.onerror = function(event) {
+    console.error("Speech recognition error:", event.error);
+    isRecording = false;
+    micBtn.classList.remove('recording');
+  };
+
+  // Toggle Mic on Click
+  micBtn.addEventListener('click', function() {
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  });
+
+  // Inject Mic Button into chat footer next to send button
+  function injectMic() {
+    var inputsBox = document.querySelector('.chat-inputs');
+    if (inputsBox && !document.querySelector('.chat-input-mic-button')) {
+      inputsBox.insertBefore(micBtn, inputsBox.querySelector('.chat-input-send-button'));
+    }
+  }
+
+  new MutationObserver(injectMic).observe(document.body, { childList: true, subtree: true });
+  injectMic();
 })();
 </script>
 </body>
