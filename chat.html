@@ -17,13 +17,13 @@
 
 :root {
   /* --- WhatsApp palette --- */
-  --wa-teal-dark: #075E54;   /* header */
-  --wa-teal: #128C7E;        /* send button */
-  --wa-green: #25D366;       /* launcher */
-  --wa-bubble-out: #DCF8C6;  /* sent (user) */
-  --wa-bubble-in: #FFFFFF;   /* received (bot) */
-  --wa-bg: #ECE5DD;          /* chat wallpaper */
-  --wa-notice: #FEF4C5;      /* yellow system notice */
+  --wa-teal-dark: #075E54;    /* header */
+  --wa-teal: #128C7E;         /* send button */
+  --wa-green: #25D366;        /* launcher */
+  --wa-bubble-out: #DCF8C6;   /* sent (user) */
+  --wa-bubble-in: #FFFFFF;    /* received (bot) */
+  --wa-bg: #ECE5DD;           /* chat wallpaper */
+  --wa-notice: #FEF4C5;       /* yellow system notice */
   --wa-text: #303030;
   --wa-meta: #667781;
 
@@ -392,7 +392,6 @@
   }
 }
 
-
 /* ---------- Header action buttons (form + call) ----------
    These are injected by n8n-whatsapp-header-buttons.js            */
 .chat-header .wa-actions {
@@ -426,7 +425,6 @@
   fill: currentColor;
 }
 
-
 /* ---------- Paperclip (attach) button ---------- */
 .chat-input-file-button {
   color: #54656F;
@@ -454,6 +452,7 @@
 html, body { margin: 0; height: 100%; }
 body { background: #D9DBD5; display: flex; justify-content: center; }
 #n8n-chat { width: 100%; max-width: 480px; height: 100dvh; box-shadow: 0 0 30px rgba(0,0,0,0.15); }
+
 /* ---------- Contact-info panel (opens on tap of header name / photo) ---------- */
 .chat-header { cursor: pointer; }
 #wa-info {
@@ -502,20 +501,66 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
 #wa-info .wi-row .wi-s { font-size: 0.9rem; color: #667781; margin-top: 0.1rem; }
 #wa-info .wi-row .wi-chev { width: 20px; height: 20px; fill: none; stroke: #9aa5ab; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---------- Quick grievance chips (under the typing bar) ---------- */
-#qc { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.15rem 0.5rem 0.5rem; }
-#qc .qc-chip {
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  min-height: 40px; padding: 0.3rem 0.8rem;
-  background: #fff; color: #075E54;
-  border: 1.5px solid #128C7E; border-radius: 999px;
-  font: 600 1rem/1.2 'Segoe UI', 'Noto Sans Devanagari', Roboto, Arial, sans-serif;
-  cursor: pointer; box-shadow: 0 1px 1px rgba(0,0,0,0.12);
+/* ---------- Quick grievance chips (Single row horizontal scroll with subtle right fade) ---------- */
+.qc-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0.25rem 0 0.5rem;
+  overflow: hidden;
 }
-#qc .qc-chip:active { background: #DCF8C6; }
-#qc .qc-more { background: #075E54; color: #fff; border-color: #075E54; }
-#qc .qc-x { display: none; }
-#qc.open .qc-x { display: inline-flex; }
+
+/* Right gradient overlay to create a "half-faint/peeking" visual cue for scrollability */
+.qc-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(236, 229, 221, 0), rgba(236, 229, 221, 0.95));
+  pointer-events: none;
+  z-index: 2;
+}
+
+#qc {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  padding: 0.15rem 2rem 0.3rem 0.6rem; /* Extra padding on right to let last item peek out fully when scrolled */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+#qc::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+#qc .qc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0.4rem 0.95rem;
+  background: #ffffff;
+  color: #075E54;
+  border: 1.5px solid #128C7E;
+  border-radius: 999px;
+  font: 600 0.98rem/1.2 'Segoe UI', 'Noto Sans Devanagari', Roboto, Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  user-select: none;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+#qc .qc-chip:active {
+  background: #DCF8C6;
+  transform: scale(0.96);
+}
   </style>
 </head>
 <body>
@@ -730,26 +775,23 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
 })();
 </script>
 
-  <!-- 5) Quick grievance chips under the typing bar -->
+  <!-- 5) Quick grievance chips under the typing bar (Single horizontally scrollable bar) -->
 <script>
 (function () {
-  // ---- EDIT HERE: icon, label shown on the chip, message sent to the bot ----
-  // Chips follow the 13 categories your agent already uses.
-  var SHORT = [
-    ['💧', 'पाणी',        'पाण्याची समस्या आहे'],
-    ['🏥', 'आरोग्य',      'आरोग्याची समस्या आहे'],
-    ['🛣️', 'पायाभूत', 'रस्ता / गटाराची समस्या आहे'],
-    ['💡', 'वीज',         'विजेची समस्या आहे']
-  ];
-  var MORE = [
-    ['🚮', 'स्वच्छता', 'कचरा / स्वच्छतेची समस्या आहे'],
+  // Combined list of all categories for single-row horizontal scrolling
+  var ALL_ITEMS = [
+    ['💧', 'पाणी',          'पाण्याची समस्या आहे'],
+    ['🏥', 'आरोग्य',        'आरोग्याची समस्या आहे'],
+    ['🛣️', 'पायाभूत',       'रस्ता / गटाराची समस्या आहे'],
+    ['🎉', 'निमंत्रण',       'मला कार्यक्रमाचे निमंत्रण द्यायचे आहे'],
+    ['💡', 'वीज',           'विजेची समस्या आहे'],
+    ['🚮', 'स्वच्छता',       'कचरा / स्वच्छतेची समस्या आहे'],
     ['🌾', 'शेती',          'शेतीची समस्या आहे'],
     ['🎓', 'शिक्षण',        'शिक्षणाची समस्या आहे'],
-    ['📄', 'दाखले / योजना',  'दाखले / शासकीय योजनेबद्दल मदत हवी आहे'],
-    ['🏠', 'घरकुल / जमीन',   'घरकुल / जमिनीबद्दल मदत हवी आहे'],
+    ['📄', 'दाखले / योजना', 'दाखले / शासकीय योजनेबद्दल मदत हवी आहे'],
+    ['🏠', 'घरकुल / जमीन',  'घरकुल / जमिनीबद्दल मदत हवी आहे'],
     ['🚌', 'एसटी / वाहतूक',  'एसटी / वाहतुकीची समस्या आहे'],
-    ['👮', 'पोलीस',  'पोलीस / भांडणाबद्दल समस्या आहे'],
-    ['🎉', 'निमंत्रण',       'मला कार्यक्रमाचे निमंत्रण द्यायचे आहे'],
+    ['👮', 'पोलीस',         'पोलीस / भांडणाबद्दल समस्या आहे'],
     ['❓', 'इतर',           'माझी वेगळी समस्या आहे']
   ];
 
@@ -763,38 +805,29 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     setTimeout(function () { send.click(); }, 80);
   }
 
+  var wrapper = document.createElement('div');
+  wrapper.className = 'qc-wrapper';
+
   var box = document.createElement('div');
   box.id = 'qc';
 
-  var more = document.createElement('button');
-  more.type = 'button';
-  more.className = 'qc-chip qc-more';
-  more.textContent = '➕ आणखी';
-  more.addEventListener('click', function () {
-    box.classList.toggle('open');
-    more.textContent = box.classList.contains('open') ? '➖ कमी' : '➕ आणखी';
-  });
-
-  function chip(item, extra) {
+  function chip(item) {
     var b = document.createElement('button');
     b.type = 'button';
-    b.className = 'qc-chip' + (extra ? ' qc-x' : '');
+    b.className = 'qc-chip';
     b.textContent = item[0] + ' ' + item[1];
     b.addEventListener('click', function () {
       say(item[2]);
-      box.classList.remove('open');
-      more.textContent = '➕ आणखी';
     });
     return b;
   }
 
-  SHORT.forEach(function (s) { box.appendChild(chip(s, false)); });
-  box.appendChild(more);
-  MORE.forEach(function (s) { box.appendChild(chip(s, true)); });
+  ALL_ITEMS.forEach(function (s) { box.appendChild(chip(s)); });
+  wrapper.appendChild(box);
 
   function place() {
     var f = document.querySelector('.chat-footer');
-    if (f && !document.getElementById('qc')) f.appendChild(box);
+    if (f && !document.querySelector('.qc-wrapper')) f.appendChild(wrapper);
   }
   new MutationObserver(place).observe(document.body, { childList: true, subtree: true });
   place();
