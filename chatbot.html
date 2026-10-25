@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>माऊली आबा कटके जनसंपर्क कार्यालय</title>
+
+  <!-- n8n chat widget styles -->
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet">
+
+  <!-- Our WhatsApp theme -->
+  <style>
+/* ==========================================================
+   n8n Chat – WhatsApp theme
+   Paste into the "style" / custom CSS of your n8n chat embed
+   ========================================================== */
+
+:root {
+  /* --- WhatsApp palette --- */
+  --wa-teal-dark: #075E54;   /* header */
+  --wa-teal: #128C7E;        /* send button */
+  --wa-green: #25D366;       /* launcher */
+  --wa-bubble-out: #DCF8C6;  /* sent (user) */
+  --wa-bubble-in: #FFFFFF;   /* received (bot) */
+  --wa-bg: #ECE5DD;          /* chat wallpaper */
+  --wa-notice: #FEF4C5;      /* yellow system notice */
+  --wa-text: #303030;
+  --wa-meta: #667781;
+
+  /* --- n8n core colours --- */
+  --chat--color-primary: #128C7E;
+  --chat--color-primary-shade-50: #0F7A6C;
+  --chat--color-primary-shade-100: #075E54;
+  --chat--color-secondary: #25D366;
+  --chat--color-secondary-shade-50: #1EBE5A;
+  --chat--color-white: #ffffff;
+  --chat--color-light: #ECE5DD;
+  --chat--color-light-shade-50: #E2DAD0;
+  --chat--color-light-shade-100: #D9D0C5;
+  --chat--color-medium: #D1D7DB;
+  --chat--color-dark: #303030;
+  --chat--color-disabled: #9DB8B3;
+  --chat--color-typing: #667781;
+
+  /* --- Base --- */
+  --chat--spacing: 0.75rem;
+  --chat--border-radius: 0.5rem;
+  --chat--transition-duration: 0.15s;
+  --chat--font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+
+  /* --- Window --- */
+  --chat--window--width: 440px;
+  --chat--window--height: 700px;
+  --chat--window--bottom: 1.25rem;
+  --chat--window--right: 1.25rem;
+  --chat--window--z-index: 9999;
+  --chat--window--border: none;
+  --chat--window--border-radius: 0.75rem;
+  --chat--window--margin-bottom: var(--chat--spacing);
+
+  /* --- Header --- */
+  --chat--header-height: auto;
+  --chat--header--padding: 0.9rem 1rem;
+  --chat--header--background: #075E54;
+  --chat--header--color: #ffffff;
+  --chat--heading--font-size: 1.4rem;
+  --chat--subtitle--font-size: 1.05rem;
+  --chat--subtitle--line-height: 1.3;
+
+  /* --- Messages --- */
+  --chat--message--font-size: 1.15rem;
+  --chat--message--padding: 0.6rem 0.8rem 0.65rem 0.85rem;
+  --chat--message--border-radius: 0.5rem;
+  --chat--message-line-height: 1.55;
+  --chat--message--margin-bottom: 0.45rem;
+
+  --chat--message--bot--background: #ffffff;
+  --chat--message--bot--color: #303030;
+  --chat--message--bot--border: none;
+
+  --chat--message--user--background: #DCF8C6;
+  --chat--message--user--color: #303030;
+  --chat--message--user--border: none;
+
+  --chat--message--pre--background: rgba(0, 0, 0, 0.05);
+  --chat--messages-list--padding: 0.75rem 0.9rem;
+
+  /* --- Launcher button --- */
+  --chat--toggle--size: 72px;
+  --chat--toggle--width: var(--chat--toggle--size);
+  --chat--toggle--height: var(--chat--toggle--size);
+  --chat--toggle--border-radius: 50%;
+  --chat--toggle--background: #25D366;
+  --chat--toggle--hover--background: #1EBE5A;
+  --chat--toggle--active--background: #128C7E;
+  --chat--toggle--color: #ffffff;
+
+  /* --- Input --- */
+  --chat--textarea--height: 54px;
+  --chat--textarea--max-height: 8rem;
+  --chat--input--font-size: 1.15rem;
+  --chat--input--border: none;
+  --chat--input--border-radius: 1.5rem;
+  --chat--input--padding: 0.7rem 1rem;
+  --chat--input--background: #ffffff;
+  --chat--input--text-color: #303030;
+  --chat--input--line-height: 1.5;
+  --chat--input--placeholder--font-size: 1.15rem;
+  --chat--input--border-active: none;
+
+  /* --- Body / footer --- */
+  --chat--body--background: #ECE5DD;
+  --chat--footer--background: transparent;
+  --chat--footer--color: #303030;
+}
+
+/* ---------- Hide Powered by n8n branding ---------- */
+.chat-footer a,
+.chat-footer small,
+.chat-footer-branding,
+.chat-footer div:has(a[href*="n8n"]),
+[class*="footer"] a[href*="n8n"],
+[class*="poweredBy"],
+[class*="branding"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ---------- Window (shadow lives here, not on :root) ---------- */
+.chat-window {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.chat-window-toggle {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Header: avatar + name + "online" ---------- */
+.chat-layout .chat-header {
+  display: grid !important;
+  grid-template-columns: 56px 1fr auto;
+  grid-template-areas:
+    "avatar title actions"
+    "avatar sub   actions";
+  column-gap: 0.75rem;
+  row-gap: 0.15rem;
+  align-items: center;
+  border-bottom: none;
+}
+.chat-layout .chat-header > .chat-heading,
+.chat-layout .chat-header > h1 { grid-area: title; }
+.chat-layout .chat-header > p  { display: none !important; }
+
+.chat-header::before {
+  content: "";
+  grid-area: avatar;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #DFE5E7;
+  background-image: url("DKKKK.jpg");  
+  background-size: cover;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.chat-header p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ---------- Wallpaper ---------- */
+.chat-body,
+.chat-layout .chat-body {
+  background-color: #ECE5DD;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240' fill='none' stroke='%23000' stroke-opacity='0.06' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(14 16)'%3E%3Crect width='20' height='26' rx='2'/%3E%3Cpath d='M0 6h-3M0 13h-3M0 20h-3M5 8h10M5 14h10M5 20h7'/%3E%3C/g%3E%3Cg transform='translate(90 16)'%3E%3Cpath d='M2 9h18v11a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4zM20 12h3a3 3 0 0 1 0 8h-3M7 2q2 2 0 5M13 2q2 2 0 5'/%3E%3C/g%3E%3Cg transform='translate(172 14)'%3E%3Cpath d='M2 4h20v24H2zM8 1h8v6H8zM6 15h12M6 20h12M6 25h8'/%3E%3C/g%3E%3Cg transform='translate(50 96)'%3E%3Cpath d='M4 4h20v14H4zM0 22h28l-3-4H3z'/%3E%3C/g%3E%3Cg transform='translate(132 96)'%3E%3Cpath d='M2 24l4-1 16-16-3-3L3 20zM17 5l3 3'/%3E%3C/g%3E%3Cg transform='translate(210 94)'%3E%3Crect width='20' height='26' rx='2'/%3E%3Crect x='4' y='4' width='12' height='5'/%3E%3Ccircle cx='5' cy='15' r='1'/%3E%3Ccircle cx='10' cy='15' r='1'/%3E%3Ccircle cx='15' cy='15' r='1'/%3E%3Ccircle cx='5' cy='20' r='1'/%3E%3Ccircle cx='10' cy='20' r='1'/%3E%3Ccircle cx='15' cy='20' r='1'/%3E%3C/g%3E%3Cg transform='translate(10 178)'%3E%3Cpath d='M0 4h9l3 3h12v15H0z'/%3E%3C/g%3E%3Cg transform='translate(90 180)'%3E%3Crect width='26' height='18' rx='2'/%3E%3Cpath d='M0 2l13 9 13-9'/%3E%3C/g%3E%3Cg transform='translate(170 176)'%3E%3Cpath d='M2 24h24M5 24v-8h4v8M12 24V8h4v16M19 24V12h4v12'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+.chat-messages-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+}
+
+/* ---------- Encryption-style notice (your Marathi IP text) ---------- */
+.chat-messages-list::before {
+  content: "🔒 सुरक्षिततेसाठी तुमचा IP ADDRESS नोंदवला आहे";
+  align-self: center;
+  text-align: center;
+  max-width: 85%;
+  margin: 0 auto 0.6rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #54656F;
+  background: #FEF4C5;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+}
+
+/* ---------- Bubbles ---------- */
+.chat-message,
+.chat-message.bot,
+.chat-message.user {
+  position: relative;
+  max-width: 85%;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: #303030;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Received (bot) */
+.chat-message-from-bot,
+.chat-message.bot {
+  align-self: flex-start;
+  background: #ffffff;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  margin-left: 8px;
+}
+
+/* Sent (user) */
+.chat-message-from-user,
+.chat-message.user {
+  align-self: flex-end;
+  background: #DCF8C6;
+  color: #303030 !important;
+  border-radius: 0.5rem 0 0.5rem 0.5rem;
+  margin-right: 8px;
+}
+
+/* Bubble tails */
+.chat-message-from-bot::before,
+.chat-message.bot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 0 solid transparent;
+  border-right: 8px solid #ffffff;
+  border-bottom: 8px solid transparent;
+}
+
+.chat-message-from-user::before,
+.chat-message.user::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -8px;
+  width: 0;
+  height: 0;
+  border-top: 0 solid transparent;
+  border-left: 8px solid #DCF8C6;
+  border-bottom: 8px solid transparent;
+}
+
+/* Only the first bubble in a run gets a tail (like WhatsApp) */
+.chat-message-from-bot + .chat-message-from-bot,
+.chat-message-from-user + .chat-message-from-user {
+  border-radius: 0.5rem;
+}
+.chat-message-from-bot + .chat-message-from-bot::before,
+.chat-message-from-user + .chat-message-from-user::before {
+  display: none;
+}
+
+/* Markdown inside bubbles */
+.chat-message-markdown p {
+  margin: 0;
+}
+.chat-message-markdown p + p {
+  margin-top: 0.4rem;
+}
+.chat-message-markdown a {
+  color: #027EB5;
+}
+.chat-message-markdown pre,
+.chat-message-markdown code {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0.3rem;
+}
+
+/* Typing indicator */
+.chat-message-typing {
+  background: #ffffff;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+  color: #667781;
+}
+
+/* ---------- Footer / input bar ---------- */
+.chat-footer {
+  padding: 0.5rem 0.5rem;
+  background: transparent;
+  border-top: none;
+}
+
+.chat-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.chat-inputs textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  border-radius: 1.5rem;
+  background-color: #ffffff;
+  /* smiley icon on the left, like WhatsApp */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238696A0'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-3.5-9.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm7 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zM12 17.5c2.3 0 4.2-1.4 5-3.5H7c.8 2.1 2.7 3.5 5 3.5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+  background-size: 28px;
+  padding: 0.8rem 1rem 0.8rem 3.4rem;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+  color: #303030;
+}
+
+.chat-inputs textarea::placeholder {
+  color: #8696A0;
+}
+
+.chat-inputs textarea:focus {
+  outline: none;
+  border: none;
+}
+
+/* Round teal send button */
+.chat-input-send-button {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #128C7E;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.chat-input-send-button:hover:not(:disabled) {
+  background: #0F7A6C;
+  color: #ffffff;
+}
+
+.chat-input-send-button:disabled {
+  background: #9DB8B3;
+  cursor: not-allowed;
+}
+
+/* ---------- Scrollbar (thin, subtle) ---------- */
+.chat-messages-list::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-messages-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 3px;
+}
+
+/* ---------- Small screens: go full-screen like the app ---------- */
+@media (max-width: 480px) {
+  :root {
+    --chat--window--width: 100vw;
+    --chat--window--height: 100dvh;
+    --chat--window--bottom: 0;
+    --chat--window--right: 0;
+    --chat--window--border-radius: 0;
+  }
+}
+
+
+/* ---------- Header action buttons (form + call) ----------
+   These are injected by n8n-whatsapp-header-buttons.js            */
+.chat-header .wa-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  grid-area: actions;
+}
+
+.chat-header .wa-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.chat-header .wa-actions a:hover,
+.chat-header .wa-actions a:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  outline: none;
+}
+
+.chat-header .wa-actions svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+
+/* ---------- Paperclip (attach) button ---------- */
+.chat-input-file-button {
+  color: #54656F;
+}
+.chat-input-file-button:hover {
+  color: #128C7E;
+}
+
+/* ---------- Time + ticks inside bubbles (added by the page script) ---------- */
+.wa-time {
+  display: block;
+  text-align: right;
+  font-size: 0.72rem;
+  line-height: 1;
+  margin-top: 0.25rem;
+  color: #667781;
+}
+.wa-time .wa-tick {
+  color: #53BDEB;
+  margin-left: 0.2rem;
+  letter-spacing: -0.15em;
+}
+
+/* ---------- Page layout (phone-width column on big screens) ---------- */
+html, body { margin: 0; height: 100%; }
+body { background: #D9DBD5; display: flex; justify-content: center; }
+#n8n-chat { width: 100%; max-width: 480px; height: 100dvh; box-shadow: 0 0 30px rgba(0,0,0,0.15); }
+/* ---------- Contact-info panel (opens on tap of header name / photo) ---------- */
+.chat-header { cursor: pointer; }
+#wa-info {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px; height: 100dvh;
+  background: #F7F7F7; color: #111; z-index: 10000;
+  overflow-y: auto; display: none;
+  font-family: 'Segoe UI','Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+}
+#wa-info.open { display: block; }
+#wa-info .wi-bar {
+  position: sticky; top: 0; z-index: 1; background: #F7F7F7;
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: calc(0.6rem + env(safe-area-inset-top, 0px)) 0.6rem 0.6rem;
+}
+#wa-info .wi-back {
+  width: 44px; height: 44px; border: 0; background: none; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: #111;
+}
+#wa-info .wi-back:hover { background: rgba(0,0,0,0.06); }
+#wa-info .wi-bar h2 { margin: 0; font-size: 1.2rem; font-weight: 600; flex: 1; text-align: center; padding-right: 44px; }
+#wa-info .wi-avatar {
+  width: 150px; height: 150px; border-radius: 50%; margin: 0.8rem auto 0;
+  background: #DFE5E7 center 20% / cover no-repeat;
+}
+#wa-info .wi-name { text-align: center; font-size: 1.55rem; font-weight: 700; line-height: 1.3; margin: 1rem 1.2rem 0.25rem; }
+#wa-info .wi-sub { text-align: center; color: #667781; font-size: 1.05rem; margin: 0 1rem 1.2rem; }
+#wa-info .wi-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; padding: 0 0.9rem; }
+#wa-info .wi-tile {
+  background: #fff; border-radius: 14px; padding: 0.9rem 0.3rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.45rem;
+  text-decoration: none; color: #111; font-size: 0.85rem;
+}
+#wa-info .wi-tile:active, #wa-info .wi-row:active { background: #ececec; }
+#wa-info .wi-tile svg { width: 32px; height: 32px; }
+#wa-info .wi-card { background: #fff; border-radius: 14px; margin: 1.1rem 0.9rem; overflow: hidden; }
+#wa-info .wi-row {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 1rem;
+  text-decoration: none; color: #111; background: #fff;
+}
+#wa-info .wi-row + .wi-row { border-top: 1px solid #ececec; }
+#wa-info .wi-row svg.wi-ico { width: 28px; height: 28px; flex: 0 0 28px; fill: none; stroke: #128C7E; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+#wa-info .wi-row .wi-txt { flex: 1; min-width: 0; }
+#wa-info .wi-row .wi-t { font-size: 1.12rem; font-weight: 500; }
+#wa-info .wi-row .wi-s { font-size: 0.9rem; color: #667781; margin-top: 0.1rem; }
+#wa-info .wi-row .wi-chev { width: 20px; height: 20px; fill: none; stroke: #9aa5ab; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+  <div id="n8n-chat"></div>
+
+  <!-- 1) Start the chat -->
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    createChat({
+      webhookUrl: 'https://mauli.westernestate.in/webhook/c874f290-002e-4d8a-8a4d-7f2db8c00f03/chat',
+      target: '#n8n-chat',
+      mode: 'fullscreen',
+      showWelcomeScreen: false,
+      loadPreviousSession: true,         // keeps the chat when you come back from a link
+      allowFileUploads: true,            // shows the paperclip; set to false to remove it
+      defaultLanguage: 'en',
+      initialMessages: [
+        'नमस्कार🙏',
+        'आपली समस्या/निवेदन/निमंत्रण सांगा.\n\nकिंवा फॉर्म भरण्यासाठी 👉 [📋 इथे दाबा](https://maulikatke.in/form)'
+      ],
+      i18n: {
+        en: {
+          title: 'माऊली आबा कटके जनसंपर्क कार्यालय',
+          subtitle: '',
+          footer: '',
+          getStarted: 'New Conversation',
+          inputPlaceholder: 'आपली समस्या लिहा...',
+          closeButtonTooltip: 'Close'
+        }
+      }
+    });
+  </script>
+
+  <!-- 2) Header buttons (form + call) and message times -->
+  <script>
+    (function () {
+      var FORM_URL = 'https://maulikatke.in/form';        // form button
+      var CALL_URL = 'https://maulikatke.in/office'; // call button
+
+      var FORM_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>';
+      var CALL_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02z"/></svg>';
+
+      function makeLink(href, label, icon) {
+        var a = document.createElement('a');
+        a.href = href;
+        a.target = '_self';
+        a.title = label;
+        a.setAttribute('aria-label', label);
+        a.innerHTML = icon;
+        return a;
+      }
+
+      function removeBranding() {
+        var n8nLinks = document.querySelectorAll('#n8n-chat a[href*="n8n.io"], .chat-footer a, [class*="poweredBy"], [class*="branding"]');
+        for (var i = 0; i < n8nLinks.length; i++) {
+          var el = n8nLinks[i];
+          var parent = el.closest('div') || el.parentElement;
+          if (parent && parent !== document.body && parent !== document.querySelector('.chat-footer')) {
+            parent.style.display = 'none';
+          }
+          el.style.display = 'none';
+        }
+      }
+
+      function addButtons() {
+        var header = document.querySelector('.chat-header');
+        if (!header || header.querySelector('.wa-actions')) return;
+        var box = document.createElement('div');
+        box.className = 'wa-actions';
+        box.appendChild(makeLink(FORM_URL, 'Open form', FORM_ICON));
+        box.appendChild(makeLink(CALL_URL, 'Call', CALL_ICON));
+        header.appendChild(box);
+      }
+
+      function addTimes() {
+        var msgs = document.querySelectorAll('.chat-message');
+        for (var i = 0; i < msgs.length; i++) {
+          var m = msgs[i];
+          if (m.querySelector('.wa-time')) continue;
+          if (!m.dataset.waTime) {
+            m.dataset.waTime = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true });
+          }
+          var t = document.createElement('span');
+          t.className = 'wa-time';
+          t.textContent = m.dataset.waTime;
+          if (/from-user|user/.test(m.className) && !/from-bot/.test(m.className)) {
+            var tick = document.createElement('span');
+            tick.className = 'wa-tick';
+            tick.textContent = '\u2713\u2713';
+            t.appendChild(tick);
+          }
+          m.appendChild(t);
+        }
+      }
+
+      function run() { 
+        try { 
+          addButtons(); 
+          addTimes(); 
+          removeBranding();
+        } catch (e) {} 
+      }
+      new MutationObserver(run).observe(document.body, { childList: true, subtree: true });
+      run();
+    })();
+  </script>
+
+  <!-- 3) Contact-info panel: opens when the header name or photo is tapped -->
+<script>
+(function () {
+  var LINKS = {
+    haveli:      'https://office.maulikatke.in/form/haveli',
+    shirur:      'https://office.maulikatke.in/form/shirur',
+    office:      'https://maulikatke.in/office',
+    jantadarbar: 'https://maulikatke.in/jantadarbar',
+    whatsapp:    'https://wa.me/917447775022',
+    instagram:   'https://www.instagram.com/dnyaneshwaraabakatke/?hl=en',
+    facebook:    'https://www.facebook.com/DnyaneshwaraabaKatke/',
+    telegram:    'https://t.me/WESTERNESTATEANALYTICSBOT',
+    yojna:       'https://maulikatke.in/yojna',
+    vikas:       'https://maulikatke.in/vikas'
+  };
+
+  var WA = '<svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
+  var IG = '<svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="#E1306C" stroke="none"/></svg>';
+  var FB = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1877F2"/><path fill="#fff" d="M13.2 21.6v-7.3h2.4l.4-2.9h-2.8V9.6c0-.8.3-1.4 1.4-1.4h1.5V5.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H7.7v2.9h2.5v7.3z"/></svg>';
+  var TG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#229ED9"/><path fill="#fff" d="M17.9 7.1 5.7 11.8c-.8.3-.8.8-.1 1l3.1 1 1.2 3.7c.1.4.3.5.6.5.2 0 .4-.1.6-.3l1.7-1.6 3.4 2.5c.6.3 1.1.2 1.3-.6l2.2-10.5c.2-.9-.3-1.3-1.1-.9zm-1.6 2.1-5.5 5-.2 2.3-1-3.3 6.7-4z"/></svg>';
+  var FORM = '<svg class="wi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>';
+  var PHONE = '<svg class="wi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>';
+  var DARBAR = '<svg class="wi-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1M16 14.2a4 4 0 0 1 5 3.8v2"/></svg>';
+  var YOJNA = '<svg class="wi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18H6z"/><path d="M9 8l1.5 1.5L13 7M9 14l1.5 1.5L13 13M15 8h1M15 14h1"/></svg>';
+  var VIKAS = '<svg class="wi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V10h4v11M10 21V4h4v17M15 21v-8h4v8"/></svg>';
+  var CHEV = '<svg class="wi-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
+  function tile(href, icon, label) {
+    return '<a class="wi-tile" href="' + href + '" target="_self">' + icon + '<span>' + label + '</span></a>';
+  }
+  function row(href, icon, title, sub) {
+    return '<a class="wi-row" href="' + href + '" target="_self">' + icon +
+      '<div class="wi-txt"><div class="wi-t">' + title + '</div><div class="wi-s">' + sub + '</div></div>' + CHEV + '</a>';
+  }
+
+  var panel = document.createElement('div');
+  panel.id = 'wa-info';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'संपर्क माहिती');
+  panel.innerHTML =
+    '<div class="wi-bar"><button class="wi-back" aria-label="Back"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><h2>संपर्क माहिती</h2></div>' +
+    '<div class="wi-avatar"></div>' +
+    '<div class="wi-name">माऊली आबा कटके जनसंपर्क कार्यालय</div>' +
+    '<div class="wi-sub">शिरूर-हवेली मतदारसंघ</div>' +
+    '<div class="wi-tiles">' +
+      tile(LINKS.whatsapp, WA, 'WhatsApp') +
+      tile(LINKS.instagram, IG, 'Instagram') +
+      tile(LINKS.facebook, FB, 'Facebook') +
+      tile(LINKS.telegram, TG, 'Telegram') +
+    '</div>' +
+    '<div class="wi-card">' +
+      row(LINKS.haveli, FORM, 'हवेली तालुका फॉर्म', 'हवेली तालुक्यातील गावांसाठी') +
+      row(LINKS.shirur, FORM, 'शिरूर तालुका फॉर्म', 'शिरूर तालुक्यातील गावांसाठी') +
+      row(LINKS.office, PHONE, 'कार्यालय टीम संपर्क', 'कार्यालयातील सर्वांचे संपर्क') +
+      row(LINKS.jantadarbar, DARBAR, 'जनता दरबार', 'जनता दरबाराची माहिती व नोंदणी') +
+      row(LINKS.yojna, YOJNA, 'योजना', 'शासकीय योजनांची माहिती') +
+      row(LINKS.vikas, VIKAS, 'विकासकामे', 'झालेली विकासकामे पाहा') +
+    '</div>';
+  document.body.appendChild(panel);
+
+  function openPanel(header) {
+    // reuse the profile photo already set in CSS (no need to paste it twice)
+    var bg = getComputedStyle(header, '::before').backgroundImage;
+    if (bg && bg !== 'none') panel.querySelector('.wi-avatar').style.backgroundImage = bg;
+    panel.classList.add('open');
+    panel.scrollTop = 0;
+  }
+  function closePanel() { panel.classList.remove('open'); }
+
+  document.addEventListener('click', function (e) {
+    var h = e.target.closest && e.target.closest('.chat-header');
+    if (h && !e.target.closest('.wa-actions')) openPanel(h);
+  });
+  panel.querySelector('.wi-back').addEventListener('click', closePanel);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
+})();
+</script>
+
+  <!-- 4) Force EVERY link on the page to open in the same tab -->
+<script>
+(function () {
+  // Capture phase: runs before n8n chat's own handlers, so links in chat
+  // bubbles (which n8n normally opens in a new tab) also stay in this tab.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || /^\s*javascript:/i.test(href)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = a.href;
+  }, true);
+
+  // Also rewrite target on any link that appears later (chat messages etc.)
+  function fixTargets() {
+    var links = document.querySelectorAll('a[target="_blank"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].target = '_self';
+      links[i].removeAttribute('rel');
+    }
+  }
+  new MutationObserver(fixTargets).observe(document.body, { childList: true, subtree: true });
+  fixTargets();
+})();
+</script>
+</body>
+</html>
