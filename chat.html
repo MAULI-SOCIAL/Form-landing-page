@@ -588,9 +588,12 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     function clean(s) { return String(s || '').replace(/[\[\]⟦⟧|;=\r\n]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60); }
     window.mauliProfile = {
       get: load,
-      set: function (patch) {
+      set: function (patch, confirm) {
         var p = load();
-        ['name', 'village', 'phone'].forEach(function (k) { if (patch[k]) p[k] = clean(patch[k]); });
+        ['name', 'village', 'phone'].forEach(function (k) {
+          if (patch[k]) { var v = clean(patch[k]); if (p[k] !== v) p.confirmed = false; p[k] = v; }
+        });
+        if (confirm) p.confirmed = true;
         save(p);
         window.dispatchEvent(new Event('mauli-profile'));
       }
@@ -598,10 +601,12 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
 
     function decorate(text) {
       var m = /(?<!\d)([6-9]\d{9})(?!\d)/.exec(text);
-      var p = load();
-      if (m && !p.phone) { p.phone = m[1]; save(p); window.dispatchEvent(new Event('mauli-profile')); }
-      window.__mauliSent = true;
-      return text + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + ']';
+    var p = load();
+    // auto-fill from chat; the citizen must confirm it on the card before anything is submitted
+    if (m && !p.confirmed && p.phone !== m[1]) { p.phone = m[1]; p.confirmed = false; save(p); window.dispatchEvent(new Event('mauli-profile')); }
+    window.__mauliSent = true;
+    var ok = (p.confirmed && p.name && p.village && p.phone) ? 'yes' : 'no';
+    return text + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + '; confirmed=' + ok + ']';
     }
 
     var of = window.fetch;
@@ -901,7 +906,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   var card = document.createElement('div');
   card.className = 'qf';
   card.innerHTML =
-    '<div class="qf-h"><span>📞 कार्यालय आपल्याशी संपर्क करेल, कृपया माहिती भरा</span><button type="button" class="qf-x" aria-label="Close">✕</button></div>' +
+    '<div class="qf-h"><span class="qf-title">📞 कार्यालय आपल्याशी संपर्क करेल, कृपया माहिती भरा</span><button type="button" class="qf-x" aria-label="Close">✕</button></div>' +
     '<input id="qf-name" placeholder="आपले नाव" autocomplete="name">' +
     '<input id="qf-village" placeholder="आपले गाव">' +
     '<input id="qf-phone" placeholder="१० अंकी मोबाईल क्रमांक" inputmode="numeric" maxlength="10" autocomplete="tel">' +
@@ -913,7 +918,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   bar.type = 'button'; bar.className = 'qf-bar';
   bar.textContent = '📝 आपले नाव, गाव व मोबाईल भरण्यासाठी इथे दाबा';
   bar.addEventListener('click', function () { openCard(true); });
-  function complete() { var p = window.mauliProfile.get(); return !!(p.name && p.village && p.phone); }
+  function complete() { var p = window.mauliProfile.get(); return !!(p.name && p.village && p.phone && p.confirmed); }
   function updateBar() {
     bar.style.display = (needed && !complete() && !card.classList.contains('open')) ? 'block' : 'none';
   }
@@ -937,6 +942,10 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     fromBot = !!bot;
     if (bot) needed = true;
     refresh(); highlight();
+    var pp = window.mauliProfile.get();
+    $('.qf-title').textContent = (pp.name || pp.village || pp.phone)
+      ? '✅ कृपया आपली माहिती तपासा, बरोबर असल्यास "ठीक आहे" दाबा'
+      : '📞 कार्यालय आपल्याशी संपर्क करेल, कृपया माहिती भरा';
     card.classList.add('open');
     updateBar();
   }
@@ -959,7 +968,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     if (name.length < 2 || village.length < 2) { err.textContent = 'कृपया नाव व गाव भरा.'; return; }
     if (!/^[6-9]\d{9}$/.test(phone)) { $('#qf-phone').classList.add('miss'); err.textContent = 'कृपया बरोबर १० अंकी मोबाईल क्रमांक भरा.'; return; }
     err.textContent = '';
-    window.mauliProfile.set({ name: name, village: village, phone: phone });
+    window.mauliProfile.set({ name: name, village: village, phone: phone }, true);
     card.classList.remove('open');
     updateBar();
     if (fromBot) say('माझी माहिती भरली आहे');
