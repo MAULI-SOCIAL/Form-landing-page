@@ -572,6 +572,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
 .qf input.miss{border-color:#E53935;background:#FFF5F5}
 .qf-save{width:100%;margin-top:.35rem;padding:.65rem;border:0;border-radius:10px;background:#128C7E;color:#fff;font-size:1.05rem;font-weight:600;cursor:pointer}
 .qf-err{color:#E53935;font-size:.88rem;min-height:1em;margin-top:.2rem}
+.qf-bar{display:none;width:calc(100% - 1rem);margin:.3rem .5rem;padding:.65rem;border:0;border-radius:12px;background:#FEF4C5;color:#075E54;font:600 1.02rem 'Segoe UI','Noto Sans Devanagari',Roboto,Arial,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.25)}
   </style>
 </head>
 <body>
@@ -900,14 +901,22 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   var card = document.createElement('div');
   card.className = 'qf';
   card.innerHTML =
-    '<div class="qf-h"><span>👤 कृपया आपली माहिती भरा</span><button type="button" class="qf-x" aria-label="Close">✕</button></div>' +
+    '<div class="qf-h"><span>📞 कार्यालय आपल्याशी संपर्क करेल, कृपया माहिती भरा</span><button type="button" class="qf-x" aria-label="Close">✕</button></div>' +
     '<input id="qf-name" placeholder="आपले नाव" autocomplete="name">' +
     '<input id="qf-village" placeholder="आपले गाव">' +
     '<input id="qf-phone" placeholder="१० अंकी मोबाईल क्रमांक" inputmode="numeric" maxlength="10" autocomplete="tel">' +
     '<div class="qf-err"></div>' +
     '<button type="button" class="qf-save">ठीक आहे ✔</button>';
   var $ = function (s) { return card.querySelector(s); };
-  var fromBot = false;
+  var fromBot = false, needed = false;
+  var bar = document.createElement('button');
+  bar.type = 'button'; bar.className = 'qf-bar';
+  bar.textContent = '📝 आपले नाव, गाव व मोबाईल भरण्यासाठी इथे दाबा';
+  bar.addEventListener('click', function () { openCard(true); });
+  function complete() { var p = window.mauliProfile.get(); return !!(p.name && p.village && p.phone); }
+  function updateBar() {
+    bar.style.display = (needed && !complete() && !card.classList.contains('open')) ? 'block' : 'none';
+  }
 
   function toAscii(s) { return s.replace(/[०-९]/g, function (d) { return '०१२३४५६७८९'.indexOf(d); }); }
   function refresh() {
@@ -916,6 +925,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
       var el = $('#qf-' + k);
       if (p[k] && document.activeElement !== el) el.value = p[k];
     });
+    updateBar();
   }
   function highlight() {
     ['name', 'village', 'phone'].forEach(function (k) {
@@ -925,8 +935,10 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   }
   function openCard(bot) {
     fromBot = !!bot;
+    if (bot) needed = true;
     refresh(); highlight();
     card.classList.add('open');
+    updateBar();
   }
   function say(text) {
     var ta = document.querySelector('.chat-inputs textarea');
@@ -938,7 +950,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     setTimeout(function () { send.click(); }, 80);
   }
 
-  $('.qf-x').addEventListener('click', function () { card.classList.remove('open'); });
+  $('.qf-x').addEventListener('click', function () { card.classList.remove('open'); updateBar(); });
   $('.qf-save').addEventListener('click', function () {
     var name = $('#qf-name').value.trim(), village = $('#qf-village').value.trim();
     var phone = toAscii($('#qf-phone').value).replace(/\D/g, '');
@@ -949,6 +961,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     err.textContent = '';
     window.mauliProfile.set({ name: name, village: village, phone: phone });
     card.classList.remove('open');
+    updateBar();
     if (fromBot) say('माझी माहिती भरली आहे');
   });
   ['name', 'village', 'phone'].forEach(function (k) {
@@ -996,14 +1009,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
 
   function place() {
     var f = document.querySelector('.chat-footer');
-    if (f && !card.isConnected) f.insertBefore(card, f.firstChild);
-    var qc = document.getElementById('qc');
-    if (qc && !qc.querySelector('.qf-pill')) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'qc-chip qf-pill'; b.textContent = '👤 माझी माहिती';
-      b.addEventListener('click', function () { openCard(false); });
-      qc.insertBefore(b, qc.firstChild);
-    }
+    if (f && !card.isConnected) { f.insertBefore(card, f.firstChild); f.insertBefore(bar, card); }
   }
   new MutationObserver(function () { place(); scan(); }).observe(document.body, { childList: true, subtree: true, characterData: true });
   place();
