@@ -561,39 +561,69 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   background: #DCF8C6;
   transform: scale(0.96);
 }
-    /* Voice Record Button */
-.chat-input-mic-button {
-  flex: 0 0 44px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #ffffff;
-  color: #075E54;
-  border: 1.5px solid #128C7E;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  transition: all 0.2s ease;
-}
 
-.chat-input-mic-button.recording {
-  background: #ea4335;
-  color: #ffffff;
-  border-color: #ea4335;
-  animation: pulse 1.2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
+/* ---------- Profile card (name / village / mobile) ---------- */
+.qf{display:none;margin:.3rem .5rem .5rem;padding:.7rem;background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.2);font-family:'Segoe UI','Noto Sans Devanagari',Roboto,Arial,sans-serif}
+.qf.open{display:block}
+.qf-h{display:flex;justify-content:space-between;align-items:center;font-weight:600;color:#075E54;margin-bottom:.5rem;font-size:1.02rem}
+.qf-x{border:0;background:none;font-size:1.2rem;cursor:pointer;color:#667781}
+.qf input{width:100%;box-sizing:border-box;margin:.25rem 0;padding:.6rem .8rem;border:1.5px solid #D1D7DB;border-radius:10px;font-size:1.05rem;outline:none}
+.qf input:focus{border-color:#128C7E}
+.qf input.miss{border-color:#E53935;background:#FFF5F5}
+.qf-save{width:100%;margin-top:.35rem;padding:.65rem;border:0;border-radius:10px;background:#128C7E;color:#fff;font-size:1.05rem;font-weight:600;cursor:pointer}
+.qf-err{color:#E53935;font-size:.88rem;min-height:1em;margin-top:.2rem}
   </style>
 </head>
 <body>
   <div id="n8n-chat"></div>
+
+  <!-- 0) Profile store + fetch patch (must run BEFORE the chat starts) -->
+  <script>
+  (function () {
+    var KEY = 'mauli_profile';
+    window.__mauliSent = false;
+    function load() { try { return JSON.parse(sessionStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+    function save(p) { try { sessionStorage.setItem(KEY, JSON.stringify(p)); } catch (e) {} }
+    function clean(s) { return String(s || '').replace(/[\[\]⟦⟧|;=\r\n]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60); }
+    window.mauliProfile = {
+      get: load,
+      set: function (patch) {
+        var p = load();
+        ['name', 'village', 'phone'].forEach(function (k) { if (patch[k]) p[k] = clean(patch[k]); });
+        save(p);
+        window.dispatchEvent(new Event('mauli-profile'));
+      }
+    };
+
+    function decorate(text) {
+      var m = /(?<!\d)([6-9]\d{9})(?!\d)/.exec(text);
+      var p = load();
+      if (m && !p.phone) { p.phone = m[1]; save(p); window.dispatchEvent(new Event('mauli-profile')); }
+      window.__mauliSent = true;
+      return text + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + ']';
+    }
+
+    var of = window.fetch;
+    window.fetch = function (url, opts) {
+      try {
+        if (opts && String(opts.method).toUpperCase() === 'POST' && String(url).indexOf('/webhook/') > -1) {
+          var b = opts.body;
+          if (typeof b === 'string') {
+            var o = JSON.parse(b);
+            if (typeof o.chatInput === 'string' && o.chatInput) {
+              o.chatInput = decorate(o.chatInput);
+              opts = Object.assign({}, opts, { body: JSON.stringify(o) });
+            }
+          } else if (typeof FormData !== 'undefined' && b instanceof FormData) {
+            var t = b.get('chatInput');
+            if (t) b.set('chatInput', decorate(String(t)));
+          }
+        }
+      } catch (e) {}
+      return of.call(this, url, opts);
+    };
+  })();
+  </script>
 
   <!-- 1) Start the chat -->
   <script type="module">
@@ -862,85 +892,121 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   place();
 })();
 </script>
-  <script>
+
+  <!-- 6) Profile card: name / village / mobile (opened by bot tag or "माझी माहिती" chip) -->
+<script>
 (function () {
-  // Check browser support for Speech Recognition
-  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var seen = {};
+  var card = document.createElement('div');
+  card.className = 'qf';
+  card.innerHTML =
+    '<div class="qf-h"><span>👤 कृपया आपली माहिती भरा</span><button type="button" class="qf-x" aria-label="Close">✕</button></div>' +
+    '<input id="qf-name" placeholder="आपले नाव" autocomplete="name">' +
+    '<input id="qf-village" placeholder="आपले गाव">' +
+    '<input id="qf-phone" placeholder="१० अंकी मोबाईल क्रमांक" inputmode="numeric" maxlength="10" autocomplete="tel">' +
+    '<div class="qf-err"></div>' +
+    '<button type="button" class="qf-save">ठीक आहे ✔</button>';
+  var $ = function (s) { return card.querySelector(s); };
+  var fromBot = false;
 
-  if (!SpeechRecognition) {
-    console.warn("Speech Recognition API not supported in this browser.");
-    return;
+  function toAscii(s) { return s.replace(/[०-९]/g, function (d) { return '०१२३४५६७८९'.indexOf(d); }); }
+  function refresh() {
+    var p = window.mauliProfile.get();
+    ['name', 'village', 'phone'].forEach(function (k) {
+      var el = $('#qf-' + k);
+      if (p[k] && document.activeElement !== el) el.value = p[k];
+    });
   }
-
-  var recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  
-  // Set default spoken language to Marathi (Change to 'hi-IN' for Hindi or 'en-IN' for English)
-  recognition.lang = 'mr-IN'; 
-
-  var isRecording = false;
-  var micBtn = document.createElement('button');
-  micBtn.type = 'button';
-  micBtn.className = 'chat-input-mic-button';
-  micBtn.setAttribute('aria-label', 'बोलून संदेश लिहा');
-  micBtn.title = 'बोलून टाइप करा (Voice Input)';
-  micBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>';
-
-  // Speech Recognition events
-  recognition.onstart = function() {
-    isRecording = true;
-    micBtn.classList.add('recording');
-  };
-
-  recognition.onend = function() {
-    isRecording = false;
-    micBtn.classList.remove('recording');
-  };
-
-  recognition.onresult = function(event) {
-    var transcript = event.results[0][0].transcript;
+  function highlight() {
+    ['name', 'village', 'phone'].forEach(function (k) {
+      var el = $('#qf-' + k);
+      el.classList.toggle('miss', !el.value.trim());
+    });
+  }
+  function openCard(bot) {
+    fromBot = !!bot;
+    refresh(); highlight();
+    card.classList.add('open');
+  }
+  function say(text) {
     var ta = document.querySelector('.chat-inputs textarea');
-    var sendBtn = document.querySelector('.chat-input-send-button');
+    var send = document.querySelector('.chat-input-send-button');
+    if (!ta || !send) return;
+    var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+    set.call(ta, text);
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+    setTimeout(function () { send.click(); }, 80);
+  }
 
-    if (ta && transcript) {
-      // Set transcribed text in textarea
-      var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
-      set.call(ta, transcript);
-      ta.dispatchEvent(new Event('input', { bubbles: true }));
-
-      // Auto-send after short pause
-      setTimeout(function () {
-        if (sendBtn) sendBtn.click();
-      }, 500);
-    }
-  };
-
-  recognition.onerror = function(event) {
-    console.error("Speech recognition error:", event.error);
-    isRecording = false;
-    micBtn.classList.remove('recording');
-  };
-
-  // Toggle Mic on Click
-  micBtn.addEventListener('click', function() {
-    if (isRecording) {
-      recognition.stop();
-    } else {
-      recognition.start();
-    }
+  $('.qf-x').addEventListener('click', function () { card.classList.remove('open'); });
+  $('.qf-save').addEventListener('click', function () {
+    var name = $('#qf-name').value.trim(), village = $('#qf-village').value.trim();
+    var phone = toAscii($('#qf-phone').value).replace(/\D/g, '');
+    highlight();
+    var err = $('.qf-err');
+    if (name.length < 2 || village.length < 2) { err.textContent = 'कृपया नाव व गाव भरा.'; return; }
+    if (!/^[6-9]\d{9}$/.test(phone)) { $('#qf-phone').classList.add('miss'); err.textContent = 'कृपया बरोबर १० अंकी मोबाईल क्रमांक भरा.'; return; }
+    err.textContent = '';
+    window.mauliProfile.set({ name: name, village: village, phone: phone });
+    card.classList.remove('open');
+    if (fromBot) say('माझी माहिती भरली आहे');
   });
+  ['name', 'village', 'phone'].forEach(function (k) {
+    $('#qf-' + k).addEventListener('input', function () { this.classList.remove('miss'); });
+  });
+  window.addEventListener('mauli-profile', refresh);
 
-  // Inject Mic Button into chat footer next to send button
-  function injectMic() {
-    var inputsBox = document.querySelector('.chat-inputs');
-    if (inputsBox && !document.querySelector('.chat-input-mic-button')) {
-      inputsBox.insertBefore(micBtn, inputsBox.querySelector('.chat-input-send-button'));
+  function apply(tag) {
+    var parts = tag.split('|'), cmd = parts[0].trim();
+    if (cmd === 'FILL') {
+      var patch = {};
+      parts.slice(1).forEach(function (kv) {
+        var i = kv.indexOf('='); if (i < 0) return;
+        var k = kv.slice(0, i).trim(), v = kv.slice(i + 1).trim();
+        if (v && /^(name|village|phone)$/.test(k)) patch[k] = k === 'phone' ? toAscii(v).replace(/\D/g, '') : v;
+      });
+      window.mauliProfile.set(patch);
+    } else if (cmd === 'FORM') {
+      openCard(true);
     }
   }
 
-  new MutationObserver(injectMic).observe(document.body, { childList: true, subtree: true });
-  injectMic();
+  function strip(m) {
+    var w = document.createTreeWalker(m, NodeFilter.SHOW_TEXT), n, list = [];
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf('⟦') > -1) list.push(n);
+    list.forEach(function (n) { n.nodeValue = n.nodeValue.replace(/⟦[^⟧]*(⟧|$)/g, ''); });
+  }
+
+  function scan() {
+    if (!window.__mauliSent) return;
+    var msgs = document.querySelectorAll('.chat-message-from-bot');
+    msgs.forEach(function (m, idx) {
+      var t = m.textContent;
+      if (t.indexOf('⟦') < 0) return;
+      var re = /⟦([^⟧]*)⟧/g, x;
+      while ((x = re.exec(t))) {
+        var key = idx + ':' + x[0];
+        if (seen[key]) continue;
+        seen[key] = 1;
+        apply(x[1]);
+      }
+      strip(m);
+    });
+  }
+
+  function place() {
+    var f = document.querySelector('.chat-footer');
+    if (f && !card.isConnected) f.insertBefore(card, f.firstChild);
+    var qc = document.getElementById('qc');
+    if (qc && !qc.querySelector('.qf-pill')) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'qc-chip qf-pill'; b.textContent = '👤 माझी माहिती';
+      b.addEventListener('click', function () { openCard(false); });
+      qc.insertBefore(b, qc.firstChild);
+    }
+  }
+  new MutationObserver(function () { place(); scan(); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+  place();
 })();
 </script>
 </body>
