@@ -561,10 +561,75 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   background: #DCF8C6;
   transform: scale(0.96);
 }
+
+/* ---------- Profile card (name / village / mobile) ---------- */
+.qf{display:none;margin:.3rem .5rem .5rem;padding:.7rem;background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.2);font-family:'Segoe UI','Noto Sans Devanagari',Roboto,Arial,sans-serif}
+.qf.open{display:block}
+.qf-h{display:flex;justify-content:space-between;align-items:center;font-weight:600;color:#075E54;margin-bottom:.5rem;font-size:1.02rem}
+.qf-x{border:0;background:none;font-size:1.2rem;cursor:pointer;color:#667781}
+.qf input{width:100%;box-sizing:border-box;margin:.25rem 0;padding:.6rem .8rem;border:1.5px solid #D1D7DB;border-radius:10px;font-size:1.05rem;outline:none}
+.qf input:focus{border-color:#128C7E}
+.qf input.miss{border-color:#E53935;background:#FFF5F5}
+.qf-save{width:100%;margin-top:.35rem;padding:.65rem;border:0;border-radius:10px;background:#128C7E;color:#fff;font-size:1.05rem;font-weight:600;cursor:pointer}
+.qf-err{color:#E53935;font-size:.88rem;min-height:1em;margin-top:.2rem}
+.qf-bar{display:none;width:calc(100% - 1rem);margin:.3rem .5rem;padding:.65rem;border:0;border-radius:12px;background:#FEF4C5;color:#075E54;font:600 1.02rem 'Segoe UI','Noto Sans Devanagari',Roboto,Arial,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.25)}
   </style>
 </head>
 <body>
   <div id="n8n-chat"></div>
+
+  <!-- 0) Profile store + fetch patch (must run BEFORE the chat starts) -->
+  <script>
+  (function () {
+    var KEY = 'mauli_profile';
+    window.__mauliSent = false;
+    function load() { try { return JSON.parse(sessionStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+    function save(p) { try { sessionStorage.setItem(KEY, JSON.stringify(p)); } catch (e) {} }
+    function clean(s) { return String(s || '').replace(/[\[\]⟦⟧|;=\r\n]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60); }
+    window.mauliProfile = {
+      get: load,
+      set: function (patch, confirm) {
+        var p = load();
+        ['name', 'village', 'phone'].forEach(function (k) {
+          if (patch[k]) { var v = clean(patch[k]); if (p[k] !== v) p.confirmed = false; p[k] = v; }
+        });
+        if (confirm) p.confirmed = true;
+        save(p);
+        window.dispatchEvent(new Event('mauli-profile'));
+      }
+    };
+
+    function decorate(text) {
+      var m = /(?<!\d)([6-9]\d{9})(?!\d)/.exec(text);
+    var p = load();
+    // auto-fill from chat; the citizen must confirm it on the card before anything is submitted
+    if (m && !p.confirmed && p.phone !== m[1]) { p.phone = m[1]; p.confirmed = false; save(p); window.dispatchEvent(new Event('mauli-profile')); }
+    window.__mauliSent = true;
+    var ok = (p.confirmed && p.name && p.village && p.phone) ? 'yes' : 'no';
+    return text + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + '; confirmed=' + ok + ']';
+    }
+
+    var of = window.fetch;
+    window.fetch = function (url, opts) {
+      try {
+        if (opts && String(opts.method).toUpperCase() === 'POST' && String(url).indexOf('/webhook/') > -1) {
+          var b = opts.body;
+          if (typeof b === 'string') {
+            var o = JSON.parse(b);
+            if (typeof o.chatInput === 'string' && o.chatInput) {
+              o.chatInput = decorate(o.chatInput);
+              opts = Object.assign({}, opts, { body: JSON.stringify(o) });
+            }
+          } else if (typeof FormData !== 'undefined' && b instanceof FormData) {
+            var t = b.get('chatInput');
+            if (t) b.set('chatInput', decorate(String(t)));
+          }
+        }
+      } catch (e) {}
+      return of.call(this, url, opts);
+    };
+  })();
+  </script>
 
   <!-- 1) Start the chat -->
   <script type="module">
@@ -830,6 +895,132 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     if (f && !document.querySelector('.qc-wrapper')) f.appendChild(wrapper);
   }
   new MutationObserver(place).observe(document.body, { childList: true, subtree: true });
+  place();
+})();
+</script>
+
+  <!-- 6) Profile card: name / village / mobile (opened by bot tag or "माझी माहिती" chip) -->
+<script>
+(function () {
+  var seen = {};
+  var card = document.createElement('div');
+  card.className = 'qf';
+  card.innerHTML =
+    '<div class="qf-h"><span class="qf-title">📞 कार्यालय आपल्याशी संपर्क करेल, कृपया माहिती भरा</span><button type="button" class="qf-x" aria-label="Close">✕</button></div>' +
+    '<input id="qf-name" placeholder="आपले नाव" autocomplete="name">' +
+    '<input id="qf-village" placeholder="आपले गाव">' +
+    '<input id="qf-phone" placeholder="१० अंकी मोबाईल क्रमांक" inputmode="numeric" maxlength="10" autocomplete="tel">' +
+    '<div class="qf-err"></div>' +
+    '<button type="button" class="qf-save">ठीक आहे ✔</button>';
+  var $ = function (s) { return card.querySelector(s); };
+  var fromBot = false, needed = false;
+  var bar = document.createElement('button');
+  bar.type = 'button'; bar.className = 'qf-bar';
+  bar.textContent = '📝 आपले नाव, गाव व मोबाईल भरण्यासाठी इथे दाबा';
+  bar.addEventListener('click', function () { openCard(true); });
+  function complete() { var p = window.mauliProfile.get(); return !!(p.name && p.village && p.phone && p.confirmed); }
+  function updateBar() {
+    bar.style.display = (needed && !complete() && !card.classList.contains('open')) ? 'block' : 'none';
+  }
+
+  function toAscii(s) { return s.replace(/[०-९]/g, function (d) { return '०१२३४५६७८९'.indexOf(d); }); }
+  function refresh() {
+    var p = window.mauliProfile.get();
+    ['name', 'village', 'phone'].forEach(function (k) {
+      var el = $('#qf-' + k);
+      if (p[k] && document.activeElement !== el) el.value = p[k];
+    });
+    updateBar();
+  }
+  function highlight() {
+    ['name', 'village', 'phone'].forEach(function (k) {
+      var el = $('#qf-' + k);
+      el.classList.toggle('miss', !el.value.trim());
+    });
+  }
+  function openCard(bot) {
+    fromBot = !!bot;
+    if (bot) needed = true;
+    refresh(); highlight();
+    var pp = window.mauliProfile.get();
+    $('.qf-title').textContent = (pp.name || pp.village || pp.phone)
+      ? '✅ कृपया आपली माहिती तपासा, बरोबर असल्यास "ठीक आहे" दाबा'
+      : '📞 कार्यालय आपल्याशी संपर्क करेल, कृपया माहिती भरा';
+    card.classList.add('open');
+    updateBar();
+  }
+  function say(text) {
+    var ta = document.querySelector('.chat-inputs textarea');
+    var send = document.querySelector('.chat-input-send-button');
+    if (!ta || !send) return;
+    var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+    set.call(ta, text);
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+    setTimeout(function () { send.click(); }, 80);
+  }
+
+  $('.qf-x').addEventListener('click', function () { card.classList.remove('open'); updateBar(); });
+  $('.qf-save').addEventListener('click', function () {
+    var name = $('#qf-name').value.trim(), village = $('#qf-village').value.trim();
+    var phone = toAscii($('#qf-phone').value).replace(/\D/g, '');
+    highlight();
+    var err = $('.qf-err');
+    if (name.length < 2 || village.length < 2) { err.textContent = 'कृपया नाव व गाव भरा.'; return; }
+    if (!/^[6-9]\d{9}$/.test(phone)) { $('#qf-phone').classList.add('miss'); err.textContent = 'कृपया बरोबर १० अंकी मोबाईल क्रमांक भरा.'; return; }
+    err.textContent = '';
+    window.mauliProfile.set({ name: name, village: village, phone: phone }, true);
+    card.classList.remove('open');
+    updateBar();
+    if (fromBot) say('माझी माहिती भरली आहे');
+  });
+  ['name', 'village', 'phone'].forEach(function (k) {
+    $('#qf-' + k).addEventListener('input', function () { this.classList.remove('miss'); });
+  });
+  window.addEventListener('mauli-profile', refresh);
+
+  function apply(tag) {
+    var parts = tag.split('|'), cmd = parts[0].trim();
+    if (cmd === 'FILL') {
+      var patch = {};
+      parts.slice(1).forEach(function (kv) {
+        var i = kv.indexOf('='); if (i < 0) return;
+        var k = kv.slice(0, i).trim(), v = kv.slice(i + 1).trim();
+        if (v && /^(name|village|phone)$/.test(k)) patch[k] = k === 'phone' ? toAscii(v).replace(/\D/g, '') : v;
+      });
+      window.mauliProfile.set(patch);
+    } else if (cmd === 'FORM') {
+      openCard(true);
+    }
+  }
+
+  function strip(m) {
+    var w = document.createTreeWalker(m, NodeFilter.SHOW_TEXT), n, list = [];
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf('⟦') > -1) list.push(n);
+    list.forEach(function (n) { n.nodeValue = n.nodeValue.replace(/⟦[^⟧]*(⟧|$)/g, ''); });
+  }
+
+  function scan() {
+    if (!window.__mauliSent) return;
+    var msgs = document.querySelectorAll('.chat-message-from-bot');
+    msgs.forEach(function (m, idx) {
+      var t = m.textContent;
+      if (t.indexOf('⟦') < 0) return;
+      var re = /⟦([^⟧]*)⟧/g, x;
+      while ((x = re.exec(t))) {
+        var key = idx + ':' + x[0];
+        if (seen[key]) continue;
+        seen[key] = 1;
+        apply(x[1]);
+      }
+      strip(m);
+    });
+  }
+
+  function place() {
+    var f = document.querySelector('.chat-footer');
+    if (f && !card.isConnected) { f.insertBefore(card, f.firstChild); f.insertBefore(bar, card); }
+  }
+  new MutationObserver(function () { place(); scan(); }).observe(document.body, { childList: true, subtree: true, characterData: true });
   place();
 })();
 </script>
