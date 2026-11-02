@@ -1024,5 +1024,22 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   place();
 })();
 </script>
+    <!-- 7) Attachment without typing: auto-fill the text box so the send button enables -->
+<script>
+(function () {
+  var DEFAULT_TEXT = '📎 मी कागदपत्र/फोटो पाठवत आहे';
+  var setVal = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+
+  document.addEventListener('change', function (e) {
+    if (!e.target.matches || !e.target.matches('input[type="file"]')) return;
+    if (!e.target.files || !e.target.files.length) return;
+    var ta = document.querySelector('.chat-inputs textarea');
+    if (ta && !ta.value.trim()) {
+      setVal.call(ta, DEFAULT_TEXT);
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }, true);
+})();
+</script>
 </body>
 </html>
