@@ -867,8 +867,11 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
     set.call(ta, text);
     ta.dispatchEvent(new Event('input', { bubbles: true }));
-    setTimeout(function () { send.click(); }, 80);
-  }
+    var tries = 0;
+    (function go() {
+      if (!send.disabled || tries++ > 30) send.click();
+      else setTimeout(go, 200);
+    })();  }
 
   var wrapper = document.createElement('div');
   wrapper.className = 'qc-wrapper';
@@ -956,8 +959,11 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
     set.call(ta, text);
     ta.dispatchEvent(new Event('input', { bubbles: true }));
-    setTimeout(function () { send.click(); }, 80);
-  }
+    var tries = 0;
+    (function go() {
+      if (!send.disabled || tries++ > 30) send.click();
+      else setTimeout(go, 200);
+    })();  }
 
   $('.qf-x').addEventListener('click', function () { card.classList.remove('open'); updateBar(); });
   $('.qf-save').addEventListener('click', function () {
@@ -979,9 +985,10 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   window.addEventListener('mauli-profile', refresh);
 
   function apply(tag) {
-    var parts = tag.split('|'), cmd = parts[0].trim();
-    if (cmd === 'FILL') {
-      var patch = {};
+  var parts = tag.split('|'), cmd = parts[0].trim();
+  if (cmd === 'FILL') {
+    if (window.mauliProfile.get().confirmed) return;   // NEW: never let the bot overwrite a confirmed profile
+    var patch = {};
       parts.slice(1).forEach(function (kv) {
         var i = kv.indexOf('='); if (i < 0) return;
         var k = kv.slice(0, i).trim(), v = kv.slice(i + 1).trim();
