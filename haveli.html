@@ -4,16 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>माऊली आबा कटके जनसंपर्क कार्यालय</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; }
+html {
+  min-height: 100%;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc) fixed;
+}
 body {
   margin: 0; padding: 24px 14px;
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
-  font-family: 'Inter', 'Open Sans', sans-serif;
+  background: transparent;
+  font-family: 'Open Sans', sans-serif;
   color: #0f172a;
+  -webkit-font-smoothing: antialiased;
 }
 .card {
-  width: 100%; max-width: 500px; margin: 0 auto;
+  width: 100%; max-width: 448px; margin: 0 auto;
   border-radius: 18px;
   background: rgba(255,255,255,.95);
   backdrop-filter: blur(10px);
@@ -27,32 +35,35 @@ h1 {
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700; font-size: 22px; line-height: 1.4;
-  text-align: center; margin: 0 0 8px;
+  text-align: center; margin: 0 0 14px;
 }
 .intro {
   color: #334155; font-size: 14px; line-height: 1.5;
-  text-align: center; margin: 0 0 24px; font-weight: 500;
+  text-align: center; margin: 0 0 48px; font-weight: 500;
 }
-.field { margin: 0 0 18px; }
+.field { margin: 0 0 60px; }
+.field.last { margin-bottom: 0; }
 label {
   display: block; font-weight: 600; color: #1e293b;
-  margin-bottom: 8px; font-size: 14px;
+  font-size: 14px; line-height: 20px; margin-bottom: 14px;
 }
 input, textarea, select {
   display: block; width: 100%; border-radius: 12px;
-  border: 1px solid #cbd5e1; padding: 12px 16px;
-  font-family: inherit; font-size: 15px;
+  border: 1px solid #cbd5e1;
+  font-family: inherit; font-size: 15px; font-weight: 400;
   background: #f8fafc; color: #0f172a;
   transition: all .25s ease;
 }
-textarea { min-height: 96px; resize: vertical; }
+input, select { height: 48px; padding: 0 16px; }
+textarea { min-height: 96px; padding: 14px 16px; resize: vertical; }
+::placeholder { color: #a8b1bf; opacity: 1; font-weight: 400; }
 input:hover, textarea:hover, select:hover { border-color: #94a3b8; background: #fff; }
 input:focus, textarea:focus, select:focus {
   border-color: #6366f1; background: #fff;
   box-shadow: 0 0 0 4px rgba(99,102,241,.15); outline: none;
 }
 input[type=file] {
-  padding: 16px 12px; background: #faf5ff;
+  height: auto; padding: 18px 12px; background: #faf5ff;
   border: 2px dashed #a855f7; border-radius: 14px;
   color: #6b21a8; font-size: 14px; font-weight: 600;
   cursor: pointer; text-align: center;
@@ -68,7 +79,7 @@ button[type=submit] {
   letter-spacing: .5px; color: #fff; cursor: pointer;
   background: linear-gradient(90deg,#4285F4,#34A853,#FBBC05,#EA4335);
   background-size: 300% 100%; transition: all .4s ease;
-  box-shadow: 0 10px 25px rgba(66,133,244,.35); margin-top: 8px;
+  box-shadow: 0 10px 25px rgba(66,133,244,.35); margin-top: 40px;
 }
 button[type=submit]:hover:not(:disabled) {
   background-position: 100% 0; transform: translateY(-2px);
@@ -88,7 +99,9 @@ button[type=submit]:disabled { opacity: .7; cursor: default; }
 }
 @media (max-width: 520px) {
   body { padding: 14px 10px; }
-  .card { padding: 26px 20px; }
+  .card { padding: 28px 22px; }
+  .field { margin-bottom: 44px; }
+  .intro { margin-bottom: 36px; }
   h1 { font-size: 21px; }
 }
 </style>
@@ -142,7 +155,7 @@ button[type=submit]:disabled { opacity: .7; cursor: default; }
         type="file" accept="image/*,.pdf,.doc,.docx" capture="environment">
     </div>
 
-    <div class="field">
+    <div class="field last">
       <label for="category">आपल्याला तक्रार लिहिता येत नसल्यास, खालील पैकी निवडा</label>
       <select id="category" name="आपल्याला तक्रार लिहिता येत नसल्यास, खालील पैकी निवडा">
         <option value="">Select an option ...</option>
