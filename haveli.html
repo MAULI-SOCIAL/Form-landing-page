@@ -1,259 +1,254 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>माऊली आबा कटके जनसंपर्क कार्यालय</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 28px 14px;
-      background: linear-gradient(135deg, #eef2ff, #f8fafc);
-      font-family: Inter, "Noto Sans Devanagari", "Nirmala UI", Arial, sans-serif;
-      color: #0f172a;
-    }
-    .card {
-      max-width: 680px; margin: 0 auto; padding: 30px;
-      border-radius: 18px; background: rgba(255,255,255,.97);
-      box-shadow: 0 25px 50px rgba(0,0,0,.08);
-      border: 1px solid #e2e8f0;
-      animation: fadeInUp .5s ease;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h1 {
-      margin: 0 0 9px; text-align: center; font-size: 23px;
-      background: linear-gradient(90deg,#f58529,#dd2a7b,#8134af,#515bd4);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .intro { text-align:center; color:#334155; line-height:1.6; margin:0 0 24px; font-size:14px; }
-    .field { margin: 18px 0; }
-    label { display:block; font-weight:650; color:#1e293b; margin-bottom:8px; font-size:14px; }
-    input, textarea, select {
-      display:block; width:100%; border-radius:12px; border:1px solid #cbd5e1;
-      padding:14px 15px; font:inherit; font-size:15px; color:#0f172a;
-      background:#f8fafc; outline:none; transition:.2s;
-    }
-    input:focus, textarea:focus, select:focus {
-      border-color:#6366f1; background:#fff; box-shadow:0 0 0 4px rgba(99,102,241,.14);
-    }
-    textarea { min-height:115px; resize:vertical; }
-    input[type=file] {
-      padding:16px 12px; background:#faf5ff; border:2px dashed #a855f7;
-      color:#6b21a8; cursor:pointer; font-size:14px;
-    }
-    .hint { margin:7px 0 0; color:#64748b; font-size:12px; line-height:1.5; }
-    .loc-status { margin-top:8px; font-size:12px; color:#475569; min-height:18px; }
-    .loc-status.good { color:#15803d; }
-    .loc-status.warn { color:#b45309; }
-    button {
-      width:100%; height:56px; margin-top:12px; border:0; border-radius:14px;
-      color:#fff; font:600 16px inherit; letter-spacing:.3px; cursor:pointer;
-      background:linear-gradient(90deg,#4285F4,#34A853,#FBBC05,#EA4335);
-      background-size:300% 100%; box-shadow:0 10px 25px rgba(66,133,244,.3);
-      transition:.3s;
-    }
-    button:hover { background-position:100% 0; transform:translateY(-2px); }
-    button:disabled { opacity:.65; cursor:wait; transform:none; }
-    .required { color:#dc2626; }
-    .footer { text-align:center; margin-top:18px; font-size:12px; color:#64748b; }
-    @media(max-width:520px) { .card { padding:22px 17px; } h1 {font-size:20px;} }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>माऊली आबा कटके जनसंपर्क कार्यालय</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 32px 14px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc) !important;
+  font-family: 'Inter', 'Open Sans', sans-serif !important;
+  color: #0f172a;
+}
+.card {
+  width: 100%; max-width: 576px; margin: 0 auto;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,.95) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px rgba(0,0,0,.08) !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 32px 40px;
+  animation: fadeInUp .6s ease;
+}
+h1 {
+  background: linear-gradient(90deg,#f58529,#dd2a7b,#8134af,#515bd4) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 700 !important; font-size: 22px !important;
+  text-align: center !important; margin: 4px 0 8px;
+  line-height: 1.5;
+}
+.intro {
+  color: #334155 !important; font-size: 14px !important;
+  line-height: 1.5; text-align: center; margin: 16px 0 52px;
+  font-weight: 500 !important;
+}
+.field { margin: 0 0 62px; }
+label {
+  display: block; font-weight: 600 !important; color: #1e293b !important;
+  margin-bottom: 12px; font-size: 14px !important;
+}
+input, textarea, select {
+  display: block; width: 100%; border-radius: 12px !important;
+  border: 1px solid #cbd5e1 !important; padding: 14px 16px !important;
+  font-family: inherit; font-size: 15px !important;
+  background: #f8fafc !important; color: #0f172a !important;
+  transition: all .25s ease !important; min-height: 60px;
+}
+textarea { min-height: 120px; resize: vertical; }
+input:hover, textarea:hover, select:hover { border-color:#94a3b8 !important; background:#fff !important; }
+input:focus, textarea:focus, select:focus {
+  border-color:#6366f1 !important; background:#fff !important;
+  box-shadow:0 0 0 4px rgba(99,102,241,.15) !important; outline:none !important;
+}
+input[type=file] {
+  display:block !important; width:100%; padding:18px 12px !important;
+  background:#faf5ff !important; border:2px dashed #a855f7 !important;
+  border-radius:14px !important; color:#6b21a8 !important;
+  font-size:14px !important; font-weight:600 !important;
+  cursor:pointer; text-align:center; transition:all .2s ease;
+}
+input[type=file]:hover { background:#f3e8ff !important; border-color:#7e22ce !important; }
+input[type=file]::file-selector-button {
+  background:#9333ea; color:white; border:none; padding:8px 16px;
+  border-radius:10px; font-weight:700; margin-right:12px; cursor:pointer;
+}
+button[type=submit] {
+  width:100%; height:56px; border-radius:14px !important; border:none !important;
+  font-family:inherit; font-size:16px !important; font-weight:600 !important;
+  letter-spacing:.5px; color:white !important; cursor:pointer;
+  background:linear-gradient(90deg,#4285F4,#34A853,#FBBC05,#EA4335) !important;
+  background-size:300% 100% !important; transition:all .4s ease !important;
+  box-shadow:0 10px 25px rgba(66,133,244,.35) !important; margin-top:12px;
+}
+button[type=submit]:hover {
+  background-position:100% 0; transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(66,133,244,.45) !important;
+}
+button[type=submit]:active { transform:translateY(0); box-shadow:0 6px 14px rgba(66,133,244,.3) !important; }
+.error { background:#fee2e2; color:#b91c1c; padding:8px 12px; border-radius:8px; margin-top:6px; font-size:13px; }
+.hint, .loc-status, .footer { display:none !important; }
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(12px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@media(max-width:520px) {
+  body { padding:14px 10px; }
+  .card { padding:28px 22px; }
+  .field { margin-bottom:42px; }
+  h1 { font-size:21px !important; }
+}
+</style>
 </head>
 <body>
-  <main class="card">
-    <h1>माऊली आबा कटके जनसंपर्क कार्यालय</h1>
-    <p class="intro">तुमच्या समस्या आमच्यापर्यंत पोहोचवा आणि आम्ही त्या लवकरात लवकर सोडवण्याचा प्रयत्न करू.</p>
+<main class="card">
+  <h1>माऊली आबा कटके जनसंपर्क कार्यालय</h1>
+  <p class="intro">तुमच्या समस्या आमच्यापर्यंत पोहोचवा आणि आम्ही त्या लवकरात लवकर सोडवण्याचा प्रयत्न करू.</p>
 
-    <!-- IMPORTANT: Replace the URL below with your n8n production Webhook URL -->
-    <form id="complaintForm"
-      action="https://office.maulikatke.in/webhook/haveli"
-      method="POST"
-      enctype="multipart/form-data">
+  <!-- Replace this action with your n8n Webhook Production URL -->
+  <form id="complaintForm" action="https://office.maulikatke.in/webhook/haveli" method="POST" enctype="multipart/form-data">
+    <div class="field">
+      <label for="village">📍गाव [ हवेली तालुका ] <span style="color:#f04438">*</span></label>
+      <select id="village" name="📍गाव   [ हवेली तालुका ]" required>
+        <option value="">Select an option ...</option>
+        <option>आष्टापूर</option><option>आव्हाळवाडी</option><option>उरुळी कांचन</option>
+        <option>भावडी</option><option>भिवरी</option><option>भवरापूर</option>
+        <option>भौरापुर</option><option>बुर्केगाव</option><option>बकोरी</option>
+        <option>पिंपरीसांडस</option><option>पेरणे</option><option>प्रयागधाम</option>
+        <option>फुलगाव</option><option>डोंगरगाव</option><option>तरवडे</option>
+        <option>तुळापुर</option><option>टिळेकरवाडी</option><option>नायगाव</option>
+        <option>नायगावपेठ</option><option>न्हावीसांडस</option><option>लोणीकंद</option>
+        <option>लोणी काळभोर</option><option>वाघोली</option><option>वढू</option>
+        <option>वळती</option><option>वाडेबोल्हाई</option><option>शिंदवाडी</option>
+        <option>शिंदवणे</option><option>शिरसवाडी</option><option>सांगवी सांडस</option>
+        <option>सोरतापवाडी</option><option>थेऊर</option><option>केसनंद</option>
+        <option>कोलवडी साष्टे</option><option>कोरेगाव मुळ</option><option>खामगाव</option>
+        <option>खामगाव टेक</option><option>कुंजीरवाडी</option><option>कदमवाकवस्ती</option>
+        <option>म्हातोबाची आळंदी</option>
+      </select>
+    </div>
 
-      <div class="field">
-        <label for="village">📍 गाव [ हवेली तालुका ] <span class="required">*</span></label>
-        <select id="village" name="📍गाव   [ हवेली तालुका ]" required>
-          <option value="">गाव निवडा</option>
-          <option>आष्टापूर</option><option>आव्हाळवाडी</option><option>उरुळी कांचन</option>
-          <option>भावडी</option><option>भिवरी</option><option>भवरापूर</option>
-          <option>भौरापुर</option><option>बुर्केगाव</option><option>बकोरी</option>
-          <option>पिंपरीसांडस</option><option>पेरणे</option><option>प्रयागधाम</option>
-          <option>फुलगाव</option><option>डोंगरगाव</option><option>तरवडे</option>
-          <option>तुळापुर</option><option>टिळेकरवाडी</option><option>नायगाव</option>
-          <option>नायगावपेठ</option><option>न्हावीसांडस</option><option>लोणीकंद</option>
-          <option>लोणी काळभोर</option><option>वाघोली</option><option>वढू</option>
-          <option>वळती</option><option>वाडेबोल्हाई</option><option>शिंदवाडी</option>
-          <option>शिंदवणे</option><option>शिरसवाडी</option><option>सांगवी सांडस</option>
-          <option>सोरतापवाडी</option><option>थेऊर</option><option>केसनंद</option>
-          <option>कोलवडी साष्टे</option><option>कोरेगाव मुळ</option><option>खामगाव</option>
-          <option>खामगाव टेक</option><option>कुंजीरवाडी</option><option>कदमवाकवस्ती</option>
-          <option>म्हातोबाची आळंदी</option>
-        </select>
-        <p class="hint">गावाच्या यादीवर क्लिक केल्यावर मोबाईल/ब्राउझर लोकेशनची परवानगी विचारेल. परवानगी देणे ऐच्छिक आहे.</p>
-        <div id="locationStatus" class="loc-status" aria-live="polite"></div>
-      </div>
+    <div class="field">
+      <label for="name">नाव <span style="color:#f04438">*</span></label>
+      <input id="name" name="नाव" type="text" placeholder="तुमचं नाव" required>
+    </div>
 
-      <div class="field">
-        <label for="name">नाव <span class="required">*</span></label>
-        <input id="name" name="नाव" type="text" placeholder="तुमचं नाव" required>
-      </div>
+    <div class="field">
+      <label for="phone">📞 फोन नंबर <span style="color:#f04438">*</span></label>
+      <input id="phone" name="📞 फोन नंबर" type="tel" inputmode="numeric"
+        pattern="[0-9]{10}" maxlength="10" placeholder="तुमचा दहा अंकी मोबाईल क्रमांक" required>
+    </div>
 
-      <div class="field">
-        <label for="phone">📞 फोन नंबर <span class="required">*</span></label>
-        <input id="phone" name="📞 फोन नंबर" type="tel" inputmode="numeric"
-          pattern="[0-9]{10}" maxlength="10" placeholder="तुमचा दहा अंकी मोबाईल क्रमांक" required>
-      </div>
+    <div class="field">
+      <label for="detail">📝 तपशील / समस्या असल्यास, कृपया येथे लिहा:</label>
+      <textarea id="detail" name="📝 तपशील / समस्या असल्यास, कृपया येथे लिहा:"></textarea>
+    </div>
 
-      <div class="field">
-        <label for="detail">📝 तपशील / समस्या असल्यास, कृपया येथे लिहा:</label>
-        <textarea id="detail" name="📝 तपशील / समस्या असल्यास, कृपया येथे लिहा:"
-          placeholder="आपली समस्या येथे लिहा..."></textarea>
-      </div>
+    <div class="field">
+      <label for="file">📸 पुरावे/ फोटो / कागदपत्रे असल्यास येथे जोडा:</label>
+      <input id="file" name="📸 पुरावे/ फोटो / कागदपत्रे असल्यास  येथे जोडा:"
+        type="file" accept="image/*,.pdf,.doc,.docx" capture="environment">
+    </div>
 
-      <div class="field">
-        <label for="file">📸 पुरावे/ फोटो / कागदपत्रे असल्यास येथे जोडा:</label>
-        <input id="file" name="📸 पुरावे/ फोटो / कागदपत्रे असल्यास  येथे जोडा:"
-          type="file" accept="image/*,.pdf,.doc,.docx" capture="environment">
-        <p class="hint">फोटो किंवा कागदपत्र जोडणे ऐच्छिक आहे.</p>
-      </div>
+    <div class="field">
+      <label for="category">आपल्याला तक्रार लिहिता येत नसल्यास, खालील पैकी निवडा</label>
+      <select id="category" name="आपल्याला तक्रार लिहिता येत नसल्यास, खालील पैकी निवडा">
+        <option value="">Select an option ...</option>
+        <option>🏞️ पायाभूत सुविधा व नागरी समस्या</option>
+        <option>- रस्ता खराब आहे / खड्डे आहेत</option>
+        <option>- स्ट्रीट लाईट बंद आहे</option>
+        <option>- पाण्याची पाइपलाइन गळती / पुरवठा नाही</option>
+        <option>- गटार / सांडपाण्याची समस्या</option>
+        <option>- सार्वजनिक शौचालयाची अडचण</option>
+        <option>- कचरा उचलला जात नाही</option>
+        <option>- खेळाच्या मैदानाची अडचण / सुविधा नाही</option>
+        <option>- स्मशानभूमीत सुविधा नाहीत (पाणी, छप्पर, वीज)</option>
+        <option>🚰 पाणी व स्वच्छता</option>
+        <option>- दूषित पाणी येते</option>
+        <option>- पिण्याच्या पाण्याचा अनियमित पुरवठा</option>
+        <option>⚡ वीज समस्या</option>
+        <option>- स्ट्रीटलाईट चालू नाही</option>
+        <option>- वीज खांब पडलेला / झुकलेला</option>
+        <option>- डिपी ट्रान्सफॉर्मर बिघडलेला</option>
+        <option>🚌 वाहतूक व सार्वजनिक परिवहन</option>
+        <option>- एसटी / बस सेवा उपलब्ध नाही / वेळेवर नाही</option>
+        <option>- वाहतूक कोंडी</option>
+        <option>🏥 आरोग्य सेवा</option>
+        <option>- प्राथमिक आरोग्य केंद्रात औषधे नाहीत</option>
+        <option>- डॉक्टर / कर्मचारी अनुपस्थित</option>
+        <option>- ऍम्ब्युलन्स वेळेवर येत नाही</option>
+        <option>- रुग्णालयात साफसफाई नाही</option>
+        <option>🏫 शिक्षण</option>
+        <option>- सरकारी शाळा बंद / अकार्यक्षम आहे</option>
+        <option>- शाळेची इमारत / सुविधा खराब आहे</option>
+        <option>- शिक्षक उपलब्ध नाहीत</option>
+        <option>🧾 दाखले व योजना</option>
+        <option>- युवकांना नोकरी/रोजगार संदर्भात मदत</option>
+        <option>- जलयुक्त शिवार प्रकल्पात पाण्याच्या जलसंधारणातील अपूर्णता / कामाच्या विलंब</option>
+        <option>- जल जीवन मिशन योजनेचा लाभ मिळत नाही</option>
+        <option>-आपत्ती (पूर, दुष्काळ, वादळ) मदत</option>
+        <option>- कौशल्य विकास/ट्रेनिंग वर्ग नाही</option>
+        <option>- लाडकी बहिण’ योजनेसंबंधित अडचण</option>
+        <option>- महात्मा ज्योतिबा फुले जन आरोग्य योजना: योजनेचा लाभ मिळत नाही</option>
+        <option>- कर्ज माफीची अडचण</option>
+        <option>🚜 शेती व ग्रामीण समस्या</option>
+        <option>- पिक विमा मिळालेला नाही</option>
+        <option>- प्रधानमंत्री किसान योजना पैसे जमा नाही</option>
+        <option>- विहीर अनुदान रखडले आहे</option>
+        <option>- जनावरांच्या शेडची योजना रखडली आहे</option>
+        <option>👮 कायदा व सुव्यवस्था</option>
+        <option>- स्थानिक त्रास / दहशत</option>
+        <option>- चोरी / घरफोडीची/इतर तक्रार घेतली जात नाही</option>
+        <option>- पोलीस सहकार्य करत नाहीत</option>
+        <option>🏡 घरकुल व मालमत्ता समस्या</option>
+        <option>- प्रधानमंत्री आवास योजनेचे घर रखडले आहे</option>
+        <option>- जमीन वाद / मोजणी लागली आहे</option>
+        <option>- ७/१२ उताऱ्यात चुका आहेत</option>
+        <option>- बांधकाम परवानगी / एनओसी मिळत नाही</option>
+        <option>🗣️ राजकीय व प्रशासनिक तक्रारी</option>
+        <option>- शासकीय काम रखडले आहे</option>
+        <option>- आमदार / सरपंच भेटत नाहीत</option>
+        <option>- ग्रामपंचायतमध्ये भ्रष्टाचार</option>
+        <option>- वार्ड सदस्य सहकार्य करत नाही</option>
+        <option>📦 सामान्य विचारणा / मदत</option>
+      </select>
+    </div>
 
-      <div class="field">
-        <label for="category">आपल्याला तक्रार लिहिता येत नसल्यास, खालील पैकी निवडा</label>
-        <select id="category" name="आपल्याला तक्रार लिहिता येत नसल्यास, खालील पैकी निवडा">
-          <option value="">पर्याय निवडा (ऐच्छिक)</option>
-          <option>🏞️ पायाभूत सुविधा व नागरी समस्या</option>
-          <option>- रस्ता खराब आहे / खड्डे आहेत</option>
-          <option>- स्ट्रीट लाईट बंद आहे</option>
-          <option>- पाण्याची पाइपलाइन गळती / पुरवठा नाही</option>
-          <option>- गटार / सांडपाण्याची समस्या</option>
-          <option>- सार्वजनिक शौचालयाची अडचण</option>
-          <option>- कचरा उचलला जात नाही</option>
-          <option>- खेळाच्या मैदानाची अडचण / सुविधा नाही</option>
-          <option>- स्मशानभूमीत सुविधा नाहीत (पाणी, छप्पर, वीज)</option>
-          <option>🚰 पाणी व स्वच्छता</option>
-          <option>- दूषित पाणी येते</option>
-          <option>- पिण्याच्या पाण्याचा अनियमित पुरवठा</option>
-          <option>⚡ वीज समस्या</option>
-          <option>- स्ट्रीटलाईट चालू नाही</option>
-          <option>- वीज खांब पडलेला / झुकलेला</option>
-          <option>- डिपी ट्रान्सफॉर्मर बिघडलेला</option>
-          <option>🚌 वाहतूक व सार्वजनिक परिवहन</option>
-          <option>- एसटी / बस सेवा उपलब्ध नाही / वेळेवर नाही</option>
-          <option>- वाहतूक कोंडी</option>
-          <option>🏥 आरोग्य सेवा</option>
-          <option>- प्राथमिक आरोग्य केंद्रात औषधे नाहीत</option>
-          <option>- डॉक्टर / कर्मचारी अनुपस्थित</option>
-          <option>- ऍम्ब्युलन्स वेळेवर येत नाही</option>
-          <option>- रुग्णालयात साफसफाई नाही</option>
-          <option>🏫 शिक्षण</option>
-          <option>- सरकारी शाळा बंद / अकार्यक्षम आहे</option>
-          <option>- शाळेची इमारत / सुविधा खराब आहे</option>
-          <option>- शिक्षक उपलब्ध नाहीत</option>
-          <option>🧾 दाखले व योजना</option>
-          <option>- युवकांना नोकरी/रोजगार संदर्भात मदत</option>
-          <option>- जलयुक्त शिवार प्रकल्पात पाण्याच्या जलसंधारणातील अपूर्णता / कामाच्या विलंब</option>
-          <option>- जल जीवन मिशन योजनेचा लाभ मिळत नाही</option>
-          <option>-आपत्ती (पूर, दुष्काळ, वादळ) मदत</option>
-          <option>- कौशल्य विकास/ट्रेनिंग वर्ग नाही</option>
-          <option>- लाडकी बहिण’ योजनेसंबंधित अडचण</option>
-          <option>- महात्मा ज्योतिबा फुले जन आरोग्य योजना: योजनेचा लाभ मिळत नाही</option>
-          <option>- कर्ज माफीची अडचण</option>
-          <option>🚜 शेती व ग्रामीण समस्या</option>
-          <option>- पिक विमा मिळालेला नाही</option>
-          <option>- प्रधानमंत्री किसान योजना पैसे जमा नाही</option>
-          <option>- विहीर अनुदान रखडले आहे</option>
-          <option>- जनावरांच्या शेडची योजना रखडली आहे</option>
-          <option>👮 कायदा व सुव्यवस्था</option>
-          <option>- स्थानिक त्रास / दहशत</option>
-          <option>- चोरी / घरफोडीची/इतर तक्रार घेतली जात नाही</option>
-          <option>- पोलीस सहकार्य करत नाहीत</option>
-          <option>🏡 घरकुल व मालमत्ता समस्या</option>
-          <option>- प्रधानमंत्री आवास योजनेचे घर रखडले आहे</option>
-          <option>- जमीन वाद / मोजणी लागली आहे</option>
-          <option>- ७/१२ उताऱ्यात चुका आहेत</option>
-          <option>- बांधकाम परवानगी / एनओसी मिळत नाही</option>
-          <option>🗣️ राजकीय व प्रशासनिक तक्रारी</option>
-          <option>- शासकीय काम रखडले आहे</option>
-          <option>- आमदार / सरपंच भेटत नाहीत</option>
-          <option>- ग्रामपंचायतमध्ये भ्रष्टाचार</option>
-          <option>- वार्ड सदस्य सहकार्य करत नाही</option>
-          <option>📦 सामान्य विचारणा / मदत</option>
-        </select>
-      </div>
+    <input type="hidden" id="latitude" name="Latitude">
+    <input type="hidden" id="longitude" name="Longitude">
+    <input type="hidden" id="accuracy" name="Location_Accuracy">
+    <input type="hidden" id="locationLink" name="Location_Link">
+    <button id="submitButton" type="submit">सादर करा</button>
+  </form>
+</main>
 
-      <!-- Hidden GPS fields. They remain blank if permission is denied/unavailable. -->
-      <input type="hidden" id="latitude" name="Latitude">
-      <input type="hidden" id="longitude" name="Longitude">
-      <input type="hidden" id="accuracy" name="Location_Accuracy">
-      <input type="hidden" id="locationLink" name="Location_Link">
+<script>
+const villageSelect = document.getElementById('village');
+let locationRequested = false;
 
-      <button id="submitButton" type="submit">सादर करा</button>
-    </form>
-    <div class="footer">आपली माहिती जनसंपर्क कार्यालयाकडे पाठवली जाईल.</div>
-  </main>
+function requestCitizenLocation() {
+  if (locationRequested) return;
+  locationRequested = true;
+  if (!navigator.geolocation) return;
 
-  <script>
-    const villageSelect = document.getElementById('village');
-    const statusBox = document.getElementById('locationStatus');
-    let locationRequested = false;
-    let locationFinished = false;
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      document.getElementById('latitude').value = lat.toFixed(6);
+      document.getElementById('longitude').value = lng.toFixed(6);
+      document.getElementById('accuracy').value = String(Math.round(position.coords.accuracy));
+      document.getElementById('locationLink').value =
+        'https://maps.google.com/?q=' + lat.toFixed(6) + ',' + lng.toFixed(6);
+    },
+    function() {
+      // Location is optional. The citizen can still submit the complaint.
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+  );
+}
 
-    function requestCitizenLocation() {
-      if (locationRequested) return;
-      locationRequested = true;
+// Ask for browser location permission on the citizen's first click on the village field.
+villageSelect.addEventListener('pointerdown', requestCitizenLocation, { once: true });
 
-      if (!('geolocation' in navigator)) {
-        statusBox.textContent = 'या ब्राउझरमध्ये लोकेशन सुविधा उपलब्ध नाही. आपण तरीही फॉर्म पाठवू शकता.';
-        statusBox.className = 'loc-status warn';
-        locationFinished = true;
-        return;
-      }
-
-      statusBox.textContent = '📍 लोकेशन मिळवत आहे... कृपया परवानगी द्या.';
-      statusBox.className = 'loc-status';
-
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          const acc = Math.round(position.coords.accuracy);
-
-          document.getElementById('latitude').value = lat.toFixed(6);
-          document.getElementById('longitude').value = lng.toFixed(6);
-          document.getElementById('accuracy').value = String(acc);
-          document.getElementById('locationLink').value =
-            'https://maps.google.com/?q=' + lat.toFixed(6) + ',' + lng.toFixed(6);
-
-          statusBox.textContent = '✓ लोकेशन मिळाले. धन्यवाद!';
-          statusBox.className = 'loc-status good';
-          locationFinished = true;
-        },
-        function(error) {
-          let message = 'लोकेशन मिळू शकले नाही.';
-          if (error.code === 1) message = 'आपण लोकेशन परवानगी नाकारली आहे. आपण तरीही तक्रार पाठवू शकता.';
-          if (error.code === 2) message = 'लोकेशन उपलब्ध नाही. आपण तरीही तक्रार पाठवू शकता.';
-          if (error.code === 3) message = 'लोकेशन मिळवण्यासाठी वेळ लागला. आपण तरीही तक्रार पाठवू शकता.';
-          statusBox.textContent = message;
-          statusBox.className = 'loc-status warn';
-          locationFinished = true;
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
-      );
-    }
-
-    // A real user click on the village dropdown triggers the browser permission prompt.
-    villageSelect.addEventListener('pointerdown', requestCitizenLocation, { once: true });
-    villageSelect.addEventListener('focus', requestCitizenLocation, { once: true });
-
-    document.getElementById('complaintForm').addEventListener('submit', function() {
-      const btn = document.getElementById('submitButton');
-      btn.disabled = true;
-      btn.textContent = 'पाठवत आहे...';
-    });
-  </script>
+document.getElementById('complaintForm').addEventListener('submit', function() {
+  const button = document.getElementById('submitButton');
+  button.disabled = true;
+  button.textContent = 'पाठवत आहे...';
+});
+</script>
 </body>
 </html>
