@@ -1094,8 +1094,8 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   } catch (e) {}
 
   function label(def) {
-    if (window.mauliLoc) return '✅ स्थान मिळाले';
-    if (denied) return '📍 स्थान बंद आहे';
+    if (window.mauliLoc) return '✅';
+    if (denied) return '📍 स्थान बंद';
     return def;
   }
   function setText(el, t) { if (el && el.textContent !== t) el.textContent = t; }
