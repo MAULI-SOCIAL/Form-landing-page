@@ -977,8 +977,8 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     window.mauliProfile.set({ name: name, village: village, phone: phone }, true);
     card.classList.remove('open');
     updateBar();
-    if (fromBot) say('माझी माहिती भरली आहे');
-  });
+    var go = function () { if (fromBot) say('माझी माहिती भरली आहे'); };
+    if (window.mauliAskLoc) window.mauliAskLoc(go); else go();  });
   ['name', 'village', 'phone'].forEach(function (k) {
     $('#qf-' + k).addEventListener('input', function () { this.classList.remove('miss'); });
   });
