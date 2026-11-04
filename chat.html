@@ -606,7 +606,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     if (m && !p.confirmed && p.phone !== m[1]) { p.phone = m[1]; p.confirmed = false; save(p); window.dispatchEvent(new Event('mauli-profile')); }
     window.__mauliSent = true;
     var ok = (p.confirmed && p.name && p.village && p.phone) ? 'yes' : 'no';
-    return text + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + '; confirmed=' + ok + ']';
+    return text + (window.mauliLoc ? ' [LOC: ' + window.mauliLoc.lat + ',' + window.mauliLoc.lng + ',' + window.mauliLoc.acc + ']' : '') + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + '; confirmed=' + ok + ']';
     }
 
     var of = window.fetch;
@@ -867,8 +867,11 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
     set.call(ta, text);
     ta.dispatchEvent(new Event('input', { bubbles: true }));
-    setTimeout(function () { send.click(); }, 80);
-  }
+    var tries = 0;
+    (function go() {
+      if (!send.disabled || tries++ > 30) send.click();
+      else setTimeout(go, 200);
+    })();  }
 
   var wrapper = document.createElement('div');
   wrapper.className = 'qc-wrapper';
@@ -956,8 +959,11 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
     set.call(ta, text);
     ta.dispatchEvent(new Event('input', { bubbles: true }));
-    setTimeout(function () { send.click(); }, 80);
-  }
+    var tries = 0;
+    (function go() {
+      if (!send.disabled || tries++ > 30) send.click();
+      else setTimeout(go, 200);
+    })();  }
 
   $('.qf-x').addEventListener('click', function () { card.classList.remove('open'); updateBar(); });
   $('.qf-save').addEventListener('click', function () {
@@ -971,17 +977,18 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     window.mauliProfile.set({ name: name, village: village, phone: phone }, true);
     card.classList.remove('open');
     updateBar();
-    if (fromBot) say('माझी माहिती भरली आहे');
-  });
+    var go = function () { if (fromBot) say('माझी माहिती भरली आहे'); };
+    if (window.mauliAskLoc) window.mauliAskLoc(go); else go();  });
   ['name', 'village', 'phone'].forEach(function (k) {
     $('#qf-' + k).addEventListener('input', function () { this.classList.remove('miss'); });
   });
   window.addEventListener('mauli-profile', refresh);
 
   function apply(tag) {
-    var parts = tag.split('|'), cmd = parts[0].trim();
-    if (cmd === 'FILL') {
-      var patch = {};
+  var parts = tag.split('|'), cmd = parts[0].trim();
+  if (cmd === 'FILL') {
+    if (window.mauliProfile.get().confirmed) return;   // NEW: never let the bot overwrite a confirmed profile
+    var patch = {};
       parts.slice(1).forEach(function (kv) {
         var i = kv.indexOf('='); if (i < 0) return;
         var k = kv.slice(0, i).trim(), v = kv.slice(i + 1).trim();
@@ -1022,6 +1029,181 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   }
   new MutationObserver(function () { place(); scan(); }).observe(document.body, { childList: true, subtree: true, characterData: true });
   place();
+})();
+</script>
+    <!-- 7) Attachment without typing: auto-fill the text box so the send button enables -->
+<script>
+(function () {
+  var DEFAULT_TEXT = '📎 मी कागदपत्र/फोटो पाठवत आहे';
+  var setVal = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+
+  function getTA() { return document.querySelector('.chat-inputs textarea'); }
+
+  function fill(text) {
+    var ta = getTA();
+    if (!ta) return;
+    setVal.call(ta, text);
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function fillIfEmpty() {
+    var ta = getTA();
+    if (ta && !ta.value.trim()) fill(DEFAULT_TEXT);
+  }
+
+  // Trigger A: n8n creates a detached <input type="file"> and calls .click() on it.
+  // Hook click() so we can listen to that input's change event directly.
+  var origClick = HTMLInputElement.prototype.click;
+  HTMLInputElement.prototype.click = function () {
+    if (this.type === 'file' && !this.__waHooked) {
+      this.__waHooked = true;
+      this.addEventListener('change', function () {
+        if (this.files && this.files.length) setTimeout(fillIfEmpty, 50);
+      });
+    }
+    return origClick.apply(this, arguments);
+  };
+
+  // Trigger B (backup): watch for the selected-file preview chips in the footer.
+  var lastCount = 0;
+  new MutationObserver(function () {
+    var count = document.querySelectorAll('.chat-footer .chat-file').length;
+    if (count > lastCount) fillIfEmpty();
+    // all files removed + text is still our default → clear it again
+    if (count === 0 && lastCount > 0) {
+      var ta = getTA();
+      if (ta && ta.value === DEFAULT_TEXT) fill('');
+    }
+    lastCount = count;
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<!-- 8) Location: RED PIN button next to the paperclip + browser prompt when the citizen presses "ठीक आहे"
+     REPLACE your whole existing section 8 (<script> ... </script>) with this block. Nothing else needs to change. -->
+<style>
+/* ---------- Red location pin (sits just left of the paperclip) ---------- */
+.wa-loc-btn {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #E53935;               /* red = location not shared yet */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.wa-loc-btn svg { width: 28px; height: 28px; fill: currentColor; }
+.wa-loc-btn:hover { background: rgba(229, 57, 53, 0.1); }
+.wa-loc-btn:active { transform: scale(0.92); }
+.wa-loc-btn.busy { animation: wa-loc-pulse 1s ease-in-out infinite; }
+.wa-loc-btn.on { color: #128C7E; }        /* teal = location added */
+.wa-loc-btn.denied { opacity: 0.5; }      /* browser permission blocked */
+@keyframes wa-loc-pulse { 50% { opacity: 0.35; } }
+</style>
+<script>
+(function () {
+  var KEY = 'mauli_loc';
+  var denied = false, busy = false;
+  var PIN_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+
+  try { var s = JSON.parse(sessionStorage.getItem(KEY)); if (s && s.lat) window.mauliLoc = s; } catch (e) {}
+  try {
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: 'geolocation' }).then(function (r) {
+        denied = (r.state === 'denied'); refresh();
+        r.onchange = function () { denied = (r.state === 'denied'); refresh(); };
+      }).catch(function () {});
+    }
+  } catch (e) {}
+
+  function label(def) {
+    if (window.mauliLoc) return '✅';
+    if (denied) return '📍X';
+    return def;
+  }
+  function setText(el, t) { if (el && el.textContent !== t) el.textContent = t; }
+
+  function refresh() {
+    var pin = document.getElementById('wa-loc-pin');
+    if (pin) {
+      pin.classList.toggle('on', !!window.mauliLoc);
+      pin.classList.toggle('denied', denied && !window.mauliLoc);
+      pin.classList.toggle('busy', busy && !window.mauliLoc);
+      pin.title = window.mauliLoc ? 'स्थान जोडले गेले आहे ✔' : 'माझे स्थान जोडा';
+    }
+    setText(document.getElementById('qf-loc'),
+      (busy && !window.mauliLoc) ? '📍 शोधत आहे...' : label('📍 माझे स्थान जोडा'));
+  }
+
+  // ask(cb): cb(true) if we have a location, cb(false) if not. Waits at most 15 seconds.
+  function ask(cb) {
+    cb = cb || function () {};
+    if (window.mauliLoc || denied || !navigator.geolocation) { refresh(); return cb(!!window.mauliLoc); }
+    var done = false;
+    busy = true; refresh();
+    function finish() { if (done) return; done = true; busy = false; refresh(); cb(!!window.mauliLoc); }
+    var timer = setTimeout(finish, 15000);
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      clearTimeout(timer);
+      window.mauliLoc = {
+        lat: pos.coords.latitude.toFixed(5),
+        lng: pos.coords.longitude.toFixed(5),
+        acc: Math.round(pos.coords.accuracy)
+      };
+      try { sessionStorage.setItem(KEY, JSON.stringify(window.mauliLoc)); } catch (e) {}
+      finish();
+    }, function (err) {
+      clearTimeout(timer);
+      if (err && err.code === 1) denied = true;
+      finish();
+    }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+  }
+  window.mauliAskLoc = ask;
+
+  function onPin() {
+    if (denied) { alert('कृपया ब्राउझरच्या सेटिंग्जमध्ये या साईटला स्थान (Location) परवानगी द्या.'); return; }
+    if (busy) return;
+    ask();
+  }
+
+  function addButtons() {
+    // Red pin: placed right before the paperclip (falls back to before the send button)
+    var anchor = document.querySelector('.chat-input-file-button') ||
+                 document.querySelector('.chat-input-send-button');
+    if (anchor && anchor.parentNode && !document.getElementById('wa-loc-pin')) {
+      var c = document.createElement('button');
+      c.type = 'button'; c.id = 'wa-loc-pin'; c.className = 'wa-loc-btn';
+      c.setAttribute('aria-label', 'माझे स्थान जोडा');
+      c.title = 'माझे स्थान जोडा';
+      c.innerHTML = PIN_SVG;
+      c.addEventListener('click', onPin);
+      anchor.parentNode.insertBefore(c, anchor);
+    }
+
+    // Location button inside the profile card (unchanged)
+    var card = document.querySelector('.qf');
+    if (card && !document.getElementById('qf-loc')) {
+      var save = card.querySelector('.qf-save');
+      var b = document.createElement('button');
+      b.type = 'button'; b.id = 'qf-loc';
+      b.style.cssText = 'width:100%;box-sizing:border-box;margin:.35rem 0 .2rem;padding:.6rem;border:1.5px solid #128C7E;border-radius:10px;background:#fff;color:#075E54;font:600 1.02rem Roboto,Arial,sans-serif;cursor:pointer';
+      b.addEventListener('click', onPin);
+      var note = document.createElement('div');
+      note.style.cssText = 'font-size:.8rem;color:#667781;margin:.1rem 0 .3rem;text-align:center';
+      card.insertBefore(b, save);
+      card.insertBefore(note, save);
+    }
+    refresh();
+  }
+  new MutationObserver(addButtons).observe(document.body, { childList: true, subtree: true });
+  addButtons();
 })();
 </script>
 </body>
