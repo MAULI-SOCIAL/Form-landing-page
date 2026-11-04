@@ -606,7 +606,7 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     if (m && !p.confirmed && p.phone !== m[1]) { p.phone = m[1]; p.confirmed = false; save(p); window.dispatchEvent(new Event('mauli-profile')); }
     window.__mauliSent = true;
     var ok = (p.confirmed && p.name && p.village && p.phone) ? 'yes' : 'no';
-    return text + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + '; confirmed=' + ok + ']';
+    return text + (window.mauliLoc ? ' [LOC: ' + window.mauliLoc.lat + ',' + window.mauliLoc.lng + ',' + window.mauliLoc.acc + ']' : '') + ' [PROFILE: name=' + (p.name || '') + '; village=' + (p.village || '') + '; phone=' + (p.phone || '') + '; confirmed=' + ok + ']';
     }
 
     var of = window.fetch;
@@ -1076,6 +1076,92 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     }
     lastCount = count;
   }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+  <!-- 8) Location: pin button in the profile card + browser prompt when the citizen presses "ठीक आहे" -->
+<script>
+(function () {
+  var KEY = 'mauli_loc';
+  var denied = false;
+  try { var s = JSON.parse(sessionStorage.getItem(KEY)); if (s && s.lat) window.mauliLoc = s; } catch (e) {}
+  try {
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: 'geolocation' }).then(function (r) {
+        denied = (r.state === 'denied'); refresh();
+        r.onchange = function () { denied = (r.state === 'denied'); refresh(); };
+      }).catch(function () {});
+    }
+  } catch (e) {}
+
+  function label(def) {
+    if (window.mauliLoc) return '✅ स्थान मिळाले';
+    if (denied) return '📍 स्थान बंद आहे';
+    return def;
+  }
+  function setText(el, t) { if (el && el.textContent !== t) el.textContent = t; }
+  function refresh() {
+    setText(document.getElementById('qc-loc'), label('📍 माझे स्थान'));
+    setText(document.getElementById('qf-loc'), label('📍 माझे स्थान जोडा'));
+  }
+
+  // ask(cb): cb(true) if we have a location, cb(false) if not. Waits at most 15 seconds.
+  function ask(cb) {
+    cb = cb || function () {};
+    if (window.mauliLoc || denied || !navigator.geolocation) { refresh(); return cb(!!window.mauliLoc); }
+    var done = false;
+    function finish() { if (done) return; done = true; refresh(); cb(!!window.mauliLoc); }
+    var timer = setTimeout(finish, 15000);
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      clearTimeout(timer);
+      window.mauliLoc = {
+        lat: pos.coords.latitude.toFixed(5),
+        lng: pos.coords.longitude.toFixed(5),
+        acc: Math.round(pos.coords.accuracy)
+      };
+      try { sessionStorage.setItem(KEY, JSON.stringify(window.mauliLoc)); } catch (e) {}
+      finish();
+    }, function (err) {
+      clearTimeout(timer);
+      if (err && err.code === 1) denied = true;
+      finish();
+    }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+  }
+  window.mauliAskLoc = ask;
+
+  function onPin() {
+    if (denied) { alert('कृपया ब्राउझरच्या सेटिंग्जमध्ये या साईटला स्थान (Location) परवानगी द्या.'); return; }
+    if (!window.mauliLoc) {
+      setText(document.getElementById('qc-loc'), '📍 शोधत आहे...');
+      setText(document.getElementById('qf-loc'), '📍 शोधत आहे...');
+    }
+    ask();
+  }
+
+  function addButtons() {
+    var box = document.getElementById('qc');
+    if (box && !document.getElementById('qc-loc')) {
+      var c = document.createElement('button');
+      c.type = 'button'; c.id = 'qc-loc'; c.className = 'qc-chip';
+      c.addEventListener('click', onPin);
+      box.insertBefore(c, box.firstChild);
+    }
+    var card = document.querySelector('.qf');
+    if (card && !document.getElementById('qf-loc')) {
+      var save = card.querySelector('.qf-save');
+      var b = document.createElement('button');
+      b.type = 'button'; b.id = 'qf-loc';
+      b.style.cssText = 'width:100%;box-sizing:border-box;margin:.35rem 0 .2rem;padding:.6rem;border:1.5px solid #128C7E;border-radius:10px;background:#fff;color:#075E54;font:600 1.02rem Roboto,Arial,sans-serif;cursor:pointer';
+      b.addEventListener('click', onPin);
+      var note = document.createElement('div');
+      note.style.cssText = 'font-size:.8rem;color:#667781;margin:.1rem 0 .3rem;text-align:center';
+      note.textContent = '🔒 सुरक्षिततेसाठी आपले स्थान फक्त आपल्या परवानगीने नोंदवले जाते.';
+      card.insertBefore(b, save);
+      card.insertBefore(note, save);
+    }
+    refresh();
+  }
+  new MutationObserver(addButtons).observe(document.body, { childList: true, subtree: true });
+  addButtons();
 })();
 </script>
 </body>
