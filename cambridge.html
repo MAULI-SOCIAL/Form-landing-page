@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JanSankhya | Political Intelligence War Room</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Leaflet Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
+        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
+        .map-container { height: 400px; width: 100%; border-radius: 0.5rem; z-index: 1; }
+        .status-dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .bg-hot { background-color: #ef4444; }
+        .bg-warm { background-color: #f59e0b; }
+        .bg-cool { background-color: #3b82f6; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 50; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: #1e293b; width: 80%; max-width: 900px; max-height: 90vh; overflow-y: auto; border-radius: 0.5rem; border: 1px solid #475569; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-700 flex flex-col">
+        <div class="p-4 border-b border-slate-700 flex items-center gap-2">
+            <i class="fa-solid fa-brain text-purple-500 text-2xl"></i>
+            <h1 class="text-xl font-bold tracking-wider">JSI <span class="text-xs text-slate-400">v2.0</span></h1>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="#" class="block p-3 rounded bg-slate-800 text-blue-400 font-semibold"><i class="fa-solid fa-chart-line mr-2"></i>Dashboard</a>
+            <a href="#" class="block p-3 rounded hover:bg-slate-800 text-slate-300"><i class="fa-solid fa-users mr-2"></i>Citizens</a>
+            <a href="#" class="block p-3 rounded hover:bg-slate-800 text-slate-300"><i class="fa-solid fa-map-location-dot mr-2"></i>Heatmaps</a>
+            <a href="#" class="block p-3 rounded hover:bg-slate-800 text-slate-300"><i class="fa-solid fa-bullhorn mr-2"></i>Campaigns</a>
+            <a href="#" class="block p-3 rounded hover:bg-slate-800 text-slate-300"><i class="fa-solid fa-microchip mr-2"></i>API Settings</a>
+        </nav>
+        <div class="p-4 border-t border-slate-700">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center font-bold">MK</div>
+                <div>
+                    <p class="text-sm font-bold">Mauli Katke</p>
+                    <p class="text-xs text-green-400">System Online</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Bar -->
+        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-6">
+            <div class="flex items-center gap-4">
+                <h2 class="text-lg font-semibold">Pune & Maharashtra Intelligence</h2>
+                <span class="px-2 py-1 bg-red-900 text-red-200 text-xs rounded border border-red-700">LIVE DATA</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded text-sm font-bold shadow-lg shadow-blue-500/20">
+                    <i class="fa-solid fa-paper-plane mr-2"></i>Launch Campaign
+                </button>
+                <div class="relative">
+                    <i class="fa-solid fa-bell text-slate-400"></i>
+                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">
+            
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="card relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-4 opacity-10"><i class="fa-solid fa-user-group text-6xl"></i></div>
+                    <p class="text-slate-400 text-sm font-medium">Total Citizens</p>
+                    <h3 class="text-3xl font-bold mt-1">1,24,502</h3>
+                    <p class="text-green-400 text-xs mt-2"><i class="fa-solid fa-arrow-up"></i> +12% this week</p>
+                </div>
+                <div class="card">
+                    <p class="text-slate-400 text-sm font-medium">Avg Sentiment</p>
+                    <h3 class="text-3xl font-bold mt-1 text-yellow-400">Neutral</h3>
+                    <div class="w-full bg-slate-700 h-1 mt-3 rounded-full overflow-hidden">
+                        <div class="bg-yellow-400 h-full w-2/3"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <p class="text-slate-400 text-sm font-medium">Active Grievances</p>
+                    <h3 class="text-3xl font-bold mt-1 text-red-400">842</h3>
+                    <p class="text-slate-400 text-xs mt-2">45 Critical (Water/Elec)</p>
+                </div>
+                <div class="card">
+                    <p class="text-slate-400 text-sm font-medium">Predicted Turnout</p>
+                    <h3 class="text-3xl font-bold mt-1 text-blue-400">68%</h3>
+                    <p class="text-blue-400 text-xs mt-2">Shirur-Haveli Zone</p>
+                </div>
+            </div>
+
+            <!-- Map & Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-96">
+                <!-- Heatmap -->
+                <div class="lg:col-span-2 card p-0 overflow-hidden relative">
+                    <div id="map" class="map-container"></div>
+                    <div class="absolute top-4 left-4 bg-slate-900/90 p-2 rounded border border-slate-700 z-10">
+                        <h4 class="text-xs font-bold text-slate-300 mb-1">Grievance Density</h4>
+                        <div class="flex gap-2 text-xs">
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> High</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-500"></span> Med</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Low</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Chart -->
+                <div class="card flex flex-col">
+                    <h3 class="font-bold text-sm text-slate-300 mb-4">Sentiment Analysis (Last 24h)</h3>
+                    <canvas id="sentimentChart" class="flex-1"></canvas>
+                </div>
+            </div>
+
+            <!-- Citizen List & Segmentation -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-96">
+                <!-- Recent Activity Feed -->
+                <div class="lg:col-span-2 card flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-sm text-slate-300">Live Citizen Ingest</h3>
+                        <input type="text" placeholder="Search Name/Village..." class="bg-slate-800 border border-slate-600 rounded px-3 py-1 text-xs text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="flex-1 overflow-y-auto scrollbar-hide">
+                        <table class="w-full text-left text-sm">
+                            <thead class="text-xs text-slate-400 border-b border-slate-700">
+                                <tr>
+                                    <th class="p-2">Citizen</th>
+                                    <th class="p-2">Location</th>
+                                    <th class="p-2">Category</th>
+                                    <th class="p-2">Sentiment</th>
+                                    <th class="p-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="citizenTableBody" class="divide-y divide-slate-700">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Psychographic Segments -->
+                <div class="card">
+                    <h3 class="font-bold text-sm text-slate-300 mb-4">Psychographic Profiles</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer transition">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-people-carry-box text-purple-400"></i>
+                                <span class="text-sm">Agitated Protestors</span>
+                            </div>
+                            <span class="text-xs bg-red-900 text-red-200 px-2 py-0.5 rounded">1,204</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer transition">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-hand-holding-heart text-green-400"></i>
+                                <span class="text-sm">Loyal Supporters</span>
+                            </div>
+                            <span class="text-xs bg-green-900 text-green-200 px-2 py-0.5 rounded">45,000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer transition">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-question text-blue-400"></i>
+                                <span class="text-sm">Swing Voters</span>
+                            </div>
+                            <span class="text-xs bg-blue-900 text-blue-200 px-2 py-0.5 rounded">32,100</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-700">
+                            <button class="w-full bg-slate-700 hover:bg-slate-600 text-xs py-2 rounded text-slate-300">Export Segment CSV</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Citizen Detail Modal -->
+    <div id="citizenModal" class="modal">
+        <div class="modal-content p-6">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-white" id="modalName">Rahul Patil</h2>
+                    <p class="text-slate-400 text-sm">ID: #CIT-8842 | Ward: 15, Pune</p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-times text-xl"></i></button>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-2">Psychographic Score</h4>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Likelihood to Protest</span>
+                            <span class="text-red-400 font-bold">High (85%)</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-2 rounded-full">
+                            <div class="bg-red-500 h-full w-[85%]"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-2">Demographics</h4>
+                        <ul class="text-sm space-y-1 text-slate-300">
+                            <li><strong>Age:</strong> 34</li>
+                            <li><strong>Village:</strong> Dapodi</li>
+                            <li><strong>Phone:</strong> 98XXX XXXXX</li>
+                            <li><strong>Status:</strong> Confirmed Profile</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-slate-800 p-4 rounded border border-slate-700 h-48 overflow-y-auto">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-2">Chat History</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="bg-slate-700 p-2 rounded self-start max-w-[80%]">
+                                <p class="text-slate-200">Water hasn't come for 3 days in Sector 4.</p>
+                                <span class="text-xs text-slate-400 block text-right">10:00 AM</span>
+                            </div>
+                            <div class="bg-blue-900 p-2 rounded self-end max-w-[80%] ml-auto">
+                                <p class="text-blue-100">We have logged your grievance. An engineer will visit tomorrow.</p>
+                                <span class="text-xs text-blue-300 block text-right">10:05 AM</span>
+                            </div>
+                            <div class="bg-slate-700 p-2 rounded self-start max-w-[80%]">
+                                <p class="text-slate-200">You said that last week too! Nothing happens.</p>
+                                <span class="text-xs text-slate-400 block text-right">10:06 AM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-blue-600 hover:bg-blue-500 py-2 rounded text-sm font-bold">Send WhatsApp</button>
+                        <button class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded text-sm">View Documents</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Mock Data Generation ---
+        const categories = ['Water', 'Roads', 'Electricity', 'Garbage', 'Health'];
+        const sentiments = ['Angry', 'Neutral', 'Happy', 'Urgent'];
+        const villages = ['Dapodi', 'Haveli', 'Shirur', 'Pune City', 'Khadki', 'Karad'];
+        
+        function generateMockData(count) {
+            return Array.from({ length: count }, (_, i) => ({
+                id: `CIT-${1000 + i}`,
+                name: ["Rahul Patil", "Priya Deshmukh", "Suresh Pawar", "Anjali Kulkarni", "Vikram Jadhav"][Math.floor(Math.random() * 5)],
+                village: villages[Math.floor(Math.random() * villages.length)],
+                category: categories[Math.floor(Math.random() * categories.length)],
+                sentiment: sentiments[Math.floor(Math.random() * sentiments.length)],
+                lat: 18.5 + (Math.random() * 0.5), // Approx Pune Lat
+                lng: 73.8 + (Math.random() * 0.5),  // Approx Pune Lng
+                timestamp: new Date().toLocaleTimeString()
+            }));
+        }
+
+        const citizens = generateMockData(50);
+
+        // --- 2. Initialize Map ---
+        const map = L.map('map').setView([18.5204, 73.8567], 11);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Add random markers based on mock data
+        citizens.forEach(c => {
+            let color = c.sentiment === 'Angry' || c.sentiment === 'Urgent' ? 'red' : 
+                        c.sentiment === 'Happy' ? 'green' : 'blue';
+            
+            L.circleMarker([c.lat, c.lng], {
+                radius: 6,
+                fillColor: color,
+                color: '#fff',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map).bindPopup(`<b>${c.name}</b><br>${c.category}<br>${c.sentiment}`);
+        });
+
+        // --- 3. Initialize Charts ---
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10AM', '11AM', '12PM', '1PM', '2PM', '3PM'],
+                datasets: [{
+                    label: 'Anger Index',
+                    data: [12, 19, 15, 25, 22, 30],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'Support Index',
+                    data: [5, 8, 12, 10, 15, 18],
+                    borderColor: '#3b82f6',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // --- 4. Populate Table ---
+        const tableBody = document.getElementById('citizenTableBody');
+        citizens.slice(0, 10).forEach(c => {
+            const row = document.createElement('tr');
+            row.className = "hover:bg-slate-800 transition cursor-pointer";
+            row.onclick = () => openModal(c);
+            
+            let sentColor = c.sentiment === 'Angry' ? 'text-red-400' : 
+                            c.sentiment === 'Happy' ? 'text-green-400' : 'text-yellow-400';
+            
+            row.innerHTML = `
+                <td class="p-2 font-medium text-white">${c.name}</td>
+                <td class="p-2 text-slate-400">${c.village}</td>
+                <td class="p-2"><span class="bg-slate-700 px-2 py-0.5 rounded text-xs">${c.category}</span></td>
+                <td class="p-2 ${sentColor} font-bold text-xs">${c.sentiment}</td>
+                <td class="p-2"><i class="fa-solid fa-eye text-slate-500 hover:text-white"></i></td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // --- 5. Modal Logic ---
+        function openModal(citizen) {
+            document.getElementById('modalName').innerText = citizen.name;
+            document.querySelector('#citizenModal p.text-slate-400').innerText = `ID: ${citizen.id} | Ward: ${citizen.village}`;
+            document.getElementById('citizenModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('citizenModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('citizenModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
