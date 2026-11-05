@@ -1206,5 +1206,81 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   addButtons();
 })();
 </script>
+  <!-- 9) Very slow auto-scroll for the quick chips (#qc) -->
+<script>
+(function () {
+  var SPEED        = 15;    // pixels per second (lower = slower; try 8–20)
+  var START_DELAY  = 2000;  // ms to wait before it starts moving
+  var END_PAUSE    = 2500;  // ms to rest at each end before turning around
+  var RESUME_AFTER = 4000;  // ms of calm after a touch/scroll before it continues
+
+  // Respect "reduce motion" accessibility setting
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var canHover = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var pos = 0, dir = 1, lastT = 0, startedAt = 0, lastSet = 0;
+  var holdUntil = 0, touching = false, hovering = false;
+
+  function inChips(e) { return e.target && e.target.closest && e.target.closest('#qc'); }
+
+  // Pause while a finger is on the chips, resume a few seconds after release
+  document.addEventListener('touchstart', function (e) {
+    if (inChips(e)) touching = true;
+  }, { passive: true, capture: true });
+  function touchDone() {
+    if (!touching) return;
+    touching = false;
+    holdUntil = performance.now() + RESUME_AFTER;
+  }
+  document.addEventListener('touchend', touchDone, { passive: true, capture: true });
+  document.addEventListener('touchcancel', touchDone, { passive: true, capture: true });
+
+  // Pause while the mouse hovers over the chips (desktop only)
+  if (canHover) {
+    document.addEventListener('mouseover', function (e) { if (inChips(e)) hovering = true; });
+    document.addEventListener('mouseout', function (e) {
+      if (!inChips(e)) return;
+      var to = e.relatedTarget;
+      if (!(to && to.closest && to.closest('#qc'))) hovering = false;
+    });
+  }
+
+  // Any manual scroll (finger swipe momentum, trackpad, wheel) also pauses it
+  document.addEventListener('wheel', function (e) {
+    if (inChips(e)) holdUntil = performance.now() + RESUME_AFTER;
+  }, { passive: true, capture: true });
+  document.addEventListener('scroll', function (e) {
+    var qc = e.target;
+    if (qc && qc.id === 'qc' && Math.abs(qc.scrollLeft - lastSet) > 2) {
+      holdUntil = performance.now() + RESUME_AFTER;
+    }
+  }, true);
+
+  function tick(t) {
+    requestAnimationFrame(tick);
+    var qc = document.getElementById('qc');
+    if (!qc) { lastT = 0; return; }
+
+    var dt = lastT ? Math.min(t - lastT, 100) : 0;
+    lastT = t;
+    if (!startedAt) startedAt = t;
+    if (t - startedAt < START_DELAY) return;
+
+    var max = qc.scrollWidth - qc.clientWidth;
+    if (max <= 2) return;
+
+    // While paused, stay in sync with wherever the person scrolled to
+    if (touching || hovering || t < holdUntil) { pos = qc.scrollLeft; return; }
+
+    pos += dir * SPEED * dt / 1000;
+    if (pos >= max)     { pos = max; dir = -1; holdUntil = t + END_PAUSE; }
+    else if (pos <= 0)  { pos = 0;   dir = 1;  holdUntil = t + END_PAUSE; }
+
+    lastSet = Math.round(pos);
+    qc.scrollLeft = lastSet;
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
 </body>
 </html>
