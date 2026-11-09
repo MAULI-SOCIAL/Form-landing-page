@@ -1078,11 +1078,41 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   }).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
-  <!-- 8) Location: pin button in the profile card + browser prompt when the citizen presses "ठीक आहे" -->
+<!-- 8) Location: RED PIN button next to the paperclip + browser prompt when the citizen presses "ठीक आहे"
+     REPLACE your whole existing section 8 (<script> ... </script>) with this block. Nothing else needs to change. -->
+<style>
+/* ---------- Red location pin (sits just left of the paperclip) ---------- */
+.wa-loc-btn {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #E53935;               /* red = location not shared yet */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.wa-loc-btn svg { width: 28px; height: 28px; fill: currentColor; }
+.wa-loc-btn:hover { background: rgba(229, 57, 53, 0.1); }
+.wa-loc-btn:active { transform: scale(0.92); }
+.wa-loc-btn.busy { animation: wa-loc-pulse 1s ease-in-out infinite; }
+.wa-loc-btn.on { color: #128C7E; }        /* teal = location added */
+.wa-loc-btn.denied { opacity: 0.5; }      /* browser permission blocked */
+@keyframes wa-loc-pulse { 50% { opacity: 0.35; } }
+</style>
 <script>
 (function () {
   var KEY = 'mauli_loc';
-  var denied = false;
+  var denied = false, busy = false;
+  var PIN_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+
   try { var s = JSON.parse(sessionStorage.getItem(KEY)); if (s && s.lat) window.mauliLoc = s; } catch (e) {}
   try {
     if (navigator.permissions && navigator.permissions.query) {
@@ -1099,9 +1129,17 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     return def;
   }
   function setText(el, t) { if (el && el.textContent !== t) el.textContent = t; }
+
   function refresh() {
-    setText(document.getElementById('qc-loc'), label('📍'));
-    setText(document.getElementById('qf-loc'), label('📍 माझे स्थान जोडा'));
+    var pin = document.getElementById('wa-loc-pin');
+    if (pin) {
+      pin.classList.toggle('on', !!window.mauliLoc);
+      pin.classList.toggle('denied', denied && !window.mauliLoc);
+      pin.classList.toggle('busy', busy && !window.mauliLoc);
+      pin.title = window.mauliLoc ? 'स्थान जोडले गेले आहे ✔' : 'माझे स्थान जोडा';
+    }
+    setText(document.getElementById('qf-loc'),
+      (busy && !window.mauliLoc) ? '📍 शोधत आहे...' : label('📍 माझे स्थान जोडा'));
   }
 
   // ask(cb): cb(true) if we have a location, cb(false) if not. Waits at most 15 seconds.
@@ -1109,7 +1147,8 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
     cb = cb || function () {};
     if (window.mauliLoc || denied || !navigator.geolocation) { refresh(); return cb(!!window.mauliLoc); }
     var done = false;
-    function finish() { if (done) return; done = true; refresh(); cb(!!window.mauliLoc); }
+    busy = true; refresh();
+    function finish() { if (done) return; done = true; busy = false; refresh(); cb(!!window.mauliLoc); }
     var timer = setTimeout(finish, 15000);
     navigator.geolocation.getCurrentPosition(function (pos) {
       clearTimeout(timer);
@@ -1130,21 +1169,25 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
 
   function onPin() {
     if (denied) { alert('कृपया ब्राउझरच्या सेटिंग्जमध्ये या साईटला स्थान (Location) परवानगी द्या.'); return; }
-    if (!window.mauliLoc) {
-      setText(document.getElementById('qc-loc'), '📍 शोधत आहे...');
-      setText(document.getElementById('qf-loc'), '📍 शोधत आहे...');
-    }
+    if (busy) return;
     ask();
   }
 
   function addButtons() {
-    var box = document.getElementById('qc');
-    if (box && !document.getElementById('qc-loc')) {
+    // Red pin: placed right before the paperclip (falls back to before the send button)
+    var anchor = document.querySelector('.chat-input-file-button') ||
+                 document.querySelector('.chat-input-send-button');
+    if (anchor && anchor.parentNode && !document.getElementById('wa-loc-pin')) {
       var c = document.createElement('button');
-      c.type = 'button'; c.id = 'qc-loc'; c.className = 'qc-chip';
+      c.type = 'button'; c.id = 'wa-loc-pin'; c.className = 'wa-loc-btn';
+      c.setAttribute('aria-label', 'माझे स्थान जोडा');
+      c.title = 'माझे स्थान जोडा';
+      c.innerHTML = PIN_SVG;
       c.addEventListener('click', onPin);
-      box.insertBefore(c, box.firstChild);
+      anchor.parentNode.insertBefore(c, anchor);
     }
+
+    // Location button inside the profile card (unchanged)
     var card = document.querySelector('.qf');
     if (card && !document.getElementById('qf-loc')) {
       var save = card.querySelector('.qf-save');
@@ -1161,6 +1204,82 @@ body { background: #D9DBD5; display: flex; justify-content: center; }
   }
   new MutationObserver(addButtons).observe(document.body, { childList: true, subtree: true });
   addButtons();
+})();
+</script>
+  <!-- 9) Very slow auto-scroll for the quick chips (#qc) -->
+<script>
+(function () {
+  var SPEED        = 15;    // pixels per second (lower = slower; try 8–20)
+  var START_DELAY  = 2000;  // ms to wait before it starts moving
+  var END_PAUSE    = 2500;  // ms to rest at each end before turning around
+  var RESUME_AFTER = 4000;  // ms of calm after a touch/scroll before it continues
+
+  // Respect "reduce motion" accessibility setting
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var canHover = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var pos = 0, dir = 1, lastT = 0, startedAt = 0, lastSet = 0;
+  var holdUntil = 0, touching = false, hovering = false;
+
+  function inChips(e) { return e.target && e.target.closest && e.target.closest('#qc'); }
+
+  // Pause while a finger is on the chips, resume a few seconds after release
+  document.addEventListener('touchstart', function (e) {
+    if (inChips(e)) touching = true;
+  }, { passive: true, capture: true });
+  function touchDone() {
+    if (!touching) return;
+    touching = false;
+    holdUntil = performance.now() + RESUME_AFTER;
+  }
+  document.addEventListener('touchend', touchDone, { passive: true, capture: true });
+  document.addEventListener('touchcancel', touchDone, { passive: true, capture: true });
+
+  // Pause while the mouse hovers over the chips (desktop only)
+  if (canHover) {
+    document.addEventListener('mouseover', function (e) { if (inChips(e)) hovering = true; });
+    document.addEventListener('mouseout', function (e) {
+      if (!inChips(e)) return;
+      var to = e.relatedTarget;
+      if (!(to && to.closest && to.closest('#qc'))) hovering = false;
+    });
+  }
+
+  // Any manual scroll (finger swipe momentum, trackpad, wheel) also pauses it
+  document.addEventListener('wheel', function (e) {
+    if (inChips(e)) holdUntil = performance.now() + RESUME_AFTER;
+  }, { passive: true, capture: true });
+  document.addEventListener('scroll', function (e) {
+    var qc = e.target;
+    if (qc && qc.id === 'qc' && Math.abs(qc.scrollLeft - lastSet) > 2) {
+      holdUntil = performance.now() + RESUME_AFTER;
+    }
+  }, true);
+
+  function tick(t) {
+    requestAnimationFrame(tick);
+    var qc = document.getElementById('qc');
+    if (!qc) { lastT = 0; return; }
+
+    var dt = lastT ? Math.min(t - lastT, 100) : 0;
+    lastT = t;
+    if (!startedAt) startedAt = t;
+    if (t - startedAt < START_DELAY) return;
+
+    var max = qc.scrollWidth - qc.clientWidth;
+    if (max <= 2) return;
+
+    // While paused, stay in sync with wherever the person scrolled to
+    if (touching || hovering || t < holdUntil) { pos = qc.scrollLeft; return; }
+
+    pos += dir * SPEED * dt / 1000;
+    if (pos >= max)     { pos = max; dir = -1; holdUntil = t + END_PAUSE; }
+    else if (pos <= 0)  { pos = 0;   dir = 1;  holdUntil = t + END_PAUSE; }
+
+    lastSet = Math.round(pos);
+    qc.scrollLeft = lastSet;
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>
